@@ -1,0 +1,711 @@
+
+<page-header [title]="l('ManageWMS_ASN')"></page-header>
+
+<nz-card [nzBordered]="false">
+    <div class="mb-md">
+        <div nz-row nzGutter="8">
+            <!-- 模糊搜索框 -->
+            <div nz-col nzSpan="8" nzMd="12" nzXs="24" nzSm="24">
+                <input type="text"
+                       nz-input
+                       [(ngModel)]="filterText"
+                       (keyup.enter)="refresh()"
+                       [placeholder]="l('SearchWithThreeDot')" />
+            </div>
+            <!-- 查询和刷新按钮 -->
+            <div nz-col nzSpan="8" nzMd="12" nzXs="24" nzSm="24">
+                <button nz-button nzType="primary" type="submit" (click)="refresh()">
+                    <span>{{ l('Search') }}</span>
+                </button>
+                <button nz-button nzType="default" type="submit" (click)="refreshGoFirstPage()">
+                    {{ l('Reset') }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mb-md">
+        <!-- 增强型功能按钮位置 如： 添加、批量删除、导出Excel表 -->
+        <div nz-row nzGutter="8">
+            <div nz-col nzSpan="8" nzMd="12" nzXs="24" nzSm="24" class="btn-gutter">
+
+                <button nz-button [nzType]="'primary'" *ngIf="isGranted('Pages.WMS_ASN.Create')" (click)="createOrEdit()">
+                    <i class="iconfont icon-plus"></i>
+                    <span>
+                        {{l("Create")}}
+                    </span>
+                </button>
+                <button nz-button nzType="default" *ngIf="isGranted('Pages.WMS_ASN.ExportExcel')" (click)="exportToExcel()">
+                    <i class="iconfont icon-file-excel"></i>
+                    <span>
+                        {{l("ExportToExcel")}}
+                    </span>
+                </button>
+                <ng-container *ngIf="selectedDataItems.length > 0">
+                    <button nz-button [nzType]="'danger'" *ngIf="isGranted('Pages.WMS_ASN.BatchDelete')" (click)="batchDelete()">
+                        <i class="iconfont icon-delete"></i>
+                        <span>
+                            {{l("BatchDelete")}}
+                        </span>
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <!-- 多选框 判断选择了多少行数据，以及一个刷新按钮 -->
+    <div class="my-md">
+        <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
+            <ng-template #message>
+                <span [innerHTML]="l('GridSelectedXItemsTips',selectedDataItems.length)"></span>
+                <a (click)="restCheckStatus(dataList)" class="ml-md">
+                    {{l('ClearEmpty')}}
+                </a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="refreshGoFirstPage()">
+                    {{l('Refresh')}}
+                </a>
+            </ng-template>
+        </nz-alert>
+    </div>
+    <!-- 实体的表格内容 -->
+    <div nz-row nzGutter="8" class="my-md">
+        <nz-table #ajaxTable
+                  nzSize="default"
+                  [nzData]="dataList"
+                  [nzTotal]="totalItems"
+                  [(nzPageIndex)]="pageNumber"
+                  [(nzPageSize)]="pageSize"
+                  (nzPageIndexChange)="pageNumberChange()"
+                  [nzPageSizeOptions]="PageSizeOptions"
+                  (nzPageSizeChange)="refresh()"
+                  [nzShowSizeChanger]="true"
+                  [nzShowQuickJumper]="true"
+                  [nzNoResult]="noDataTemplate"
+                  [nzShowTotal]="showTotalTemplate"
+                  [nzFrontPagination]="false"
+                  [nzScroll]="{ x: '1300px', y: '520px' }">
+            <!-- [nzLoading]="isTableLoading" 要开启表格的loading状态，移动代码到上方 -->
+            <!-- 暂无数据组件 -->
+            <ng-template #noDataTemplate>
+                <no-data></no-data>
+            </ng-template>
+            <!-- 分页信息显示 当前 1 页/共 3 页，共 5 条/显示 1-2 条 -->
+            <ng-template #showTotalTemplate let-total let-range="range">
+                {{l('GridFooterDisplayText',pageNumber,totalPages,total,range[0],range[1])}}
+            </ng-template>
+            <!-- 表头 -->
+            <thead (nzSortChange)="gridSort($event)">
+                <tr>
+                    <th nzBreakWord="true"
+                        nzAlign="center"
+                        nzWidth="50px"
+                        nzShowCheckbox
+                        [(nzChecked)]="allChecked"
+                        [nzDisabled]="allCheckboxDisabled"
+                        [nzIndeterminate]="checkboxIndeterminate"
+                        (nzCheckedChange)="checkAll($event)"></th>
+                     <th nzShowSort nzSortKey="ExtensionGUID" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('ExtensionGUID')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ASNNumber" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNASNNumber')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ExternReceiptNumber" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNExternReceiptNumber')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="CustomerID" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('CustomerID')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="CustomerName" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNCustomerName')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="WarehouseID" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WarehouseID')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="WarehouseName" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNWarehouseName')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ExpectDate" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('ExpectDate')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ASNStatus" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('ASNStatus')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ASNType" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNASNType')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="PO" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNPO')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Contact" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNContact')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ContactInfo" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNContactInfo')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="CompleteDate" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('CompleteDate')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Remark" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNRemark')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Creator" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNCreator')}}</span>
+
+                     </th>
+                    <th nzShowSort nzSortKey="creationTime" nzWidth="180px" nzAlign="left">
+                        <span>{{l('CreationTime')}}</span>
+                    </th>
+                     <th nzShowSort nzSortKey="Updator" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNUpdator')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="UpdateTime" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('UpdateTime')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str1" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr1')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str2" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr2')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str3" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr3')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str4" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr4')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str5" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr5')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str6" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr6')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str7" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr7')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str8" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr8')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str9" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr9')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str10" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr10')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str11" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr11')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str12" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr12')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str13" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr13')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str14" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr14')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str15" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr15')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str16" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr16')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str17" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr17')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str18" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr18')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str19" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr19')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Str20" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNStr20')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DateTime1" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('DateTime1')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DateTime2" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('DateTime2')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DateTime3" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('DateTime3')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DateTime4" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('DateTime4')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DateTime5" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('DateTime5')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Int1" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Int1')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Int2" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Int2')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Int3" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Int3')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Int4" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Int4')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Int5" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Int5')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="WMS_ASNDetails" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('WMS_ASNDetails')}}</span>
+
+                     </th>
+                    <th nzWidth="230px" nzAlign="center">
+                        <span>{{l('Actions')}}</span>
+                    </th>
+                </tr>
+            </thead>
+            <!-- 表格内容 -->
+            <tbody>
+                <tr *ngFor="let item of ajaxTable.data">
+                    <!-- Checkbox多选框 -->
+                    <td nzAlign="center"
+                        nzShowCheckbox
+                        [(nzChecked)]="item.checked"
+                        (nzCheckedChange)="refreshCheckStatus(dataList)"></td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.extensionGUID}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.aSNNumber}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.externReceiptNumber}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.customerID}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.customerName}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.warehouseID}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.warehouseName}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.expectDate}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.aSNStatus}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.aSNType}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.pO}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.contact}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.contactInfo}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.completeDate}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.remark}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.creator}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.creationTime  |_date}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.updator}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.updateTime}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str1}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str2}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str3}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str4}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str5}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str6}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str7}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str8}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str9}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str10}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str11}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str12}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str13}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str14}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str15}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str16}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str17}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str18}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str19}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.str20}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.dateTime1}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.dateTime2}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.dateTime3}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.dateTime4}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.dateTime5}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.int1}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.int2}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.int3}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.int4}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.int5}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.wMS_ASNDetails}}
+                            </span>
+                        </ellipsis>
+                    </td>
+
+                    <td>
+                        <!-- 编辑 -->
+                        <ng-container *ngIf="isGranted('Pages.WMS_ASN.Edit')">
+                            <a (click)="createOrEdit(item.id)">
+                                <i class="iconfont icon-edit mr-sm"></i>
+                                <span>{{l('Edit')}}</span>
+                            </a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                        </ng-container>
+                        <!-- 更多 -->
+                        <ng-container *ngIf="isGrantedAny('Pages.WMS_ASN.Create', 'Pages.WMS_ASN.Delete')">
+                            <a nz-dropdown [nzDropdownMenu]="actionDropdownMenu">
+                                <span>{{ l('More') }}</span>
+                                <i class="iconfont icon-down"></i>
+                            </a>
+                            <nz-dropdown-menu #actionDropdownMenu="nzDropdownMenu">
+                                <ul nz-menu>
+                                    <li nz-menu-item>
+                                        <a *ngIf="isGranted('Pages.WMS_ASN.Create')" (click)="createOrEdit()">
+                                            <i class="iconfont icon-plus"></i>{{ l('Create') }}
+                                        </a>
+                                    </li>
+                                    <li nz-menu-divider></li>
+                                    <!-- 删除 -->
+                                    <li nz-menu-item *ngIf="isGranted('Pages.WMS_ASN.Delete')">
+                                        <a nz-popconfirm
+                                           [nzPopconfirmTitle]="l('ConfirmDeleteWarningMessage')"
+                                           (nzOnConfirm)="delete(item)"
+                                           [nzOkText]="l('Ok')"
+                                           [nzCancelText]="l('Cancel')">
+                                            <i class="iconfont icon-delete mr-sm"></i>
+                                            <span>{{ l('Delete') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</nz-card>
