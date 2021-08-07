@@ -1,6 +1,6 @@
 
-using MyProject.ASNCode;
-using MyProject.ASNCode.Dtos;
+using MyProject.ASNCore;
+using MyProject.ASNCore.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using System;

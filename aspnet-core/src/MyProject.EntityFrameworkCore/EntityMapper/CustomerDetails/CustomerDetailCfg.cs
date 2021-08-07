@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyProject.Customers;
+using MyProject.CustomerCore;
 
 namespace MyProject.EntityMapper.CustomerDetails
 {

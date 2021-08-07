@@ -1,9 +1,9 @@
 ﻿using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MyProject.ASNCode;
+using MyProject.ASNCore;
 using MyProject.Authorization.Roles;
 using MyProject.Authorization.Users;
-using MyProject.Customers;
+using MyProject.CustomerCore;
 using MyProject.MultiTenancy;
 using MyProject.TableColumns;
 
@@ -20,10 +20,13 @@ namespace MyProject.EntityFrameworkCore
 
         public virtual DbSet<Table_ColumnsDetail> Table_ColumnsDetail { get; set; }
 
-
         public virtual DbSet<WMS_ASN> WMS_ASN { get; set; }
 
         public virtual DbSet<WMS_ASNDetail> WMS_ASNDetail { get; set; }
+
+
+        public virtual DbSet<CustomerUserMapping> CustomerUserMapping { get; set; }
+
 
         public MyProjectDbContext(DbContextOptions<MyProjectDbContext> options)
             : base(options)

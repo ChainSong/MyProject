@@ -207,8 +207,10 @@ export default class CustomerCreate extends AbpBase {
         this.tableColumnHeaders = JSON.parse(
           localStorage.getItem(this.tableColumnHeader.tableName)
         ) as Array<TableColumns>;
+           console.log( this.tableColumnHeaders)
         this.tableColumnHeaders.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation == "Required") {
+            //  console.log("添加验证"+a.dbColumnName)
             this.headerRule[a.dbColumnName] = [
               {
                 required: true,
@@ -216,6 +218,7 @@ export default class CustomerCreate extends AbpBase {
                 trigger: "blur",
               },
             ];
+          }
         });
       })
       .catch((err) => {
@@ -231,7 +234,8 @@ export default class CustomerCreate extends AbpBase {
           localStorage.getItem(this.tableColumnDetail.tableName)
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation == "Required") {
+            // console.log("添加验证"+a.dbColumnName)
             this.detailRule[a.dbColumnName] = [
               {
                 required: true,
@@ -239,6 +243,7 @@ export default class CustomerCreate extends AbpBase {
                 trigger: "blur",
               },
             ];
+          }
         });
       })
       .catch((err) => {
@@ -259,7 +264,7 @@ export default class CustomerCreate extends AbpBase {
   }
   cancel() {
     (this.$refs.header as any).resetFields();
-    this.header=new Header();
+    this.header = new Header();
     this.details = { line: [new Detail()] };
     this.$emit("input", false);
   }

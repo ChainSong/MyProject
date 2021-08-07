@@ -131,7 +131,15 @@ namespace MyProject.TableColumns.Dtos
         /// </summary>
         public int IsUpdate { get; set; }
 
+        /// <summary>
+        /// Validation
+        /// </summary>
+        public string Validation { get; set; }
 
+        /// <summary>
+        /// Associated
+        /// </summary>
+        public string Associated { get; set; }
 
         /// <summary>
         /// SearchConditionOrder

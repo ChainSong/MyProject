@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyProject.ASNCode;
+using MyProject.ASNCore;
 
 namespace MyProject.EntityMapper.WMS_ASNDetails
 {

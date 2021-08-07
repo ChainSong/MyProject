@@ -218,7 +218,7 @@ export default class CustomerEdit extends AbpBase {
           localStorage.getItem(this.tableColumnHeader.tableName)
         ) as Array<TableColumns>;
         this.tableColumnHeaders.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation == "Required"){
             this.headerRule[a.dbColumnName] = [
               {
                 required: true,
@@ -226,6 +226,7 @@ export default class CustomerEdit extends AbpBase {
                 trigger: "blur",
               },
             ];
+          }
         });
       })
       .catch((err) => {
@@ -241,7 +242,7 @@ export default class CustomerEdit extends AbpBase {
           localStorage.getItem(this.tableColumnDetail.tableName)
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation == "Required"){
             this.detailRule[a.dbColumnName] = [
               {
                 required: true,
@@ -249,6 +250,7 @@ export default class CustomerEdit extends AbpBase {
                 trigger: "blur",
               },
             ];
+            }
         });
       })
       .catch((err) => {

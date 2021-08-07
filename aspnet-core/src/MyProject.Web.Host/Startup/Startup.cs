@@ -19,6 +19,7 @@ using Abp.Json;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using MyProject.Web.Host.WebSocketCommon;
 
 namespace MyProject.Web.Host.Startup
 {
@@ -51,52 +52,6 @@ namespace MyProject.Web.Host.Startup
                     NamingStrategy = new CamelCaseNamingStrategy()
                 };
             });
-
-
-            //services.Configure<MvcNewtonsoftJsonOptions>(options =>
-            //{
-            //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
-            //    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            //});
-            //services.AddDirectoryBrowser();
-
-            //services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-
-            //services.AddMvc(
-            //    options =>
-            //    {
-            //        options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName));
-            //        var JsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings
-            //        {
-            //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
-            //            ContractResolver = new DefaultContractResolver()
-            //        };
-            //        var jsonOutputFormatter = new JsonFormatter(JsonSerializerSettings, ArrayPool<char>.Shared);
-            //        options.OutputFormatters.Insert(0, jsonOutputFormatter);
-            //    }
-            //);
-
-            //services.AddMvc().AddNewtonsoftJson(options =>
-            //{
-            //    //忽略循环引用
-            //    //options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //    //不使用驼峰样式的key
-            //    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            //});
-            //services.AddMvc().AddJsonOptions(opt =>
-            //{
-            //    opt.JsonSerializerOptions.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();//json字符串原样输出
-            //});
-            //services.Configure<MvcNewtonsoftJsonOptions>(options =>
-            //{
-            //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();//json字符串原样输出
-            //    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            //});
-            //services.Configure<MvcNewtonsoftJsonOptions>(options => {
-            //    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
-            //    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            //});
-
 
 
             IdentityRegistrar.Register(services);
@@ -174,6 +129,14 @@ namespace MyProject.Web.Host.Startup
             app.UseCors(_defaultCorsPolicyName); // Enable CORS!
 
             app.UseStaticFiles();
+
+            //添加WebSockets
+            app.UseWebSockets(new WebSocketOptions
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(60),
+                ReceiveBufferSize = 1 * 1024
+            });
+            app.UseMiddleware<WebsocketHandlerMiddleware>();
 
             app.UseRouting();
 
