@@ -60,34 +60,19 @@ namespace MyProject.WarehouseCore
         public async Task<PagedResultDto<WarehouseUserMappingListDto>> GetPaged(GetWarehouseUserMappingsInput input)
         {
 
-            var query = _warehouseUserMappingRepository.GetAll().WhereIf(!input.FilterText.IsNullOrWhiteSpace(), a =>
-
+            var query = _warehouseUserMappingRepository.GetAll()
+                          .WhereIf(!input.UserName.IsNullOrWhiteSpace(), a =>
                           //模糊搜索UserName
-                          a.UserName.Contains(input.FilterText) &
-
-
-
-
+                          a.UserName.Contains(input.UserName))
+                           .WhereIf(!input.WarehouseName.IsNullOrWhiteSpace(), a =>
                           //模糊搜索WarehouseName
-                          a.WarehouseName.Contains(input.FilterText) &
-
-
-
-
-                          //模糊搜索Creator
-                          a.Creator.Contains(input.FilterText) &
-
-
-
-
-                          //模糊搜索Updator
-                          a.Updator.Contains(input.FilterText) 
-            
-
-
-
-
-
+                          a.WarehouseName.Contains(input.WarehouseName))
+                             .WhereIf(input.UserId != 0, a =>
+                            //模糊搜索UserId
+                            a.UserId == (input.UserId))
+                              .WhereIf(input.WarehouseId != 0, a =>
+                            //模糊搜索WarehouseId
+                            a.UserId == (input.WarehouseId)
             );
             // TODO:根据传入的参数添加过滤条件
 

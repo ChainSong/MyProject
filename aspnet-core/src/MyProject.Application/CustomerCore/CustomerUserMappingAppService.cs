@@ -60,7 +60,7 @@ namespace MyProject.CustomerCore
 
         public async Task<PagedResultDto<CustomerUserMappingListDto>> GetPaged(GetCustomerUserMappingsInput input)
         {
-
+            input.UserId= AbpSession.UserId.Value;
             var query = _customerUserMappingRepository.GetAll()//.WhereIf(!input.FilterText.IsNullOrWhiteSpace(), a =>
                           .WhereIf(!input.UserName.IsNullOrWhiteSpace(), a =>
                           //模糊搜索UserName
@@ -75,7 +75,7 @@ namespace MyProject.CustomerCore
                             //模糊搜索CustomerId
                             a.CustomerId == (input.CustomerId))
                            .WhereIf(input.Status != 0, a =>
-                            //模糊搜索CustomerId
+                            //模糊搜索Status
                             a.Status == (input.Status))
                           ;
             // TODO:根据传入的参数添加过滤条件

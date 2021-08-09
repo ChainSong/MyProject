@@ -217,12 +217,37 @@ export default class asnCreate extends AbpBase {
               },
             ];
         });
-        console.log( this.headerRule);
+        console.log(this.headerRule);
       })
       .catch((err) => {
         console.log(err);
       });
     this.$store
+      .dispatch({
+        type: "tableColumns/GetByTableNameList",
+        data: this.tableColumnDetail,
+      })
+      .then((res) => {
+        this.tableColumnDetails = JSON.parse(
+          localStorage.getItem(this.tableColumnDetail.tableName)
+        ) as Array<TableColumns>;
+        this.tableColumnDetails.forEach((a) => {
+          if (a.validation == "Required")
+            this.detailRule[a.dbColumnName] = [
+              {
+                required: true,
+                message: this.L("FieldIsRequired", undefined, a.displayName),
+                trigger: "blur",
+              },
+            ];
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
+      this.$store
       .dispatch({
         type: "tableColumns/GetByTableNameList",
         data: this.tableColumnDetail,
@@ -260,7 +285,7 @@ export default class asnCreate extends AbpBase {
   }
   cancel() {
     (this.$refs.header as any).resetFields();
-    this.header=new Header();
+    this.header = new Header();
     this.details = { line: [new Detail()] };
     this.$emit("input", false);
   }

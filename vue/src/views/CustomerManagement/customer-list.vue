@@ -186,6 +186,7 @@
 import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import AbpBase from "../../lib/abpbase";
 import Customer from "@/store/entities/customer";
+import CustomerUserMapping from "../../store/entities/customerUserMapping";
 import TableColumns from "../../store/entities/tableColumns";
 import CustomerCreate from "./customer-create.vue";
 import CustomerEdit from "./customer-edit.vue";
@@ -195,6 +196,8 @@ import CustomerQuery from "./customer-query.vue";
 })
 export default class CustomerList extends AbpBase {
   tableColumn: TableColumns = new TableColumns();
+  customerUserMapping: CustomerUserMapping = new CustomerUserMapping();
+  customerUserMappings: Array<CustomerUserMapping> = new Array<CustomerUserMapping> ();
   customer: Customer = new Customer();
   tableColumns: Array<TableColumns> = new Array<TableColumns>();
   customers: Array<Customer> = new Array<Customer>();
@@ -267,6 +270,27 @@ export default class CustomerList extends AbpBase {
       .catch((err) => {
         console.log(err);
       });
+      
+
+      this.$store
+      .dispatch({
+        type: "customerUserMapping/GetPaged",
+        data: this.customerUserMapping,
+      })
+      .then((res) => {
+        console.log("res");
+        console.log(res);
+        //  this.customerUserMappings=this.$store.state.customerUserMapping.list;
+        //  this.customerUserMappings=res
+        // this.tableColumns = JSON.parse(
+        //   localStorage.getItem(this.tableColumn.tableName)
+        // ) as Array<TableColumns>;
+        // console.log( this.tableColumns);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
   }
   created() {
     this.gettableColumn();

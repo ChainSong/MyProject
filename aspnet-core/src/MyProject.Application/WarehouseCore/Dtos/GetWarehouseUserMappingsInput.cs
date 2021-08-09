@@ -5,9 +5,9 @@ using MyProject.WarehouseCore;
 
 namespace MyProject.WarehouseCore.Dtos
 {
-	/// <summary>
-	/// 获取的传入参数Dto
-	/// </summary>
+    /// <summary>
+    /// 获取的传入参数Dto
+    /// </summary>
     public class GetWarehouseUserMappingsInput : PagedSortedAndFilteredInputDto, IShouldNormalize
     {
 
@@ -21,11 +21,15 @@ namespace MyProject.WarehouseCore.Dtos
                 Sorting = "Id";
             }
         }
-		
-							//// custom codes
-									
-							
 
-							//// custom codes end
+        //// custom codes
+        public long UserId { get; set; }
+        public string UserName { get; set; }
+        public long WarehouseId { get; set; }
+        public string WarehouseName { get; set; }
+        public int Status { get; set; } = 1;
+        public string Creator { get; set; }
+
+        //// custom codes end
     }
 }
