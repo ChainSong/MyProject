@@ -61,218 +61,76 @@ namespace MyProject.ASNCore
 
             var query = _wMS_ASNDetailRepository.GetAll()
             .WhereIf(!input.FilterText.IsNullOrWhiteSpace(), a =>
-
-
                           //模糊搜索ASNNumber
                           a.ASNNumber.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索ExternReceiptNumber
                           a.ExternReceiptNumber.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索CustomerName
                           a.CustomerName.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索WarehouseName
                           a.WarehouseName.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索LineNumber
                           a.LineNumber.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索SKU
                           a.SKU.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索UPC
                           a.UPC.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索GoodsType
                           a.GoodsType.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索GoodsName
                           a.GoodsName.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索BoxNumber
                           a.BoxNumber.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索BatchNumber
                           a.BatchNumber.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Unit
                           a.Unit.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Specifications
                           a.Specifications.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Creator
                           a.Creator.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Updator
                           a.Updator.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str1
                           a.Str1.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str2
                           a.Str2.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str3
                           a.Str3.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str4
                           a.Str4.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str5
                           a.Str5.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str6
                           a.Str6.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str7
                           a.Str7.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str8
                           a.Str8.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str9
                           a.Str9.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str10
                           a.Str10.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str11
                           a.Str11.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str12
                           a.Str12.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str13
                           a.Str13.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str14
                           a.Str14.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str15
                           a.Str15.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str16
                           a.Str16.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str17
                           a.Str17.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str18
                           a.Str18.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str19
                           a.Str19.Contains(input.FilterText) &
-
-
-
-
                           //模糊搜索Str20
                           a.Str20.Contains(input.FilterText)
-
-
-
-
             );
             // TODO:根据传入的参数添加过滤条件
 

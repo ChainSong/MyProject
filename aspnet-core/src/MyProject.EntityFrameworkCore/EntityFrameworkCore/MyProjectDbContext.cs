@@ -5,7 +5,9 @@ using MyProject.Authorization.Roles;
 using MyProject.Authorization.Users;
 using MyProject.CustomerCore;
 using MyProject.MultiTenancy;
+using MyProject.ReceiptCore;
 using MyProject.TableColumns;
+using MyProject.WarehouseCore;
 
 namespace MyProject.EntityFrameworkCore
 {
@@ -26,6 +28,12 @@ namespace MyProject.EntityFrameworkCore
 
 
         public virtual DbSet<CustomerUserMapping> CustomerUserMapping { get; set; }
+
+        public virtual DbSet<WarehouseUserMapping> WarehouseUserMapping { get; set; }
+
+        public virtual DbSet<WMS_Receipt> WMS_Receipt { get; set; }
+
+        public virtual DbSet<WMS_ReceiptDetail> WMS_ReceiptDetail { get; set; }
 
 
         public MyProjectDbContext(DbContextOptions<MyProjectDbContext> options)

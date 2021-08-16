@@ -25,7 +25,7 @@ namespace MyProject.ASNCore.Factory
 
         public Response<CreateOrUpdateWMS_ASNInput> Hub(CreateOrUpdateWMS_ASNInput t)
         {
-            return new Response<CreateOrUpdateWMS_ASNInput>();
+            return new Response<CreateOrUpdateWMS_ASNInput>() { Data = t, Code = 1 };
         }
     }
 }
