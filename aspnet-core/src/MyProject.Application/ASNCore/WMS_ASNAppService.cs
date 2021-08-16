@@ -22,6 +22,7 @@ using MyProject.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyProject.WarehouseCore;
 using MyProject.CustomerCore;
+using MyProject.Interface;
 
 namespace MyProject.ASNCore
 {
@@ -43,8 +44,8 @@ namespace MyProject.ASNCore
         public WMS_ASNAppService(
         IRepository<WMS_ASN, long> wMS_ASNRepository,
         IRepository<WarehouseUserMapping, long> warehouseUserMappingRepository,
-        IRepository<CustomerUserMapping, long> customerUserMappingRepository
-            , IWMS_ASNManager wMS_ASNManager
+        IRepository<CustomerUserMapping, long> customerUserMappingRepository, 
+        IWMS_ASNManager wMS_ASNManager
 
             )
         {
@@ -258,6 +259,12 @@ namespace MyProject.ASNCore
 
         protected virtual async Task<WMS_ASNEditDto> Create(CreateOrUpdateWMS_ASNInput input)
         {
+
+
+            //Object[] parameters = new Object[1];
+            var hub = Activator.CreateInstance(Type.GetType("")) as IHub<CreateOrUpdateWMS_ASNInput>;
+            var response = hub.Hub(input);
+            input = response.Data;
             //TODO:新增前的逻辑判断，是否允许新增
             var entity = ObjectMapper.Map<WMS_ASN>(input.WMS_ASN);
             var detailEntitys = ObjectMapper.Map<List<WMS_ASNDetail>>(input.WMS_ASNDetails);
