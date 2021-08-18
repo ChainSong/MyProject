@@ -24,7 +24,7 @@
 然后复制以下代码到 的PreInitialize 方法中:
 
 ```csharp
-Configuration.Authorization.Providers.Add<WMS_ReceiptAuthorizationProvider>();
+Configuration.Authorization.Providers.Add<WMS_ReceiptDetailAuthorizationProvider>();
 
 ```
 
@@ -42,7 +42,7 @@ Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
     // ....其他代码
 
     // 只需要复制这一段
-WMS_ReceiptDtoAutoMapper.CreateMappings(configuration);
+WMS_ReceiptDetailDtoAutoMapper.CreateMappings(configuration);
 
     // ....其他代码
 });
@@ -53,7 +53,7 @@ WMS_ReceiptDtoAutoMapper.CreateMappings(configuration);
 打开EntityFrameworkCore类库在 **MyProjectDbContext**类文件中添加以下代码段：
 
 ```csharp
-public DbSet<WMS_Receipt>  WMS_Receipts { get; set; }
+public DbSet<WMS_ReceiptDetail>  WMS_ReceiptDetails { get; set; }
 
  ```
 以实现将实体配置到数据库上下文中。
@@ -63,7 +63,7 @@ public DbSet<WMS_Receipt>  WMS_Receipts { get; set; }
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-   modelBuilder.ApplyConfiguration(new WMS_ReceiptCfg());
+   modelBuilder.ApplyConfiguration(new WMS_ReceiptDetailCfg());
  }
 
 ```
@@ -77,7 +77,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 添加一条迁移记录
 
 ```
-Add-Migration AddNewWMS_ReceiptEntity_Migration
+Add-Migration AddNewWMS_ReceiptDetailEntity_Migration
 ```
 
 同步实体文件到数据库中
@@ -90,7 +90,7 @@ Update-Database
 ## 多语言的配置
 
 生成的多语言内容
-在MyProject.Core类库中对应实体下的[多语言配置](WMS_Receiptdouyuyan.md)文件中。
+在MyProject.Core类库中对应实体下的[多语言配置](WMS_ReceiptDetaildouyuyan.md)文件中。
 
 ## 实体渲染
 

@@ -25,7 +25,7 @@ namespace MyProject.ReceiptCore
         public string PO { get; set; }
         public string Contact { get; set; }
         public string ContactInfo { get; set; }
-        public string CompleteDate { get; set; }
+        public DateTime? CompleteDate { get; set; }
         public string Remark { get; set; }
         public string Creator { get; set; }
         public DateTime? CreateTime { get; set; }

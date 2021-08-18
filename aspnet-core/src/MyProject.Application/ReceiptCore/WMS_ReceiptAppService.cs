@@ -60,207 +60,110 @@ namespace MyProject.ReceiptCore
         public async Task<PagedResultDto<WMS_ReceiptListDto>> GetPaged(GetWMS_ReceiptsInput input)
         {
 
-            var query = _wMS_ReceiptRepository.GetAll().WhereIf(!input.FilterText.IsNullOrWhiteSpace(), a =>
-
+            var query = _wMS_ReceiptRepository.GetAll()
+                   
+                .WhereIf(!input.ReceiptNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索ReceiptNumber
-                          a.ReceiptNumber.Contains(input.FilterText) ||
-
-
-
-
+                          a.ReceiptNumber.Contains(input.ReceiptNumber))
+                .WhereIf(!input.ExternReceiptNumber.IsNullOrWhiteSpace(), a => 
                           //模糊搜索ExternReceiptNumber
-                          a.ExternReceiptNumber.Contains(input.FilterText) ||
-
-
-
-
+                          a.ExternReceiptNumber.Contains(input.ExternReceiptNumber))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a => 
                           //模糊搜索ASNNumber
-                          a.ASNNumber.Contains(input.FilterText) ||
-
-
-
-
+                          a.ASNNumber.Contains(input.ASNNumber))
+                .WhereIf(!input.CustomerName.IsNullOrWhiteSpace(), a => 
                           //模糊搜索CustomerName
-                          a.CustomerName.Contains(input.FilterText) ||
-
-
-
-
+                          a.CustomerName.Contains(input.CustomerName))
+                .WhereIf(!input.WarehouseName.IsNullOrWhiteSpace(), a => 
                           //模糊搜索WarehouseName
-                          a.WarehouseName.Contains(input.FilterText) ||
-
-
-
-
+                          a.WarehouseName.Contains(input.WarehouseName))
+                .WhereIf(!input.ReceiptType.IsNullOrWhiteSpace(), a => 
                           //模糊搜索ReceiptType
-                          a.ReceiptType.Contains(input.FilterText) ||
-
-
-
-
+                          a.ReceiptType.Contains(input.ReceiptType) )
+                .WhereIf(!input.PO.IsNullOrWhiteSpace(), a => 
                           //模糊搜索PO
-                          a.PO.Contains(input.FilterText) ||
-
-
-
-
+                          a.PO.Contains(input.PO))
+                .WhereIf(!input.Contact.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Contact
-                          a.Contact.Contains(input.FilterText) ||
-
-
-
-
+                          a.Contact.Contains(input.Contact))
+                .WhereIf(!input.ContactInfo.IsNullOrWhiteSpace(), a => 
                           //模糊搜索ContactInfo
-                          a.ContactInfo.Contains(input.FilterText) ||
-
-
-
-
+                          a.ContactInfo.Contains(input.ContactInfo))
+                .WhereIf(input.CompleteDate!=null && input.CompleteDate.Length>0, a =>
                           //模糊搜索CompleteDate
-                          a.CompleteDate.Contains(input.FilterText) ||
-
-
-
-
+                          a.CompleteDate>(input.CompleteDate[0]))
+                  .WhereIf(input.CompleteDate != null && input.CompleteDate.Length > 1, a =>
+                              //模糊搜索CompleteDate
+                              a.CompleteDate > (input.CompleteDate[1]))
+                .WhereIf(!input.Remark.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Remark
-                          a.Remark.Contains(input.FilterText) ||
-
-
-
-
+                          a.Remark.Contains(input.Remark))
+                .WhereIf(!input.Creator.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Creator
-                          a.Creator.Contains(input.FilterText) ||
-
-
-
-
+                          a.Creator.Contains(input.Creator))
+                .WhereIf(!input.Updator.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Updator
-                          a.Updator.Contains(input.FilterText) ||
-
-
-
-
+                          a.Updator.Contains(input.Updator))
+                .WhereIf(!input.Str1.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str1
-                          a.Str1.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str1.Contains(input.Str1))
+                .WhereIf(!input.Str2.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str2
-                          a.Str2.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str2.Contains(input.Str2))
+                .WhereIf(!input.Str3.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str3
-                          a.Str3.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str3.Contains(input.Str3))
+                .WhereIf(!input.Str4.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str4
-                          a.Str4.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str4.Contains(input.Str4))
+                .WhereIf(!input.Str5.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str5
-                          a.Str5.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str5.Contains(input.Str5))
+                .WhereIf(!input.Str6.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str6
-                          a.Str6.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str6.Contains(input.Str6))
+                .WhereIf(!input.Str7.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str7
-                          a.Str7.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str7.Contains(input.Str7))
+                .WhereIf(!input.Str8.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str8
-                          a.Str8.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str8.Contains(input.Str8))
+                .WhereIf(!input.Str9.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str9
-                          a.Str9.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str9.Contains(input.Str9))
+                .WhereIf(!input.Str10.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str10
-                          a.Str10.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str10.Contains(input.Str10))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str11
-                          a.Str11.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str11.Contains(input.Str11))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str12
-                          a.Str12.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str12.Contains(input.Str12))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str13
-                          a.Str13.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str13.Contains(input.Str13))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str14
-                          a.Str14.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str14.Contains(input.Str14))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str15
-                          a.Str15.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str15.Contains(input.Str15))
+                .WhereIf(!input.ASNNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str16
-                          a.Str16.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str16.Contains(input.Str16))
+                .WhereIf(!input.Str17.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str17
-                          a.Str17.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str17.Contains(input.Str17))
+                .WhereIf(!input.Str18.IsNullOrWhiteSpace(), a => 
                           //模糊搜索Str18
-                          a.Str18.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str18.Contains(input.Str18))
+                .WhereIf(!input.Str19.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str19
-                          a.Str19.Contains(input.FilterText) ||
-
-
-
-
+                          a.Str19.Contains(input.Str19))
+                .WhereIf(!input.Str20.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str20
-                          a.Str20.Contains(input.FilterText) 
-            
-
-
-
-
+                          a.Str20.Contains(input.Str20) 
             );
             // TODO:根据传入的参数添加过滤条件
 

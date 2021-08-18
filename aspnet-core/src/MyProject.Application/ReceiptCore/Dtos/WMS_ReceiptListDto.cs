@@ -127,7 +127,7 @@ namespace MyProject.ReceiptCore.Dtos
         /// <summary>
         /// CompleteDate
         /// </summary>
-        public string CompleteDate { get; set; }
+        public DateTime? CompleteDate { get; set; }
 
 
 
