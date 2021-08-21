@@ -32,7 +32,9 @@ namespace MyProject.ASNCore
         public decimal QtyReceipt { get; set; }
         public string Unit { get; set; }
         public string Specifications { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } 
+        public float Weight { get; set; }
+        public float Volume { get; set; }
         public DateTime? ProductionDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public string Creator { get; set; }

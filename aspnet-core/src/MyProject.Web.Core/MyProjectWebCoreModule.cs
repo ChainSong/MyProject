@@ -40,6 +40,8 @@ namespace MyProject
             );
 
             // Use database for language management
+            Configuration.MultiTenancy.IsEnabled = true;
+          
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 
             Configuration.Modules.AbpAspNetCore()

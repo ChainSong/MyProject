@@ -157,7 +157,8 @@ namespace MyProject.ASNCore.Dtos
 		/// </summary>
 		public decimal Price { get; set; }
 
-
+		public float Weight { get; set; }
+		public float Volume { get; set; }
 
 		/// <summary>
 		/// ProductionDate

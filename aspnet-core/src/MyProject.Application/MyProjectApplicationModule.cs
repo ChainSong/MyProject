@@ -12,6 +12,7 @@ namespace MyProject
     {
         public override void PreInitialize()
         {
+            Configuration.MultiTenancy.IsEnabled = true;
             Configuration.Authorization.Providers.Add<MyProjectAuthorizationProvider>();
         }
 
