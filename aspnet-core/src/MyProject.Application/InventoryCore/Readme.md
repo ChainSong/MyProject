@@ -96,9 +96,9 @@ Update-Database
 
 实体所在文件夹名称
 
-warehousecore
+inventorycore
 
-WarehouseCore
+InventoryCore
 
 ## 路线图
 

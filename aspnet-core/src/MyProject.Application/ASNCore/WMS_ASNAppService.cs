@@ -44,7 +44,7 @@ namespace MyProject.ASNCore
         public WMS_ASNAppService(
         IRepository<WMS_ASN, long> wMS_ASNRepository,
         IRepository<WarehouseUserMapping, long> warehouseUserMappingRepository,
-        IRepository<CustomerUserMapping, long> customerUserMappingRepository, 
+        IRepository<CustomerUserMapping, long> customerUserMappingRepository,
         IWMS_ASNManager wMS_ASNManager
 
             )

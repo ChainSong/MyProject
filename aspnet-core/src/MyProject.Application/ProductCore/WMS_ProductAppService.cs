@@ -19,6 +19,7 @@ using MyProject.ProductCore.Dtos;
 //using MyProject.ProductCore.Exporting;
 using MyProject.ProductCore.DomainService;
 using MyProject.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyProject.ProductCore
 {
@@ -55,6 +56,7 @@ namespace MyProject.ProductCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [HttpPost]
         [AbpAuthorize(WMS_ProductPermissions.WMS_Product_Query)]
         public async Task<PagedResultDto<WMS_ProductListDto>> GetPaged(GetWMS_ProductsInput input)
         {

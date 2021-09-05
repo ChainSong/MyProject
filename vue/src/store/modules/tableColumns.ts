@@ -22,14 +22,14 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         permissions: new Array<string>()
     }
     actions = {
-        // async getAll(context:ActionContext<TableColumnsState,any>,payload:any){
-        //     context.state.loading=true;
-        //     let reponse=await Ajax.get('/api/services/app/Role/GetAll',{params:payload.data});
-        //     context.state.loading=false;
-        //     let page=reponse.data.result as PageResult<Role>;
-        //     context.state.totalCount=page.totalCount;
-        //     context.state.list=page.items;
-        // },
+        async GetPaged(context:ActionContext<TableColumnsState,any>,payload:any){
+            context.state.loading=true;
+            let reponse=await Ajax.get('/api/services/app/Table_Columns/GetPaged',{params:payload.data});
+            context.state.loading=false;
+            let page=reponse.data.result as PageResult<TableColumns>;
+            context.state.totalCount=page.totalCount;
+            context.state.list=page.items;
+        },
         // async create(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.post('/api/services/app/Role/Create',payload.data);
         // },
@@ -39,9 +39,9 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         // async delete(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.delete('/api/services/app/Role/Delete?Id='+payload.data.id);
         // },
-        // async get(context:ActionContext<RoleState,any>,payload:any){
+        // async get(context:ActionContext<TableColumnsState,any>,payload:any){
         //     let reponse=await Ajax.get('/api/services/app/Role/Get?Id='+payload.id);
-        //     return reponse.data.result as Role;
+        //     return reponse.data.result asas PageResult<TableColumns>;
         // },
         // async getAllPermissions(context:ActionContext<RoleState,any>){
         //     let reponse=await Ajax.get('/api/services/app/Role/getAllPermissions');

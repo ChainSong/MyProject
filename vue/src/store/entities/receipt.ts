@@ -1,9 +1,11 @@
 import Entity from './entity'
-import asnDetail from './asnDetail'
+import receiptDetail from './receiptDetail'
 
-export default class asn extends Entity<number>{
-    extensionGUID	  :string;
-    aSNNumber		  :string;
+export default class receipt extends Entity<number>{
+    receiptNumber	   :string;
+    extensionGUID	   :string;
+    aSNNumber		   :string;
+    aSNId		      :number;
     externReceiptNumber:string;
     customerID		  :number;
     customerName	  :string;
@@ -51,5 +53,5 @@ export default class asn extends Entity<number>{
     int3			  :number;
     int4			  :number;
     int5			  :number;
-    asnDetail:Array<asnDetail>;
+    receiptDetail:Array<receiptDetail>;
 }

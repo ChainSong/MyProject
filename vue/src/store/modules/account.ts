@@ -7,7 +7,8 @@ const account={
     actions:{
         async isTenantAvailable(state:any,payload:any){
             let rep=await ajax.post('/api/services/app/Account/IsTenantAvailable',payload.data);
-            return rep.data.Result;
+            console.log(rep);
+            return rep.data.result;
         }
     }
 }

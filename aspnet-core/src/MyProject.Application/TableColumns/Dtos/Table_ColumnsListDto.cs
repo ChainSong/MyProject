@@ -18,7 +18,10 @@ namespace MyProject.TableColumns.Dtos
     [AutoMapFrom(typeof(Table_Columns))]
     public class Table_ColumnsListDto : EntityDto<long>
     {
-
+        /// <summary>
+        /// TenantId
+        /// </summary>
+        public long TenantId { get; set; }
 
         /// <summary>
         /// ProjectID

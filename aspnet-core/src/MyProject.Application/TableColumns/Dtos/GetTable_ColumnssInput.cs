@@ -23,14 +23,31 @@ namespace MyProject.TableColumns.Dtos
         }
 
         //// custom codes
-        public long ProjectId { get; set; }
 
+        public long TenantId { get; set; }
+        public long ProjectId { get; set; }
+        public string RoleName { get; set; }
         public long CustomerId { get; set; }
         public string TableName { get; set; }
-
-        public string TableFormat { get; set; }
-
-        public string RoleName { get; set; }
+        public string TableNameCH { get; set; }
+        public string DisplayName { get; set; }
+        public string DbColumnName { get; set; }
+        public int IsKey { get; set; }
+        public int IsSearchCondition { get; set; }
+        public int IsHide { get; set; }
+        public int IsReadOnly { get; set; }
+        public int IsShowInList { get; set; }
+        public int IsImportColumn { get; set; }
+        public int IsDropDownList { get; set; }
+        public int IsCreate { get; set; }
+        public int IsUpdate { get; set; }
+        public int SearchConditionOrder { get; set; }
+        public string Validation { get; set; }
+        public string Group { get; set; }
+        public string Type { get; set; }
+        public string Associated { get; set; }
+        public int Order { get; set; }
+        public int ForView { get; set; } 
 
         //// custom codes end
     }

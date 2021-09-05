@@ -11,6 +11,7 @@ import tableColumns from './modules/tableColumns'
 // import Table_ColumnsDetails from './modules/Table_ColumnsDetails'
 import customer from './modules/customer'
 import asn from './modules/asn'
+import receipt from './modules/receipt'
 // import CustomerDetail from './modules/CustomerDetail'
 const store = new Vuex.Store({
     state: {
@@ -33,6 +34,7 @@ const store = new Vuex.Store({
         // Table_ColumnsDetails,
         customer,
         asn,
+        receipt,
         // CustomerDetail
     }
 });

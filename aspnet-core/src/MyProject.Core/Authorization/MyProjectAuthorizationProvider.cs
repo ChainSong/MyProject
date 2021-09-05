@@ -15,6 +15,8 @@ namespace MyProject.Authorization
             context.CreatePermission(PermissionNames.Pages_Table_Columns, L("TableColumns"));
             context.CreatePermission(PermissionNames.Pages_Customers, L("Customers"));
             context.CreatePermission(PermissionNames.Pages_ASN, L("ASN"));
+            context.CreatePermission(PermissionNames.Pages_Receipt, L("Receipt"));
+            //context.CreatePermission(PermissionNames.Pages_ASN, L("ASN"));
         }
 
         private static ILocalizableString L(string name)

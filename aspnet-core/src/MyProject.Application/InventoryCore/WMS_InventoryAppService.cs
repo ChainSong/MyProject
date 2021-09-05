@@ -14,41 +14,41 @@ using System.Data;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using MyProject.ReceiptReceivingCore;
-using MyProject.ReceiptReceivingCore.Dtos;
-//using MyProject.ReceiptReceivingCore.Exporting;
-using MyProject.ReceiptReceivingCore.DomainService;
+using MyProject.InventoryCore;
+using MyProject.InventoryCore.Dtos;
+//using MyProject.InventoryCore.Exporting;
+using MyProject.InventoryCore.DomainService;
 using MyProject.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
-namespace MyProject.ReceiptReceivingCore
+namespace MyProject.InventoryCore
 {
     /// <summary>
     /// 应用层服务的接口实现方法
-	/// <see cref="WMS_ReceiptReceiving" />
+	/// <see cref="WMS_Inventory" />
     ///</summary>
 
     [AbpAuthorize]
-    public class WMS_ReceiptReceivingAppService : MyProjectAppServiceBase, IWMS_ReceiptReceivingAppService
+    public class WMS_InventoryAppService : MyProjectAppServiceBase, IWMS_InventoryAppService
     {
 
-        private readonly IRepository<WMS_ReceiptReceiving, long> _wMS_ReceiptReceivingRepository;
 
+        private readonly IRepository<WMS_Inventory, long>
+                 _wMS_InventoryRepository;
 
-        private readonly IWMS_ReceiptReceivingManager _wMS_ReceiptReceivingManager;
+        private readonly IWMS_InventoryManager _wMS_InventoryManager;
 
 
         /// <summary>
         /// 构造函数
         ///</summary>
 
-        public WMS_ReceiptReceivingAppService(IWMS_ReceiptReceivingManager wMS_ReceiptReceivingManager
-              , IRepository<WMS_ReceiptReceiving, long> wMS_ReceiptReceivingRepository
+
+        public WMS_InventoryAppService(IWMS_InventoryManager wMS_InventoryManager,
+             IRepository<WMS_Inventory, long> wMS_InventoryRepository
             )
         {
-            _wMS_ReceiptReceivingManager = wMS_ReceiptReceivingManager;
-            _wMS_ReceiptReceivingRepository = wMS_ReceiptReceivingRepository;
-
+            _wMS_InventoryManager = wMS_InventoryManager;
+            _wMS_InventoryRepository = wMS_InventoryRepository;
 
         }
 
@@ -58,13 +58,12 @@ namespace MyProject.ReceiptReceivingCore
         ///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost]
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Query)]
-        public async Task<PagedResultDto<WMS_ReceiptReceivingListDto>> GetPaged(GetWMS_ReceiptReceivingsInput input)
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Query)]
+        public async Task<PagedResultDto<WMS_InventoryListDto>> GetPaged(GetWMS_InventorysInput input)
         {
 
-            var query = _wMS_ReceiptReceivingRepository.GetAll()
-                     .WhereIf(!input.ReceiptNumber.IsNullOrWhiteSpace(), a =>
+            var query = _wMS_InventoryRepository.GetAll()
+                .WhereIf(!input.ReceiptNumber.IsNullOrWhiteSpace(), a =>
                           //模糊搜索ReceiptNumber
                           a.ReceiptNumber.Contains(input.ReceiptNumber))
                      .WhereIf(!input.ExternReceiptNumber.IsNullOrWhiteSpace(), a =>
@@ -91,6 +90,9 @@ namespace MyProject.ReceiptReceivingCore
                      .WhereIf(!input.GoodsType.IsNullOrWhiteSpace(), a =>
                           //模糊搜索GoodsType
                           a.GoodsType.Contains(input.GoodsType))
+                      .WhereIf(input.InventoryType != 0, a =>
+                            //模糊搜索InventoryType
+                            a.InventoryType == (input.InventoryType))
                      .WhereIf(!input.GoodsName.IsNullOrWhiteSpace(), a =>
                           //模糊搜索GoodsName
                           a.GoodsName.Contains(input.GoodsName))
@@ -115,9 +117,28 @@ namespace MyProject.ReceiptReceivingCore
                      .WhereIf(!input.Remark.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Remark
                           a.Remark.Contains(input.Remark))
+                      .WhereIf(input.ProductionDate != null && input.ProductionDate.Length > 0, a =>
+                              //模糊搜索InventoryTime
+                              a.ProductionDate > (input.ProductionDate[0]))
+                     .WhereIf(input.ProductionDate != null && input.ProductionDate.Length > 1, a =>
+                              //模糊搜索ProductionDate
+                              a.ProductionDate > (input.ProductionDate[1]))
+                      .WhereIf(input.ExpirationDate != null && input.ExpirationDate.Length > 0, a =>
+                              //模糊搜索ExpirationDate
+                              a.ExpirationDate > (input.ExpirationDate[0]))
+                     .WhereIf(input.ExpirationDate != null && input.ExpirationDate.Length > 1, a =>
+                              //模糊搜索ExpirationDate
+                              a.ExpirationDate > (input.ExpirationDate[1]))
+                      .WhereIf(input.InventoryTime != null && input.InventoryTime.Length > 0, a =>
+                              //模糊搜索InventoryTime
+                              a.InventoryTime > (input.InventoryTime[0]))
+                     .WhereIf(input.InventoryTime != null && input.InventoryTime.Length > 1, a =>
+                              //模糊搜索InventoryTime
+                              a.InventoryTime > (input.InventoryTime[1]))
                      .WhereIf(!input.Creator.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Creator
                           a.Creator.Contains(input.Creator))
+
                      .WhereIf(!input.Updator.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Updator
                           a.Updator.Contains(input.Updator))
@@ -181,31 +202,33 @@ namespace MyProject.ReceiptReceivingCore
                      .WhereIf(!input.Str20.IsNullOrWhiteSpace(), a =>
                           //模糊搜索Str20
                           a.Str20.Contains(input.Str20)
-               );
+
+
+            );
             // TODO:根据传入的参数添加过滤条件
 
             var count = await query.CountAsync();
 
-            var wMS_ReceiptReceivingList = await query
+            var wMS_InventoryList = await query
             .OrderBy(input.Sorting).AsNoTracking()
             .PageBy(input)
             .ToListAsync();
 
-            var wMS_ReceiptReceivingListDtos = ObjectMapper.Map<List<WMS_ReceiptReceivingListDto>>(wMS_ReceiptReceivingList);
+            var wMS_InventoryListDtos = ObjectMapper.Map<List<WMS_InventoryListDto>>(wMS_InventoryList);
 
-            return new PagedResultDto<WMS_ReceiptReceivingListDto>(count, wMS_ReceiptReceivingListDtos);
+            return new PagedResultDto<WMS_InventoryListDto>(count, wMS_InventoryListDtos);
         }
 
 
         /// <summary>
-        /// 通过指定id获取WMS_ReceiptReceivingListDto信息
+        /// 通过指定id获取WMS_InventoryListDto信息
         /// </summary>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Query)]
-        public async Task<WMS_ReceiptReceivingListDto> GetById(EntityDto<long> input)
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Query)]
+        public async Task<WMS_InventoryListDto> GetById(EntityDto<long> input)
         {
-            var entity = await _wMS_ReceiptReceivingRepository.GetAsync(input.Id);
+            var entity = await _wMS_InventoryRepository.GetAsync(input.Id);
 
-            var dto = ObjectMapper.Map<WMS_ReceiptReceivingListDto>(entity);
+            var dto = ObjectMapper.Map<WMS_InventoryListDto>(entity);
             return dto;
         }
 
@@ -214,27 +237,27 @@ namespace MyProject.ReceiptReceivingCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Create, WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Edit)]
-        public async Task<GetWMS_ReceiptReceivingForEditOutput> GetForEdit(NullableIdDto<long> input)
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Create, WMS_InventoryPermissions.WMS_Inventory_Edit)]
+        public async Task<GetWMS_InventoryForEditOutput> GetForEdit(NullableIdDto<long> input)
         {
-            var output = new GetWMS_ReceiptReceivingForEditOutput();
-            WMS_ReceiptReceivingEditDto editDto;
+            var output = new GetWMS_InventoryForEditOutput();
+            WMS_InventoryEditDto editDto;
 
             if (input.Id.HasValue)
             {
 
 
-                var entity = await _wMS_ReceiptReceivingRepository.GetAsync(input.Id.Value);
-                editDto = ObjectMapper.Map<WMS_ReceiptReceivingEditDto>(entity);
+                var entity = await _wMS_InventoryRepository.GetAsync(input.Id.Value);
+                editDto = ObjectMapper.Map<WMS_InventoryEditDto>(entity);
             }
             else
             {
-                editDto = new WMS_ReceiptReceivingEditDto();
+                editDto = new WMS_InventoryEditDto();
             }
 
 
 
-            output.WMS_ReceiptReceiving = editDto;
+            output.WMS_Inventory = editDto;
             return output;
         }
 
@@ -244,17 +267,17 @@ namespace MyProject.ReceiptReceivingCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Create, WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Edit)]
-        public async Task CreateOrUpdate(CreateOrUpdateWMS_ReceiptReceivingInput input)
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Create, WMS_InventoryPermissions.WMS_Inventory_Edit)]
+        public async Task CreateOrUpdate(CreateOrUpdateWMS_InventoryInput input)
         {
 
-            if (input.WMS_ReceiptReceiving.Id.HasValue)
+            if (input.WMS_Inventory.Id.HasValue)
             {
-                await Update(input.WMS_ReceiptReceiving);
+                await Update(input.WMS_Inventory);
             }
             else
             {
-                await Create(input.WMS_ReceiptReceiving);
+                await Create(input.WMS_Inventory);
             }
         }
 
@@ -262,32 +285,32 @@ namespace MyProject.ReceiptReceivingCore
         /// <summary>
         /// 新增
         /// </summary>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Create)]
-        protected virtual async Task<WMS_ReceiptReceivingEditDto> Create(WMS_ReceiptReceivingEditDto input)
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Create)]
+        protected virtual async Task<WMS_InventoryEditDto> Create(WMS_InventoryEditDto input)
         {
             //TODO:新增前的逻辑判断，是否允许新增
 
-            var entity = ObjectMapper.Map<WMS_ReceiptReceiving>(input);
+            var entity = ObjectMapper.Map<WMS_Inventory>(input);
             //调用领域服务
-            entity = await _wMS_ReceiptReceivingManager.CreateAsync(entity);
+            entity = await _wMS_InventoryManager.CreateAsync(entity);
 
-            var dto = ObjectMapper.Map<WMS_ReceiptReceivingEditDto>(entity);
+            var dto = ObjectMapper.Map<WMS_InventoryEditDto>(entity);
             return dto;
         }
 
         /// <summary>
         /// 编辑
         /// </summary>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Edit)]
-        protected virtual async Task Update(WMS_ReceiptReceivingEditDto input)
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Edit)]
+        protected virtual async Task Update(WMS_InventoryEditDto input)
         {
             //TODO:更新前的逻辑判断，是否允许更新
 
-            var entity = await _wMS_ReceiptReceivingRepository.GetAsync(input.Id.Value);
+            var entity = await _wMS_InventoryRepository.GetAsync(input.Id.Value);
             //  input.MapTo(entity);
             //将input属性的值赋值到entity中
             ObjectMapper.Map(input, entity);
-            await _wMS_ReceiptReceivingManager.UpdateAsync(entity);
+            await _wMS_InventoryManager.UpdateAsync(entity);
         }
 
 
@@ -297,23 +320,23 @@ namespace MyProject.ReceiptReceivingCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Delete)]
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_Delete)]
         public async Task Delete(EntityDto<long> input)
         {
             //TODO:删除前的逻辑判断，是否允许删除
-            await _wMS_ReceiptReceivingManager.DeleteAsync(input.Id);
+            await _wMS_InventoryManager.DeleteAsync(input.Id);
         }
 
 
 
         /// <summary>
-        /// 批量删除WMS_ReceiptReceiving的方法
+        /// 批量删除WMS_Inventory的方法
         /// </summary>
-        [AbpAuthorize(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_BatchDelete)]
+        [AbpAuthorize(WMS_InventoryPermissions.WMS_Inventory_BatchDelete)]
         public async Task BatchDelete(List<long> input)
         {
             // TODO:批量删除前的逻辑判断，是否允许删除
-            await _wMS_ReceiptReceivingManager.BatchDelete(input);
+            await _wMS_InventoryManager.BatchDelete(input);
         }
 
 

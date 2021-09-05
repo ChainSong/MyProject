@@ -53,7 +53,9 @@ export const appRouters: Array<Router> = [{
     children: [
         { path: 'user', permission: 'Pages.Users', meta: { title: 'Users' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
         { path: 'role', permission: 'Pages.Roles', meta: { title: 'Roles' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
-        { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') }
+        { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
+        // { path: 'TableColumns', permission: 'Pages.Table.Columns', meta: { title: 'TableColumns' }, name: 'TableColumns', component: () => import('../views/TableColumns/tablecolumns-edit.vue') }
+    
     ]
 },{
     path: '/CustomerBasic',
@@ -68,12 +70,32 @@ export const appRouters: Array<Router> = [{
 },{
     path: '/ASNManagement',
     name: 'ASNManagement',
-    permission: '1',
+    permission: '2',
     meta: { title: '预入库管理' },
     icon: '&#xe68a;',
     component: main,
     children: [
         { path: 'ASN', permission: 'Pages.ASN', meta: { title: 'ASN' }, name: 'ASN', component: () => import('../views/ASNManagement/asn-list.vue') }
+    ]
+},{
+    path: '/ReceiptManagement',
+    name: 'ReceiptManagement',
+    permission: '2',
+    meta: { title: '入库管理' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'Receipt', permission: 'Pages.Receipt', meta: { title: 'Receipt' }, name: 'Receipt', component: () => import('../views/ReceiptManagement/receipt-list.vue') }
+    ]
+},{
+    path: '/TableColumnsManagement',
+    name: 'TableColumnsManagement',
+    permission: '3',
+    meta: { title: '表字段' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'TableColumns', permission: 'Pages.Table.Columns', meta: { title: 'TableColumns' }, name: 'TableColumns', component: () => import('../views/TableColumnsManagement/tablecolumns-edit.vue') }
     ]
 }]
 export const routers = [

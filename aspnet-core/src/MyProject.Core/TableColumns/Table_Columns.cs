@@ -11,7 +11,7 @@ namespace MyProject.TableColumns
     public class Table_Columns : Entity<long>, IHasCreationTime
     {
 
-        //public long TableID { get; set; }
+        public long TenantId { get; set; }
         public long ProjectId { get; set; }
         public string RoleName { get; set; }
         public long CustomerId { get; set; }

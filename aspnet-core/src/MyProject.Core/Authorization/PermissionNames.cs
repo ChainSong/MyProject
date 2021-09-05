@@ -9,7 +9,8 @@
         public const string Pages_Table_Columns = "Pages.Table.Columns";
         public const string Pages_Customers = "Pages.Customers";
         public const string Pages_ASN = "Pages.ASN";
+        public const string Pages_Receipt = "Pages.Receipt";
 
-
+        
     }
 }

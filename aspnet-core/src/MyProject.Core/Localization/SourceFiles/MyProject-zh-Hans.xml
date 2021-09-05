@@ -98,6 +98,8 @@
     <text name="EditTenant">编辑租户</text>
     <text name="SearchWithThreeDot">搜索...</text>
     <text name="ASN">预入库单</text>
+    <text name="Receipt">入库单</text>
+    <text name="TableColumns">表字段</text>
     
   </texts>
 </localizationDictionary>

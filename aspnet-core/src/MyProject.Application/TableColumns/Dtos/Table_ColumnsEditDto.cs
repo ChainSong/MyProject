@@ -22,7 +22,10 @@ namespace MyProject.TableColumns.Dtos
         public long? Id { get; set; }
 
 
-
+        /// <summary>
+        /// TenantId
+        /// </summary>
+        public long TenantId { get; set; }
         /// <summary>
         /// ProjectID
         /// </summary>

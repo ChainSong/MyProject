@@ -67,39 +67,50 @@ namespace MyProject.TableColumns
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Query)]
+        [HttpPost]
+        //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Query)]
         public async Task<PagedResultDto<Table_ColumnsListDto>> GetPaged(GetTable_ColumnssInput input)
         {
+            try
+            {
 
-            var query = _table_ColumnsRepository.GetAll()
-            .WhereIf(!input.FilterText.IsNullOrWhiteSpace(), a =>
-                          //模糊搜索RoleName
-                          a.RoleName.Contains(input.FilterText) &&
-                          //模糊搜索TableName
-                          a.TableName.Contains(input.FilterText) &&
-                          //模糊搜索TableNameCH
-                          a.TableNameCH.Contains(input.FilterText) &&
-                          //模糊搜索DisplayName
-                          a.DisplayName.Contains(input.FilterText) &&
-                          //模糊搜索DbColumnName
-                          a.DbColumnName.Contains(input.FilterText) &&
-                          //模糊搜索Group
-                          a.Group.Contains(input.FilterText) &&
-                          //模糊搜索Type
-                          a.Type.Contains(input.FilterText)
-            );
-            // TODO:根据传入的参数添加过滤条件
+                var query = _table_ColumnsRepository.GetAll()
+                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
+                              //模糊搜索RoleName
+                              a.RoleName.Contains(input.RoleName))
+                .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a =>
 
-            var count = await query.CountAsync();
+                              //模糊搜索TableName
+                              a.TableName.Contains(input.TableName))
+                .WhereIf(input.TenantId != 0, a =>
+                                //模糊搜索TenantId
+                                a.TenantId == (input.TenantId))
+                 .WhereIf(input.CustomerId != 0, a =>
+                                //模糊搜索CustomerId
+                                a.CustomerId == (input.CustomerId))
+                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
+                              //模糊搜索RoleName
+                              a.RoleName.Contains(input.RoleName)
+                );
+                // TODO:根据传入的参数添加过滤条件
 
-            var table_ColumnsList = await query
-            .OrderBy(input.Sorting).AsNoTracking()
-            .PageBy(input)
-            .ToListAsync();
+                var count = await query.CountAsync();
 
-            var table_ColumnsListDtos = ObjectMapper.Map<List<Table_ColumnsListDto>>(table_ColumnsList);
+                var table_ColumnsList = await query
+                //.OrderBy(input.Sorting).AsNoTracking()
+                //.PageBy(input)
+                .ToListAsync();
 
-            return new PagedResultDto<Table_ColumnsListDto>(count, table_ColumnsListDtos);
+                var table_ColumnsListDtos = ObjectMapper.Map<List<Table_ColumnsListDto>>(table_ColumnsList);
+
+                return new PagedResultDto<Table_ColumnsListDto>(count, table_ColumnsListDtos);
+
+            }
+            catch (Exception ex)
+            {
+                 
+            }
+            return new PagedResultDto<Table_ColumnsListDto>();
         }
 
 
@@ -252,6 +263,7 @@ namespace MyProject.TableColumns
             //  {
             //      return val;
             //  }) as List<Table_Columns>;
+
             var table_ColumnsList = _cacheManage.GetCache("TableColumn").Get("TableColumn_1" + input.TableName + "_" + AbpSession.RoleName + "", (val) =>
             {
                 return val;
@@ -263,91 +275,101 @@ namespace MyProject.TableColumns
             }
             else
             {
-                input.RoleName = AbpSession.RoleName;
-                var query = _table_ColumnsRepository.GetAll().AsNoTracking()
-                //模糊搜索TableName
-                .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a => a.TableName == input.TableName)
-                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a => a.RoleName == input.RoleName)
-                .Select(a => new Table_Columns
+                try
                 {
-                    Id = a.Id
-                  ,
-                    ProjectId = a.ProjectId
-                  ,
-                    RoleName = a.RoleName
-                  ,
-                    CustomerId = a.CustomerId
-                  ,
-                    TableName = a.TableName
-                  ,
-                    TableNameCH = a.TableNameCH
-                  ,
-                    DisplayName = a.DisplayName
-                  ,
-                    DbColumnName = a.DbColumnName.Substring(0, 1).ToLower() + a.DbColumnName.Substring(1)
-                  ,
-                    IsKey = a.IsKey
-                  ,
-                    IsSearchCondition = a.IsSearchCondition
-                  ,
-                    IsHide = a.IsHide
-                  ,
-                    IsReadOnly = a.IsReadOnly
-                  ,
-                    IsShowInList = a.IsShowInList
-                  ,
-                    IsImportColumn = a.IsImportColumn
-                  ,
-                    IsDropDownList = a.IsDropDownList
-                  ,
-                    Associated = a.Associated
-                  ,
-                    Table_ColumnsDetails = _table_ColumnsDetailRepository.GetAll().Where(b => b.Associated == a.Associated)
-                  .Select(b =>
-                    new Table_ColumnsDetail
-                    {
-                        Id = b.Id,
-                        CodeN = b.CodeN,
-                        Code = b.Code,
-                        Name = b.Name,
-                        Type = b.Type,
-                        Associated = b.Associated,
-                        Status = b.Status,
-                        Creator = b.Creator,
-                        CreationTime = b.CreationTime
-                    }
-                  ).ToList()
-                  ,
-                    IsCreate = a.IsCreate
-                  ,
-                    IsUpdate = a.IsUpdate
-                  ,
-                    SearchConditionOrder = a.SearchConditionOrder
-                  ,
-                    Validation = a.Validation
-                  ,
-                    Group = a.Group
-                  ,
-                    Type = a.Type
-                  ,
-                    Order = a.Order
-                  ,
-                    ForView = a.ForView
-                })
-                ;
-                // var query = _table_ColumnsDetailRepository.GetAll().AsNoTracking()
-                ////模糊搜索TableName
-                //.WhereIf(!input.TableName.IsNullOrWhiteSpace(), a => a.TableName == input.TableName)
-                //.WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a => a.RoleName == input.RoleName)
-                //.Include(a => a.IsDropDownList)
-                //;
-                count = await query.CountAsync();
-                table_ColumnsList = await query
-                 .OrderBy(input.Sorting).AsNoTracking()
-                 //.PageBy(input)
-                 .ToListAsync();
-                _cacheManage.GetCache("TableColumn").Set("TableColumn_" + input.TableName + "_" + AbpSession.RoleName, table_ColumnsList);
 
+
+                    input.RoleName = AbpSession.RoleName;
+                    var query = _table_ColumnsRepository.GetAll().AsNoTracking()
+                    //模糊搜索TableName
+                    .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a => a.TableName == input.TableName)
+                    .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a => a.RoleName == input.RoleName)
+                    .Select(a => new Table_Columns
+                    {
+                        Id = a.Id
+                      //,TenantId = a.TenantId
+                      ,
+                        ProjectId = a.ProjectId
+                      ,
+                        RoleName = a.RoleName
+                      ,
+                        CustomerId = a.CustomerId
+                      ,
+                        TableName = a.TableName
+                      ,
+                        TableNameCH = a.TableNameCH
+                      ,
+                        DisplayName = a.DisplayName
+                      ,
+                        DbColumnName = a.DbColumnName.Substring(0, 1).ToLower() + a.DbColumnName.Substring(1)
+                      ,
+                        IsKey = a.IsKey
+                      ,
+                        IsSearchCondition = a.IsSearchCondition
+                      ,
+                        IsHide = a.IsHide
+                      ,
+                        IsReadOnly = a.IsReadOnly
+                      ,
+                        IsShowInList = a.IsShowInList
+                      ,
+                        IsImportColumn = a.IsImportColumn
+                      ,
+                        IsDropDownList = a.IsDropDownList
+                      ,
+                        Associated = a.Associated
+                      ,
+                        Table_ColumnsDetails = _table_ColumnsDetailRepository.GetAll().Where(b => b.Associated == a.Associated)
+                      .Select(b =>
+                        new Table_ColumnsDetail
+                        {
+                            Id = b.Id,
+                            CodeN = b.CodeN,
+                            Code = b.Code,
+                            Name = b.Name,
+                            Type = b.Type,
+                            Associated = b.Associated,
+                            Status = b.Status,
+                            Creator = b.Creator,
+                            CreationTime = b.CreationTime
+                        }
+                      ).ToList()
+                      ,
+                        IsCreate = a.IsCreate
+                      ,
+                        IsUpdate = a.IsUpdate
+                      ,
+                        SearchConditionOrder = a.SearchConditionOrder
+                      ,
+                        Validation = a.Validation
+                      ,
+                        Group = a.Group
+                      ,
+                        Type = a.Type
+                      ,
+                        Order = a.Order
+                      ,
+                        ForView = a.ForView
+                    })
+                    ;
+                    // var query = _table_ColumnsDetailRepository.GetAll().AsNoTracking()
+                    ////模糊搜索TableName
+                    //.WhereIf(!input.TableName.IsNullOrWhiteSpace(), a => a.TableName == input.TableName)
+                    //.WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a => a.RoleName == input.RoleName)
+                    //.Include(a => a.IsDropDownList)
+                    //;
+                    count = await query.CountAsync();
+                    table_ColumnsList = await query
+                     .OrderBy(input.Sorting).AsNoTracking()
+                     //.PageBy(input)
+                     .ToListAsync();
+                    _cacheManage.GetCache("TableColumn").Set("TableColumn_" + input.TableName + "_" + AbpSession.RoleName, table_ColumnsList);
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
             }
 
             //Table_ColumnsRowListDto table_Rows = new Table_ColumnsRowListDto() { Table_Columns = new List<Table_Columns>() };
