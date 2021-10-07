@@ -15,7 +15,7 @@ namespace MyProject.TableColumns.Dtos
     /// 的列表DTO
     /// <see cref="Table_Columns"/>
     /// </summary>
-    [AutoMapFrom(typeof(Table_Columns))]
+    [AutoMap(typeof(Table_Columns))]
     public class Table_ColumnsListDto : EntityDto<long>
     {
         /// <summary>

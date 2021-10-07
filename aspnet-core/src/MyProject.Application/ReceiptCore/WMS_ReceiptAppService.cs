@@ -158,7 +158,8 @@ namespace MyProject.ReceiptCore
             // TODO:根据传入的参数添加过滤条件
             var count = await query.CountAsync();
             var wMS_ReceiptList = await query
-            .OrderBy(input.Sorting).AsNoTracking()
+            //.OrderBy(input.Sorting).AsNoTracking()
+            .OrderByDescending(t => t.Id).AsNoTracking()
             .PageBy(input)
             .ToListAsync();
             var wMS_ReceiptListDtos = ObjectMapper.Map<List<WMS_ReceiptListDto>>(wMS_ReceiptList);

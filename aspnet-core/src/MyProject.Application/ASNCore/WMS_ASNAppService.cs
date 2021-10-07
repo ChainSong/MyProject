@@ -177,7 +177,7 @@ namespace MyProject.ASNCore
 
                 var wMS_ASNList = await query
                 //.OrderBy(input.Sorting).AsNoTracking()
-                    .OrderByDescending(t => t.ASNId).AsNoTracking()
+                .OrderByDescending(t => t.ASNId).AsNoTracking()
                 .PageBy(input)
                 .ToListAsync();
 

@@ -98,6 +98,59 @@ namespace MyProject.TableColumns
 
                 var table_ColumnsList = await query
                 //.OrderBy(input.Sorting).AsNoTracking()
+                   .OrderByDescending(t => t.Id).AsNoTracking()
+                .PageBy(input)
+                .ToListAsync();
+
+                var table_ColumnsListDtos = ObjectMapper.Map<List<Table_ColumnsListDto>>(table_ColumnsList);
+
+                return new PagedResultDto<Table_ColumnsListDto>(count, table_ColumnsListDtos);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new PagedResultDto<Table_ColumnsListDto>();
+        }
+
+        /// <summary>
+        /// 获取的不分页列表信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Query)]
+        public async Task<PagedResultDto<Table_ColumnsListDto>> GetAll(GetTable_ColumnssInput input)
+        {
+            try
+            {
+
+                var query = _table_ColumnsRepository.GetAll()
+                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
+                              //模糊搜索RoleName
+                              a.RoleName.Contains(input.RoleName))
+                .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a =>
+
+                              //模糊搜索TableName
+                              a.TableName.Contains(input.TableName))
+                .WhereIf(input.TenantId != 0, a =>
+                                //模糊搜索TenantId
+                                a.TenantId == (input.TenantId))
+                 .WhereIf(input.CustomerId != 0, a =>
+                                //模糊搜索CustomerId
+                                a.CustomerId == (input.CustomerId))
+                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
+                              //模糊搜索RoleName
+                              a.RoleName.Contains(input.RoleName)
+                );
+                // TODO:根据传入的参数添加过滤条件
+
+                var count = await query.CountAsync();
+
+                var table_ColumnsList = await query
+                .OrderByDescending(t => t.Id).AsNoTracking()
+                //.OrderBy(input.Sorting).AsNoTracking()
                 //.PageBy(input)
                 .ToListAsync();
 
@@ -108,7 +161,7 @@ namespace MyProject.TableColumns
             }
             catch (Exception ex)
             {
-                 
+
             }
             return new PagedResultDto<Table_ColumnsListDto>();
         }

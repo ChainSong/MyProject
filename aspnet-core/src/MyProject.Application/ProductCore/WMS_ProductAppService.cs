@@ -455,7 +455,8 @@ namespace MyProject.ProductCore
             var count = await query.CountAsync();
 
             var wMS_ProductList = await query
-            .OrderBy(input.Sorting).AsNoTracking()
+            //.OrderBy(input.Sorting).AsNoTracking()
+            .OrderByDescending(t => t.Id).AsNoTracking()
             .PageBy(input)
             .ToListAsync();
 

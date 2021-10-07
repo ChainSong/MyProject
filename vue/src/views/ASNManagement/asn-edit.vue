@@ -207,6 +207,8 @@ export default class asnEdit extends AbpBase {
   detail: Detail = new Detail();
   details: Array<Detail> = new Array<Detail>();
   detailDatas = { line: null, details: [new Detail()] };
+  headerRule = {};
+  detailRule = {};
   created() {
     this.gettableColumn();
   }
@@ -225,7 +227,7 @@ export default class asnEdit extends AbpBase {
         ) as Array<TableColumns>;
         this.tableColumnHeaders.forEach((a) => {
           if (a.validation == "Required")
-            this.rule[a.dbColumnName] = [
+            this.headerRule[a.dbColumnName] = [
               {
                 required: true,
                 message: this.L("FieldIsRequired", undefined, a.displayName),
@@ -248,7 +250,7 @@ export default class asnEdit extends AbpBase {
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
           if (a.validation == "Required")
-            this.rule[a.dbColumnName] = [
+            this.detailRule[a.dbColumnName] = [
               {
                 required: true,
                 message: this.L("FieldIsRequired", undefined, a.displayName),
@@ -313,15 +315,15 @@ export default class asnEdit extends AbpBase {
     //     }
     // })
   }
-  rule = {
-    asnCode: [
-      {
-        required: true,
-        message: this.L("FieldIsRequired", undefined, this.L("asnCode")),
-        trigger: "blur",
-      },
-    ],
-  };
+  // rule = {
+  //   asnCode: [
+  //     {
+  //       required: true,
+  //       message: this.L("FieldIsRequired", undefined, this.L("asnCode")),
+  //       trigger: "blur",
+  //     },
+  //   ],
+  // };
 }
 </script>
  
