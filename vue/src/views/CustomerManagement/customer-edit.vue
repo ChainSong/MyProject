@@ -18,7 +18,7 @@
               :label="i.displayName"
               v-if="i.isCreate"
               v-bind:disabled="i.isUpdate == 1"
-              style="width: 100%"
+              style="width: 90%"
               :prop="i.dbColumnName"
             >
               <template v-if="i.type == 'TextBox'">
@@ -45,9 +45,9 @@
                 >
                   <el-option
                     v-for="item in i.table_ColumnsDetails"
-                    :key="item.codeN"
+                    :key="item.codeInt"
                     :label="item.name"
-                    :value="item.codeN"
+                    :value="item.codeInt"
                   >
                   </el-option>
                 </el-select>
@@ -128,9 +128,9 @@
                       >
                         <el-option
                           v-for="item in v.table_ColumnsDetails"
-                          :key="item.code"
+                          :key="item.codeStr"
                           :label="item.name"
-                          :value="item.code"
+                          :value="item.codeStr"
                         >
                         </el-option>
                       </el-select>
@@ -218,7 +218,7 @@ export default class CustomerEdit extends AbpBase {
           localStorage.getItem(this.tableColumnHeader.tableName)
         ) as Array<TableColumns>;
         this.tableColumnHeaders.forEach((a) => {
-          if (a.validation == "Required"){
+         if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
             this.headerRule[a.dbColumnName] = [
               {
                 required: true,
@@ -242,7 +242,7 @@ export default class CustomerEdit extends AbpBase {
           localStorage.getItem(this.tableColumnDetail.tableName)
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
-          if (a.validation == "Required"){
+          if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
             this.detailRule[a.dbColumnName] = [
               {
                 required: true,

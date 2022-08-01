@@ -16,11 +16,11 @@ namespace MyProject.CustomDtoAutoMapper
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap <WMS_Inventory,WMS_InventoryListDto>();
-            configuration.CreateMap <WMS_InventoryListDto,WMS_Inventory>();
+            configuration.CreateMap <WMS_Inventory_Used,WMS_InventoryListDto>();
+            configuration.CreateMap <WMS_InventoryListDto,WMS_Inventory_Used>();
 
-            configuration.CreateMap <WMS_InventoryEditDto,WMS_Inventory>();
-            configuration.CreateMap <WMS_Inventory,WMS_InventoryEditDto>();
+            configuration.CreateMap <WMS_InventoryEditDto,WMS_Inventory_Used>();
+            configuration.CreateMap <WMS_Inventory_Used,WMS_InventoryEditDto>();
 					 
 							//// custom codes
 									

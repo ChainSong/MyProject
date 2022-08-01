@@ -1,6 +1,4 @@
 
-
-// ReSharper disable once CheckNamespace
 namespace MyProject.Authorization
 {
 	/// <summary>
@@ -10,47 +8,42 @@ namespace MyProject.Authorization
 	public static  class WMS_ASNPermissions
 	{
 		/// <summary>
-		/// WMS_ASN权限节点
+		/// 【WMS_ASN】权限节点
 		///</summary>
-		public const string WMS_ASN_Node = "Pages.WMS_ASN";
+		public const string Node = "Pages.WMS_ASN";
 
 		/// <summary>
-		/// WMS_ASN查询授权
+		/// 【WMS_ASN】查询授权
 		///</summary>
-		public const string WMS_ASN_Query = WMS_ASN_Node+".Query";
+		public const string Query = "Pages.WMS_ASN.Query";
 
 		/// <summary>
-		/// WMS_ASN创建权限
+		/// 【WMS_ASN】创建权限
 		///</summary>
-		public const string WMS_ASN_Create = WMS_ASN_Node+".Create";
+		public const string Create = "Pages.WMS_ASN.Create";
 
 		/// <summary>
-		/// WMS_ASN修改权限
+		/// 【WMS_ASN】修改权限
 		///</summary>
-		public const string WMS_ASN_Edit = WMS_ASN_Node+".Edit";
+		public const string Edit = "Pages.WMS_ASN.Edit";
 
 		/// <summary>
-		/// WMS_ASN删除权限
+		/// 【WMS_ASN】删除权限
 		///</summary>
-		public const string WMS_ASN_Delete = WMS_ASN_Node+".Delete";
+		public const string Delete = "Pages.WMS_ASN.Delete";
 
         /// <summary>
-		/// WMS_ASN批量删除权限
+		/// 【WMS_ASN】批量删除权限
 		///</summary>
-		public const string WMS_ASN_BatchDelete = WMS_ASN_Node+".BatchDelete";
+		public const string BatchDelete = "Pages.WMS_ASN.BatchDelete";
 
 		/// <summary>
-		/// WMS_ASN导出Excel
+		/// 【WMS_ASN】导出Excel
 		///</summary>
-		public const string WMS_ASN_ExportExcel=WMS_ASN_Node+".ExportExcel";
+		public const string ExportExcel="Pages.WMS_ASN.ExportExcel";
 
-		 
-		 
-							//// custom codes
-									
-							
-
-							//// custom codes end
+		/* 以下可以自定义权限 */ 
+		
          
     }
 

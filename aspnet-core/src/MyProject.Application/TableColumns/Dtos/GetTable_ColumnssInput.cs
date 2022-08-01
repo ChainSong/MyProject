@@ -5,9 +5,9 @@ using MyProject.TableColumns;
 
 namespace MyProject.TableColumns.Dtos
 {
-    /// <summary>
-    /// 获取的传入参数Dto
-    /// </summary>
+	/// <summary>
+	/// 获取的传入参数Dto
+	/// </summary>
     public class GetTable_ColumnssInput : PagedSortedAndFilteredInputDto, IShouldNormalize
     {
 
@@ -21,10 +21,16 @@ namespace MyProject.TableColumns.Dtos
                 Sorting = "Id";
             }
         }
+		
+							//// custom codes
+									
+							
 
-        //// custom codes
+									
+							
 
-        public long TenantId { get; set; }
+
+        public int TenantId { get; set; }
         public long ProjectId { get; set; }
         public string RoleName { get; set; }
         public long CustomerId { get; set; }
@@ -49,6 +55,8 @@ namespace MyProject.TableColumns.Dtos
         public int Order { get; set; }
         public int ForView { get; set; } 
 
-        //// custom codes end
+        
+							
+							//// custom codes end
     }
 }

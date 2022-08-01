@@ -37,42 +37,35 @@ namespace MyProject.Authorization
 
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
-
-            //// 在这里配置了Table_Columns 的权限。
-            //var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
-            //var administration = pages.Children.FirstOrDefault(p => p.Name == AppPermissions.Pages_Administration) ?? pages.CreateChildPermission(Table_ColumnsPermissions.Pages_Administration, L("Administration"));
-            //var table_Columns = administration.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Node, L("Table_Columns"));
-            //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Query, L("QueryTable_Columns"));
-            //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Create, L("CreateTable_Columns"));
-            //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Edit, L("EditTable_Columns"));
-            //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Delete, L("DeleteTable_Columns"));
-            //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_BatchDelete, L("BatchDeleteTable_Columns"));
-            //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_ExportExcel, L("ExportToExcel"));
-
-
-            //// custom codes
-
-
-
-            //// custom codes end
+            throw new System.NotImplementedException();
         }
 
-        //private static ILocalizableString L(string name)
-        //{
-        //    return new LocalizableString(name, AppConsts.LocalizationSourceName);
-        //}
+        //		public override void SetPermissions(IPermissionDefinitionContext context)
+        //		{
+        //			// 在这里配置了Table_Columns 的权限。
+        //			var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
-        //public override void SetPermissions(IPermissionDefinitionContext context)
-        //{
-        //    context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
-        //    context.CreatePermission(PermissionNames.Pages_Users_Activation, L("UsersActivation"));
-        //    context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
-        //    context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
-        //}
+        //			var administration = pages.Children.FirstOrDefault(p => p.Name == AppPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 
-        //private static ILocalizableString L(string name)
-        //{
-        //    return new LocalizableString(name, MyProjectConsts.LocalizationSourceName);
-        //}
+        //			var table_Columns = administration.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Node , L("Table_Columns"));
+        //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Query, L("QueryTable_Columns"));
+        //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Create, L("CreateTable_Columns"));
+        //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Edit, L("EditTable_Columns"));
+        //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_Delete, L("DeleteTable_Columns"));
+        //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_BatchDelete, L("BatchDeleteTable_Columns"));
+        //table_Columns.CreateChildPermission(Table_ColumnsPermissions.Table_Columns_ExportExcel, L("ExportToExcel"));
+
+
+        //							//// custom codes
+
+
+
+        //							//// custom codes end
+        //		}
+
+        //		private static ILocalizableString L(string name)
+        //		{
+        //			return new LocalizableString(name, AppConsts.LocalizationSourceName);
+        //		}
     }
 }

@@ -1,6 +1,4 @@
 
-
-// ReSharper disable once CheckNamespace
 namespace MyProject.Authorization
 {
 	/// <summary>
@@ -10,47 +8,42 @@ namespace MyProject.Authorization
 	public static  class WMS_ReceiptDetailPermissions
 	{
 		/// <summary>
-		/// WMS_ReceiptDetail权限节点
+		/// 【WMS_ReceiptDetail】权限节点
 		///</summary>
-		public const string WMS_ReceiptDetail_Node = "Pages.WMS_ReceiptDetail";
+		public const string Node = "Pages.WMS_ReceiptDetail";
 
 		/// <summary>
-		/// WMS_ReceiptDetail查询授权
+		/// 【WMS_ReceiptDetail】查询授权
 		///</summary>
-		public const string WMS_ReceiptDetail_Query = WMS_ReceiptDetail_Node+".Query";
+		public const string Query = "Pages.WMS_ReceiptDetail.Query";
 
 		/// <summary>
-		/// WMS_ReceiptDetail创建权限
+		/// 【WMS_ReceiptDetail】创建权限
 		///</summary>
-		public const string WMS_ReceiptDetail_Create = WMS_ReceiptDetail_Node+".Create";
+		public const string Create = "Pages.WMS_ReceiptDetail.Create";
 
 		/// <summary>
-		/// WMS_ReceiptDetail修改权限
+		/// 【WMS_ReceiptDetail】修改权限
 		///</summary>
-		public const string WMS_ReceiptDetail_Edit = WMS_ReceiptDetail_Node+".Edit";
+		public const string Edit = "Pages.WMS_ReceiptDetail.Edit";
 
 		/// <summary>
-		/// WMS_ReceiptDetail删除权限
+		/// 【WMS_ReceiptDetail】删除权限
 		///</summary>
-		public const string WMS_ReceiptDetail_Delete = WMS_ReceiptDetail_Node+".Delete";
+		public const string Delete = "Pages.WMS_ReceiptDetail.Delete";
 
         /// <summary>
-		/// WMS_ReceiptDetail批量删除权限
+		/// 【WMS_ReceiptDetail】批量删除权限
 		///</summary>
-		public const string WMS_ReceiptDetail_BatchDelete = WMS_ReceiptDetail_Node+".BatchDelete";
+		public const string BatchDelete = "Pages.WMS_ReceiptDetail.BatchDelete";
 
 		/// <summary>
-		/// WMS_ReceiptDetail导出Excel
+		/// 【WMS_ReceiptDetail】导出Excel
 		///</summary>
-		public const string WMS_ReceiptDetail_ExportExcel=WMS_ReceiptDetail_Node+".ExportExcel";
+		public const string ExportExcel="Pages.WMS_ReceiptDetail.ExportExcel";
 
-		 
-		 
-							//// custom codes
-									
-							
-
-							//// custom codes end
+		/* 以下可以自定义权限 */ 
+		
          
     }
 

@@ -69,16 +69,18 @@
             style="width: 100%"
             @row-dblclick="handleEdit"
           >
-            <el-table-column prop="tableName" label="表名" width="180">
+            <el-table-column prop="tableName" label="表名" >
             </el-table-column>
-            <el-table-column prop="dbColumnName" label="字段名称" width="180">
-            </el-table-column>
+            <!-- <el-table-column prop="dbColumnName" label="字段名称" width="180">
+            </el-table-column> -->
             <el-table-column
-              prop="displayName"
+              prop="tableNameCH"
               label="中文名称"
-              width="180"
             ></el-table-column>
-            <el-table-column prop="isCreate" label="添加"> </el-table-column>
+             <el-table-column  label="操作">
+               <el-button @click="cleanCache(scope.row)" type="text" size="small">清理缓存</el-button> 
+              </el-table-column>
+            <!-- <el-table-column prop="isCreate" label="添加"> </el-table-column>
             <el-table-column prop="isSearchCondition" label="查询条件">
             </el-table-column>
             <el-table-column prop="isShowInList" label="查询列表">
@@ -87,7 +89,7 @@
             <el-table-column prop="order" label="排序"> </el-table-column>
             <el-table-column prop="validation" label="验证"> </el-table-column>
             <el-table-column prop="type" label="类型"> </el-table-column>
-            <el-table-column prop="associated" label="下拉"> </el-table-column>
+            <el-table-column prop="associated" label="下拉"> </el-table-column> -->
           </el-table>
           <Page
             show-sizer
@@ -150,7 +152,15 @@ export default class TablecolumnsList extends AbpBase {
     this.$store.commit("tableColumns/setPageSize", pagesize);
     this.getpage();
   }
-
+  cleanCache(row)
+  {
+    this.$store
+      .dispatch({
+        type: "tableColumns/cleanCache",
+        data:row,
+      })
+      
+  }
   // edit(){
   //   this.$store.commit("tablecolumns/edit", this.tableColumn);
   //   this.editModalShow = true;
@@ -162,8 +172,8 @@ export default class TablecolumnsList extends AbpBase {
     //  {
     //    this.editModalShow = true;
     //  }
-    // console.log("row");
-    // console.log(row);
+      console.log("row");
+     console.log(row);
     this.tableColumn.tableName=row.tableName;
     this.get();
     this.$store.commit("tableColumns/edit", row);

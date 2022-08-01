@@ -25,10 +25,10 @@ namespace MyProject.TableColumns
         Task<PagedResultDto<Table_ColumnsListDto>> GetPaged(GetTable_ColumnssInput input);
 
 
-        /// <summary>
-        /// 通过指定id获取ListDto信息
-        /// </summary>
-        Task<Table_ColumnsListDto> GetById(EntityDto<long> input);
+		/// <summary>
+		/// 通过指定id获取ListDto信息
+		/// </summary>
+		Task<Table_ColumnsListDto> GetById(EntityDto<long> input);
 
 
         /// <summary>
@@ -54,21 +54,18 @@ namespace MyProject.TableColumns
         /// <returns></returns>
         Task Delete(EntityDto<long> input);
 
-
+		
         /// <summary>
         /// 批量删除
         /// </summary>
         Task BatchDelete(List<long> input);
 
 
+		
+							//// custom codes
+									
+							
 
-
-        /// <summary>
-        /// 导出为excel文件
-        /// </summary>
-        /// <returns></returns>
-        //Task<FileDto> GetToExcelFile();
-        //// custom codes
-        //// custom codes end
+							//// custom codes end
     }
 }

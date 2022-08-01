@@ -1,6 +1,4 @@
 
-
-// ReSharper disable once CheckNamespace
 namespace MyProject.Authorization
 {
 	/// <summary>
@@ -10,47 +8,42 @@ namespace MyProject.Authorization
 	public static  class WMS_ReceiptReceivingPermissions
 	{
 		/// <summary>
-		/// WMS_ReceiptReceiving权限节点
+		/// 【WMS_ReceiptReceiving】权限节点
 		///</summary>
-		public const string WMS_ReceiptReceiving_Node = "Pages.WMS_ReceiptReceiving";
+		public const string Node = "Pages.WMS_ReceiptReceiving";
 
 		/// <summary>
-		/// WMS_ReceiptReceiving查询授权
+		/// 【WMS_ReceiptReceiving】查询授权
 		///</summary>
-		public const string WMS_ReceiptReceiving_Query = WMS_ReceiptReceiving_Node+".Query";
+		public const string Query = "Pages.WMS_ReceiptReceiving.Query";
 
 		/// <summary>
-		/// WMS_ReceiptReceiving创建权限
+		/// 【WMS_ReceiptReceiving】创建权限
 		///</summary>
-		public const string WMS_ReceiptReceiving_Create = WMS_ReceiptReceiving_Node+".Create";
+		public const string Create = "Pages.WMS_ReceiptReceiving.Create";
 
 		/// <summary>
-		/// WMS_ReceiptReceiving修改权限
+		/// 【WMS_ReceiptReceiving】修改权限
 		///</summary>
-		public const string WMS_ReceiptReceiving_Edit = WMS_ReceiptReceiving_Node+".Edit";
+		public const string Edit = "Pages.WMS_ReceiptReceiving.Edit";
 
 		/// <summary>
-		/// WMS_ReceiptReceiving删除权限
+		/// 【WMS_ReceiptReceiving】删除权限
 		///</summary>
-		public const string WMS_ReceiptReceiving_Delete = WMS_ReceiptReceiving_Node+".Delete";
+		public const string Delete = "Pages.WMS_ReceiptReceiving.Delete";
 
         /// <summary>
-		/// WMS_ReceiptReceiving批量删除权限
+		/// 【WMS_ReceiptReceiving】批量删除权限
 		///</summary>
-		public const string WMS_ReceiptReceiving_BatchDelete = WMS_ReceiptReceiving_Node+".BatchDelete";
+		public const string BatchDelete = "Pages.WMS_ReceiptReceiving.BatchDelete";
 
 		/// <summary>
-		/// WMS_ReceiptReceiving导出Excel
+		/// 【WMS_ReceiptReceiving】导出Excel
 		///</summary>
-		public const string WMS_ReceiptReceiving_ExportExcel=WMS_ReceiptReceiving_Node+".ExportExcel";
+		public const string ExportExcel="Pages.WMS_ReceiptReceiving.ExportExcel";
 
-		 
-		 
-							//// custom codes
-									
-							
-
-							//// custom codes end
+		/* 以下可以自定义权限 */ 
+		
          
     }
 

@@ -95,7 +95,7 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'TableColumns', permission: 'Pages.Table.Columns', meta: { title: 'TableColumns' }, name: 'TableColumns', component: () => import('../views/TableColumnsManagement/tablecolumns-list.vue') }
+        { path: 'TableColumns', permission: 'Pages.TableColumns', meta: { title: 'TableColumns' }, name: 'TableColumns', component: () => import('../views/TableColumnsManagement/tablecolumns-list.vue') }
     ]
 }]
 export const routers = [

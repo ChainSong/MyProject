@@ -1,6 +1,4 @@
 
-
-// ReSharper disable once CheckNamespace
 namespace MyProject.Authorization
 {
 	/// <summary>
@@ -10,47 +8,42 @@ namespace MyProject.Authorization
 	public static  class WMS_ProductPermissions
 	{
 		/// <summary>
-		/// WMS_Product权限节点
+		/// 【WMS_Product】权限节点
 		///</summary>
-		public const string WMS_Product_Node = "Pages.WMS_Product";
+		public const string Node = "Pages.WMS_Product";
 
 		/// <summary>
-		/// WMS_Product查询授权
+		/// 【WMS_Product】查询授权
 		///</summary>
-		public const string WMS_Product_Query = "Pages.WMS_Product.Query";
+		public const string Query = "Pages.WMS_Product.Query";
 
 		/// <summary>
-		/// WMS_Product创建权限
+		/// 【WMS_Product】创建权限
 		///</summary>
-		public const string WMS_Product_Create = "Pages.WMS_Product.Create";
+		public const string Create = "Pages.WMS_Product.Create";
 
 		/// <summary>
-		/// WMS_Product修改权限
+		/// 【WMS_Product】修改权限
 		///</summary>
-		public const string WMS_Product_Edit = "Pages.WMS_Product.Edit";
+		public const string Edit = "Pages.WMS_Product.Edit";
 
 		/// <summary>
-		/// WMS_Product删除权限
+		/// 【WMS_Product】删除权限
 		///</summary>
-		public const string WMS_Product_Delete = "Pages.WMS_Product.Delete";
+		public const string Delete = "Pages.WMS_Product.Delete";
 
         /// <summary>
-		/// WMS_Product批量删除权限
+		/// 【WMS_Product】批量删除权限
 		///</summary>
-		public const string WMS_Product_BatchDelete = "Pages.WMS_Product.BatchDelete";
+		public const string BatchDelete = "Pages.WMS_Product.BatchDelete";
 
 		/// <summary>
-		/// WMS_Product导出Excel
+		/// 【WMS_Product】导出Excel
 		///</summary>
-		public const string WMS_Product_ExportExcel="Pages.WMS_Product.ExportExcel";
+		public const string ExportExcel="Pages.WMS_Product.ExportExcel";
 
-		 
-		 
-							//// custom codes
-									
-							
-
-							//// custom codes end
+		/* 以下可以自定义权限 */ 
+		
          
     }
 

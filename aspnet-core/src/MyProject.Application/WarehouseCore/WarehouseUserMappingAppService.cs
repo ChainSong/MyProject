@@ -19,6 +19,7 @@ using MyProject.WarehouseCore.Dtos;
 //using MyProject.WarehouseCore.Exporting;
 using MyProject.WarehouseCore.DomainService;
 using MyProject.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyProject.WarehouseCore
 {
@@ -56,7 +57,8 @@ namespace MyProject.WarehouseCore
         ///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Query)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Query)]
+        [HttpPost]
         public async Task<PagedResultDto<WarehouseUserMappingListDto>> GetPaged(GetWarehouseUserMappingsInput input)
         {
 
@@ -92,7 +94,8 @@ namespace MyProject.WarehouseCore
         /// <summary>
         /// 通过指定id获取WarehouseUserMappingListDto信息
         /// </summary>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Query)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Query)]
+        [HttpGet]
         public async Task<WarehouseUserMappingListDto> GetById(EntityDto<long> input)
         {
             var entity = await _warehouseUserMappingRepository.GetAsync(input.Id);
@@ -106,7 +109,8 @@ namespace MyProject.WarehouseCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Create, WarehouseUserMappingPermissions.WarehouseUserMapping_Edit)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Create, WarehouseUserMappingPermissions.WarehouseUserMapping_Edit)]
+        [HttpGet]
         public async Task<GetWarehouseUserMappingForEditOutput> GetForEdit(NullableIdDto<long> input)
         {
             var output = new GetWarehouseUserMappingForEditOutput();
@@ -136,7 +140,8 @@ namespace MyProject.WarehouseCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Create, WarehouseUserMappingPermissions.WarehouseUserMapping_Edit)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Create, WarehouseUserMappingPermissions.WarehouseUserMapping_Edit)]
+        [HttpPost]
         public async Task CreateOrUpdate(CreateOrUpdateWarehouseUserMappingInput input)
         {
 
@@ -154,7 +159,7 @@ namespace MyProject.WarehouseCore
         /// <summary>
         /// 新增
         /// </summary>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Create)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Create)]
         protected virtual async Task<WarehouseUserMappingEditDto> Create(WarehouseUserMappingEditDto input)
         {
             //TODO:新增前的逻辑判断，是否允许新增
@@ -170,7 +175,7 @@ namespace MyProject.WarehouseCore
         /// <summary>
         /// 编辑
         /// </summary>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Edit)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Edit)]
         protected virtual async Task Update(WarehouseUserMappingEditDto input)
         {
             //TODO:更新前的逻辑判断，是否允许更新
@@ -189,7 +194,8 @@ namespace MyProject.WarehouseCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Delete)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_Delete)]
+        [HttpGet]
         public async Task Delete(EntityDto<long> input)
         {
             //TODO:删除前的逻辑判断，是否允许删除
@@ -201,7 +207,8 @@ namespace MyProject.WarehouseCore
         /// <summary>
         /// 批量删除WarehouseUserMapping的方法
         /// </summary>
-        [AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_BatchDelete)]
+        //[AbpAuthorize(WarehouseUserMappingPermissions.WarehouseUserMapping_BatchDelete)]
+        [HttpPost]
         public async Task BatchDelete(List<long> input)
         {
             // TODO:批量删除前的逻辑判断，是否允许删除

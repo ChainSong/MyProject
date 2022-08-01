@@ -1,10 +1,10 @@
 
-using System.Collections.Generic;
 using Abp.Application.Services.Dto;
-using MyProject.ReceiptCore;
+using Abp.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProject.ReceiptCore.Dtos
-{
+{	
 	/// <summary>
 	/// 读取可编辑的Dto
 	/// </summary>
@@ -13,9 +13,6 @@ namespace MyProject.ReceiptCore.Dtos
 
         public WMS_ReceiptDetailEditDto WMS_ReceiptDetail { get; set; }
 
-							//// custom codes		
-							
-
-							//// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

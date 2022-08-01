@@ -1,20 +1,19 @@
 
-
-using System.Collections.Generic;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using MyProject.ReceiptReceivingCore;
 
 namespace MyProject.ReceiptReceivingCore.Dtos
-{
-    public class CreateOrUpdateWMS_ReceiptReceivingInput
+{	
+	
+    /// <summary>
+	/// WMS_ReceiptReceiving的列表DTO
+	/// </summary>
+	public class CreateOrUpdateWMS_ReceiptReceivingInput
     {
         [Required]
         public WMS_ReceiptReceivingEditDto WMS_ReceiptReceiving { get; set; }
-							
-							//// custom codes
-									
-							
 
-							//// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

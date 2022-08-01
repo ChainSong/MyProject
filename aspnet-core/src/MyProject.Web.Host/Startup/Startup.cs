@@ -20,6 +20,9 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using MyProject.Web.Host.WebSocketCommon;
+using Nacos;
+using Nacos.V2.DependencyInjection;
+using Nacos.AspNetCore.V2;
 
 namespace MyProject.Web.Host.Startup
 {
@@ -31,14 +34,45 @@ namespace MyProject.Web.Host.Startup
 
         private readonly IConfigurationRoot _appConfiguration;
 
-        public Startup(IWebHostEnvironment env)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             _appConfiguration = env.GetAppConfiguration();
+            Configuration = configuration;
         }
+        public IConfiguration Configuration { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-             
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddNacosAspNet(Configuration);
+            //services.AddNacosAspNetCore(Configuration);
+            //使用微服务 将接口注册到 Nacos
+            services.AddNacosAspNet(Configuration);
+            //services.AddNacosV2Config(x =>
+            //{
+            //    //http://101.43.58.29:8848/
+            //    x.ServerAddresses = new System.Collections.Generic.List<string> { "http://101.43.58.29:8848/" };
+            //    x.EndPoint = "";
+            //    x.Namespace = "public";
+
+            //    /*x.UserName = "nacos";
+            //   x.Password = "nacos";*/
+
+            //    // swich to use http or rpc
+            //    x.ConfigUseRpc = true;
+            //});
+
+            //services.AddNacosV2Naming(x =>
+            //{
+            //    x.ServerAddresses = new System.Collections.Generic.List<string> { "http://101.43.58.29:8848/" };
+            //    x.EndPoint = "";
+            //    x.Namespace = "public";
+            //    /*x.UserName = "nacos";
+            //   x.Password = "nacos";*/
+            //    // swich to use http or rpc
+            //    x.NamingUseRpc = true;
+            //});
+
             //MVC
             services.AddControllersWithViews(
                 options =>

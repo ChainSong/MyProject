@@ -1,24 +1,19 @@
 
-
-using System.Collections.Generic;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using MyProject.CustomerCore;
 
 namespace MyProject.CustomerCore.Dtos
-{
-    public class CreateOrUpdateCustomerInput
+{	
+	
+    /// <summary>
+	/// Customer的列表DTO
+	/// </summary>
+	public class CreateOrUpdateCustomerInput
     {
         [Required]
         public CustomerEditDto Customer { get; set; }
 
-
-        [Required]
-        public List<CustomerDetailEditDto> CustomerDetails { get; set; }
-
-        //// custom codes
-
-
-
-        //// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

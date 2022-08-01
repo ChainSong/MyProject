@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyProject.TableColumns
 {
+
     public class Table_Columns : Entity<long>, IHasCreationTime
     {
 

@@ -27,14 +27,14 @@ namespace MyProject.InventoryCore.DomainService
 		/// </summary>
 		/// <param name="entity">实体</param>
 		/// <returns></returns>
-		Task<WMS_Inventory> CreateAsync(WMS_Inventory entity);
+		Task<WMS_Inventory_Used> CreateAsync(WMS_Inventory_Used entity);
 
 		/// <summary>
 		/// 修改
 		/// </summary>
 		/// <param name="entity">实体</param>
 		/// <returns></returns>
-		Task UpdateAsync(WMS_Inventory entity);
+		Task UpdateAsync(WMS_Inventory_Used entity);
 
 		/// <summary>
 		/// 删除

@@ -1,20 +1,19 @@
 
-
-using System.Collections.Generic;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using MyProject.ProductCore;
 
 namespace MyProject.ProductCore.Dtos
-{
-    public class CreateOrUpdateWMS_ProductInput
+{	
+	
+    /// <summary>
+	/// WMS_Product的列表DTO
+	/// </summary>
+	public class CreateOrUpdateWMS_ProductInput
     {
         [Required]
         public WMS_ProductEditDto WMS_Product { get; set; }
-							
-							//// custom codes
-									
-							
 
-							//// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

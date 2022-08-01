@@ -13,7 +13,7 @@ namespace MyProject.CustomerCore
 
     public class Customer : Entity<long>, IHasCreationTime
     {
-        //public long CustomerID { get; set; }
+      
         public long ProjectId { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }

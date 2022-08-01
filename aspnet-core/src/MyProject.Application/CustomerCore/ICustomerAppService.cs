@@ -1,23 +1,21 @@
 
 using System;
+using Abp.Runtime.Validation;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-//using L._52ABP.Application.Dtos;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyProject.CustomerCore.Dtos;
+using System.Collections.Generic;
+
+using MyProject.Dtos;
 using MyProject.CustomerCore;
-
-
+using MyProject.CustomerCore.Dtos;
 
 namespace MyProject.CustomerCore
 {
-    /// <summary>
-    /// 应用层服务的接口方法
-    ///</summary>
-    public interface ICustomerAppService : IApplicationService
-    {
-        /// <summary>
+	public interface ICustomerAppService : IApplicationService
+	{
+        #region -------------------------------------------------辅助工具生成---------------------------------------------- 
+		/// <summary>
 		/// 获取的分页列表集合
 		///</summary>
         /// <param name="input"></param>
@@ -30,14 +28,12 @@ namespace MyProject.CustomerCore
 		/// </summary>
 		Task<CustomerListDto> GetById(EntityDto<long> input);
 
-
         /// <summary>
         /// 返回实体的EditDto
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<GetCustomerForEditOutput> GetForEdit(NullableIdDto<long> input);
-
 
         /// <summary>
         /// 添加或者修改的公共方法
@@ -60,12 +56,10 @@ namespace MyProject.CustomerCore
         /// </summary>
         Task BatchDelete(List<long> input);
 
+        #endregion
 
-		
-							//// custom codes
-									
-							
-
-							//// custom codes end
-    }
+        #region -------------------------------------------------用户自定义------------------------------------------------
+		/*请在此扩展应用服务接口*/
+		#endregion
+	}
 }

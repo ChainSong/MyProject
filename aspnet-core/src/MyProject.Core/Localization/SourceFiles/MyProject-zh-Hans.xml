@@ -100,7 +100,11 @@
     <text name="ASN">预入库单</text>
     <text name="Receipt">入库单</text>
     <text name="TableColumns">表字段</text>
-    
+    <text name="EditTableColumns">编辑表字段</text>
+    <text name="Query">查询</text>
+    <text name="Export">导出</text>
+    <text name="Import">导入</text> 
+
   </texts>
 </localizationDictionary>
 

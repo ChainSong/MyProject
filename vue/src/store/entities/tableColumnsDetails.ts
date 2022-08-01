@@ -2,8 +2,8 @@ import Entity from './entity'
 
 export default class tableColumnsDetails extends Entity<number>{
   
-    codeN: number;
-    code: string;
+    codeInt: number;
+    codeStr: string;
     name: string;
     type: string;
     associated: string;

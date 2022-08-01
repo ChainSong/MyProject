@@ -10,11 +10,11 @@ namespace MyProject.TableColumns.Dtos
     {
         [Required]
         public Table_ColumnsEditDto Table_Columns { get; set; }
+							
+							//// custom codes
+									
+							
 
-        //// custom codes
-
-
-
-        //// custom codes end
+							//// custom codes end
     }
 }

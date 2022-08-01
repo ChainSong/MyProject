@@ -1,24 +1,26 @@
 
-# 代码生成器(ABP Code Power Tools )使用说明文档
 
+# SOEI.Faker ABP 开发辅助工具操作手册
+# 感谢 (ABP Code Power Tools ) 开发作者和52ABP的大力推广（保留52ABP 和 ABP Code Power Tools 介绍推广）
+# 代码生成器(ABP Code Power Tools )使用说明文档
+# 目前陕西西安地区ABP的使用业内渐渐多起来，希望大家一同努力进行宣传和团队建设
+
+**松毅软件官方网站：[http://www.soei.com.cn](http://www.soei.com.cn)**
 **52ABP官方网站：[http://www.52abp.com](http://www.52abp.com)**
 
->欢迎您使用 ABP Code Power Tools ，.NET Core 版本。
-开发代码生成器的初衷是为了让大家专注于业务开发，
-而基础设施的地方，由代码生成器实现，节约大家的实现。
-实现提高效率、共赢的局面。
 
-欢迎到：[Github地址](https://github.com/52ABP/52ABP.CodeGenerator) 提供您的脑洞，
-如果合理的功能我会实现哦~
+- 团队采用ABP样板工程进行项目开发工作，之前使用ABP Code Power Tools和自己一些开发习惯问题，着手开发一套自己的插件配合前端，
+本次开发由 松毅软件（http://www.soei.com.cn/），质量架构部提供支持，如有任何问题请联系Email:  huayhy@126.com
 
-## 前端说明:
+编码 SOEI软件,质量架构部，华威
 
-- 前端代码生成的文件文件路径请在MyProject.Application类库中生成的对应实体代码文件中的Client中。
-如Book实体生成的文件夹地址为：D:\\52ABP-PRO\PhoneBooks.Application\Books\Client\NGZorro\中
-打开文件夹中的Readme文件即可。
+FakerSolution  ABP 样板项目 [Github地址](https://github.com/huayhy/FakerSolution)
 
 
-### 配置权限功能
+
+-前端我们采用 VUE 开发，之后会生成关于VUE的代码片段
+
+
 
 如果你选择了**生成权限功能**，请打开MyProject.Application类库中的MyProjectApplicationModule.cs类文件。
 然后复制以下代码到 的PreInitialize 方法中:
@@ -29,7 +31,6 @@ Configuration.Authorization.Providers.Add<WMS_ReceiptReceivingAuthorizationProvi
 ```
 
 
-### 配置AbpAutoMapper
  
 
 请打开MyProject.Application类库中MyProjectApplicationModule.cs中的 PreInitialize 方法中:
@@ -42,33 +43,50 @@ Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
     // ....其他代码
 
     // 只需要复制这一段
-WMS_ReceiptReceivingDtoAutoMapper.CreateMappings(configuration);
+        WMS_ReceiptReceivingDtoAutoMapper.CreateMappings(configuration);
 
     // ....其他代码
 });
 
 ```
-### EntityFrameworkCore功能配置
 
-打开EntityFrameworkCore类库在 **MyProjectDbContext**类文件中添加以下代码段：
+打开EntityFrameworkCore类库在 **MyProjectContext**类文件中添加以下代码段：
 
 ```csharp
-public DbSet<WMS_ReceiptReceiving>  WMS_ReceiptReceivings { get; set; }
+public virtual DbSet<WMS_ReceiptReceiving>  WMS_ReceiptReceivings { get; set; }
 
  ```
 以实现将实体配置到数据库上下文中。
  
 【此步骤选填】如果要使用 EntityFrameworkCore 中的 Fluent API 进行具有最高优先级的配置实体，可添加以下代码到方法```OnModelCreating```中
 
-```csharp
+新的ABP项目如下操作
+
+```csharp 
+
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-   modelBuilder.ApplyConfiguration(new WMS_ReceiptReceivingCfg());
- }
+   modelBuilder.ApplyConfiguration(new  WMS_ReceiptReceivingMapper());
+}
+
+```
+若使用 Faker.Solution 项目或者 SOEI.Solution 
+
+```csharp 
+
+        /// <summary>
+        ///  配置用户表
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected void SetUserTablePrefix(ModelBuilder modelBuilder)
+        {
+            // 代码生成器生成的表实体配置全部添加到这里
+             modelBuilder.ApplyConfiguration(new  WMS_ReceiptReceivingMapper());  // 请将代码配置到这里 
+        }
 
 ```
 
-#### 添加迁移记录
+
 
 如果该实体的属性值未发生改变可以跳过当前小节
 
@@ -77,7 +95,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 添加一条迁移记录
 
 ```
-Add-Migration AddNewWMS_ReceiptReceivingEntity_Migration
+Add-Migration Add_WMS_ReceiptReceivingEntity_Migration
 ```
 
 同步实体文件到数据库中
@@ -85,31 +103,15 @@ Add-Migration AddNewWMS_ReceiptReceivingEntity_Migration
 Update-Database
 ```
 
-接下来配置好多语言功能，然后运行项目后，即可前往前端项目的配置
+由于我们暂时项目用不到没有处理
 
-## 多语言的配置
 
-生成的多语言内容
-在MyProject.Core类库中对应实体下的[多语言配置](WMS_ReceiptReceivingdouyuyan.md)文件中。
 
-## 实体渲染
 
-实体所在文件夹名称
 
-receiptreceivingcore
 
-ReceiptReceivingCore
 
-## 路线图
 
- 目前优先完成SPA 以angular 为主，
-如果你有想法我替你实现前端生成的代码块。
-那么请到github 贴出你的代码段。
-我感兴趣的话，会配合你的。
-
-[https://github.com/52ABP/52ABP.CodeGenerator](https://github.com/52ABP/52ABP.CodeGenerator) 提供您的脑洞，
-
- 
 
 52ABP官方网站：[http://www.52abp.com](http://www.52abp.com)
 

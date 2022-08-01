@@ -90,7 +90,7 @@ Update-Database
 ## 多语言的配置
 
 生成的多语言内容
-在MyProject.Core类库中对应实体下的`douyuyan.md`文件中。
+在MyProject.Core类库中对应实体下的[多语言配置](Table_Columnsdouyuyan.md)文件中。
 
 ## 实体渲染
 
@@ -109,14 +109,7 @@ TableColumns
 
 [https://github.com/52ABP/52ABP.CodeGenerator](https://github.com/52ABP/52ABP.CodeGenerator) 提供您的脑洞，
 
-已完成：
-- [x]SPA版本的前端
-
-待办：
-- [x]暂时搞不定注释，后期想办法，通过配置文件的形式补足
-- [ ]菜单栏问题，如果是MPA版本
-- [ ]MPA版本的前端
-## 推荐内容
+ 
 
 52ABP官方网站：[http://www.52abp.com](http://www.52abp.com)
 

@@ -1,0 +1,447 @@
+
+<page-header [title]="l('ManageTable_Columns')"></page-header>
+
+<nz-card [nzBordered]="false">
+    <div class="mb-md">
+        <div nz-row nzGutter="8">
+            <!-- 模糊搜索框 -->
+            <div nz-col nzSpan="8" nzMd="12" nzXs="24" nzSm="24">
+                <input type="text"
+                       nz-input
+                       [(ngModel)]="filterText"
+                       (keyup.enter)="refresh()"
+                       [placeholder]="l('SearchWithThreeDot')" />
+            </div>
+            <!-- 查询和刷新按钮 -->
+            <div nz-col nzSpan="8" nzMd="12" nzXs="24" nzSm="24">
+                <button nz-button nzType="primary" type="submit" (click)="refresh()">
+                    <span>{{ l('Search') }}</span>
+                </button>
+                <button nz-button nzType="default" type="submit" (click)="refreshGoFirstPage()">
+                    {{ l('Reset') }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mb-md">
+        <!-- 增强型功能按钮位置 如： 添加、批量删除、导出Excel表 -->
+        <div nz-row nzGutter="8">
+            <div nz-col nzSpan="8" nzMd="12" nzXs="24" nzSm="24" class="btn-gutter">
+
+                <button nz-button [nzType]="'primary'" (click)="createOrEdit()">
+                    <i class="iconfont icon-plus"></i>
+                    <span>
+                        {{l("Create")}}
+                    </span>
+                </button>
+                <button nz-button nzType="default" (click)="exportToExcel()">
+                    <i class="iconfont icon-file-excel"></i>
+                    <span>
+                        {{l("ExportToExcel")}}
+                    </span>
+                </button>
+                <ng-container *ngIf="selectedDataItems.length > 0">
+                    <button nz-button [nzType]="'danger'" (click)="batchDelete()">
+                        <i class="iconfont icon-delete"></i>
+                        <span>
+                            {{l("BatchDelete")}}
+                        </span>
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <!-- 多选框 判断选择了多少行数据，以及一个刷新按钮 -->
+    <div class="my-md">
+        <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
+            <ng-template #message>
+                <span [innerHTML]="l('GridSelectedXItemsTips',selectedDataItems.length)"></span>
+                <a (click)="restCheckStatus(dataList)" class="ml-md">
+                    {{l('ClearEmpty')}}
+                </a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="refreshGoFirstPage()">
+                    {{l('Refresh')}}
+                </a>
+            </ng-template>
+        </nz-alert>
+    </div>
+    <!-- 实体的表格内容 -->
+    <div nz-row nzGutter="8" class="my-md">
+        <nz-table #ajaxTable
+                  nzSize="default"
+                  [nzData]="dataList"
+                  [nzTotal]="totalItems"
+                  [(nzPageIndex)]="pageNumber"
+                  [(nzPageSize)]="pageSize"
+                  (nzPageIndexChange)="pageNumberChange()"
+                  [nzPageSizeOptions]="PageSizeOptions"
+                  (nzPageSizeChange)="refresh()"
+                  [nzShowSizeChanger]="true"
+                  [nzShowQuickJumper]="true"
+                  [nzNoResult]="noDataTemplate"
+                  [nzShowTotal]="showTotalTemplate"
+                  [nzFrontPagination]="false"
+                  [nzScroll]="{ x: '1300px', y: '520px' }">
+            <!-- [nzLoading]="isTableLoading" 要开启表格的loading状态，移动代码到上方 -->
+            <!-- 暂无数据组件 -->
+            <ng-template #noDataTemplate>
+                <no-data></no-data>
+            </ng-template>
+            <!-- 分页信息显示 当前 1 页/共 3 页，共 5 条/显示 1-2 条 -->
+            <ng-template #showTotalTemplate let-total let-range="range">
+                {{l('GridFooterDisplayText',pageNumber,totalPages,total,range[0],range[1])}}
+            </ng-template>
+            <!-- 表头 -->
+            <thead (nzSortChange)="gridSort($event)">
+                <tr>
+                    <th nzBreakWord="true"
+                        nzAlign="center"
+                        nzWidth="50px"
+                        nzShowCheckbox
+                        [(nzChecked)]="allChecked"
+                        [nzDisabled]="allCheckboxDisabled"
+                        [nzIndeterminate]="checkboxIndeterminate"
+                        (nzCheckedChange)="checkAll($event)"></th>
+                     <th nzShowSort nzSortKey="RoleName" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsRoleName')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="TableName" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsTableName')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="TableNameCH" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsTableNameCH')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DisplayName" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsDisplayName')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="DbColumnName" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsDbColumnName')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsKey" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsKey')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsSearchCondition" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsSearchCondition')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsHide" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsHide')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsReadOnly" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsReadOnly')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsShowInList" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsShowInList')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsImportColumn" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsImportColumn')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsDropDownList" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsDropDownList')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsCreate" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsCreate')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="IsUpdate" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('IsUpdate')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="SearchConditionOrder" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('SearchConditionOrder')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Group" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsGroup')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Type" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsType')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Order" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Order')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ForView" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('ForView')}}</span>
+
+                     </th>
+                    <th nzShowSort nzSortKey="creationTime" nzWidth="180px" nzAlign="left">
+                        <span>{{l('CreationTime')}}</span>
+                    </th>
+                     <th nzShowSort nzSortKey="TenantId" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('TenantId')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="ProjectId" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('ProjectId')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="CustomerId" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('CustomerId')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Validation" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsValidation')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Associated" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsAssociated')}}</span>
+
+                     </th>
+                     <th nzShowSort nzSortKey="Table_ColumnsDetails" nzWidth="180px" nzAlign="left">
+                                        <span>{{l('Table_ColumnsDetails')}}</span>
+
+                     </th>
+                    <th nzWidth="230px" nzAlign="center">
+                        <span>{{l('Actions')}}</span>
+                    </th>
+                </tr>
+            </thead>
+            <!-- 表格内容 -->
+            <tbody>
+                <tr *ngFor="let item of ajaxTable.data">
+                    <!-- Checkbox多选框 -->
+                    <td nzAlign="center"
+                        nzShowCheckbox
+                        [(nzChecked)]="item.checked"
+                        (nzCheckedChange)="refreshCheckStatus(dataList)"></td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.roleName}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.tableName}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.tableNameCH}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.displayName}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.dbColumnName}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isKey}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isSearchCondition}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isHide}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isReadOnly}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isShowInList}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isImportColumn}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isDropDownList}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isCreate}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.isUpdate}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.searchConditionOrder}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.group}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.type}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.order}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.forView}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.creationTime  |_date}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.tenantId}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.projectId}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.customerId}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.validation}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.associated}}
+                            </span>
+                        </ellipsis>
+                    </td>
+                    <td nzAlign="left">
+                        <ellipsis lines="2" tooltip>
+                            <span>
+                                {{item.table_ColumnsDetails}}
+                            </span>
+                        </ellipsis>
+                    </td>
+
+                    <td>
+                        <!-- 编辑 -->
+                        <ng-container>
+                            <a (click)="createOrEdit(item.id)">
+                                <i class="iconfont icon-edit mr-sm"></i>
+                                <span>{{l('Edit')}}</span>
+                            </a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                        </ng-container>
+                        <!-- 更多 -->
+                        <ng-container>
+                            <a nz-dropdown [nzDropdownMenu]="actionDropdownMenu">
+                                <span>{{ l('More') }}</span>
+                                <i class="iconfont icon-down"></i>
+                            </a>
+                            <nz-dropdown-menu #actionDropdownMenu="nzDropdownMenu">
+                                <ul nz-menu>
+                                    <li nz-menu-item>
+                                        <a (click)="createOrEdit()">
+                                            <i class="iconfont icon-plus"></i>{{ l('Create') }}
+                                        </a>
+                                    </li>
+                                    <li nz-menu-divider></li>
+                                    <!-- 删除 -->
+                                    <li nz-menu-item>
+                                        <a nz-popconfirm
+                                           [nzTitle]="l('ConfirmDeleteWarningMessage')"
+                                           (nzOnConfirm)="delete(item)"
+                                           [nzOkText]="l('Ok')"
+                                           [nzCancelText]="l('Cancel')">
+                                            <i class="iconfont icon-delete mr-sm"></i>
+                                            <span>{{ l('Delete') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nz-dropdown-menu>
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</nz-card>

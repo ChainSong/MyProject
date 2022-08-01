@@ -38,9 +38,9 @@
                 >
                   <el-option
                     v-for="item in i.table_ColumnsDetails"
-                    :key="item.codeN"
+                    :key="item.codeInt"
                     :label="item.name"
-                    :value="item.codeN"
+                    :value="item.codeInt"
                   >
                   </el-option>
                 </el-select>
@@ -226,14 +226,14 @@ export default class asnEdit extends AbpBase {
           localStorage.getItem(this.tableColumnHeader.tableName)
         ) as Array<TableColumns>;
         this.tableColumnHeaders.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
             this.headerRule[a.dbColumnName] = [
               {
                 required: true,
                 message: this.L("FieldIsRequired", undefined, a.displayName),
                 trigger: "blur",
               },
-            ];
+            ];}
         });
       })
       .catch((err) => {
@@ -249,14 +249,14 @@ export default class asnEdit extends AbpBase {
           localStorage.getItem(this.tableColumnDetail.tableName)
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
-          if (a.validation == "Required")
+         if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
             this.detailRule[a.dbColumnName] = [
               {
                 required: true,
                 message: this.L("FieldIsRequired", undefined, a.displayName),
                 trigger: "blur",
               },
-            ];
+            ];}
         });
       })
       .catch((err) => {

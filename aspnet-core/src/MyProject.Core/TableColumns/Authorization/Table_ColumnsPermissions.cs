@@ -17,32 +17,32 @@ namespace MyProject.Authorization
         /// <summary>
         /// Table_Columns查询授权
         ///</summary>
-        public const string Table_Columns_Query = "Pages.Table_Columns.Query";
+        public const string Table_Columns_Query = Table_Columns_Node + ".Query";
 
         /// <summary>
         /// Table_Columns创建权限
         ///</summary>
-        public const string Table_Columns_Create = "Pages.Table_Columns.Create";
+        public const string Table_Columns_Create = Table_Columns_Node + ".Create";
 
         /// <summary>
         /// Table_Columns修改权限
         ///</summary>
-        public const string Table_Columns_Edit = "Pages.Table_Columns.Edit";
+        public const string Table_Columns_Edit = Table_Columns_Node + ".Edit";
 
         /// <summary>
         /// Table_Columns删除权限
         ///</summary>
-        public const string Table_Columns_Delete = "Pages.Table_Columns.Delete";
+        public const string Table_Columns_Delete = Table_Columns_Node + ".Delete";
 
         /// <summary>
 		/// Table_Columns批量删除权限
 		///</summary>
-		public const string Table_Columns_BatchDelete = "Pages.Table_Columns.BatchDelete";
+		public const string Table_Columns_BatchDelete = Table_Columns_Node + ".BatchDelete";
 
         /// <summary>
         /// Table_Columns导出Excel
         ///</summary>
-        public const string Table_Columns_ExportExcel = "Pages.Table_Columns.ExportExcel";
+        public const string Table_Columns_ExportExcel = Table_Columns_Node + ".ExportExcel";
 
 
 

@@ -1,8 +1,8 @@
 
 using Abp.Runtime.Validation;
-using MyProject.Dtos;
+using MyProject;
 using MyProject.ReceiptCore;
-
+using MyProject.Dtos;
 namespace MyProject.ReceiptCore.Dtos
 {
 	/// <summary>
@@ -22,10 +22,8 @@ namespace MyProject.ReceiptCore.Dtos
             }
         }
 		
-							//// custom codes
-									
-							
-
-							//// custom codes end
+		//// 自定义编码开始
+				
+		//// 自定义编码结束
     }
 }

@@ -1,10 +1,10 @@
 
-using System.Collections.Generic;
 using Abp.Application.Services.Dto;
-using MyProject.ASNCore;
+using Abp.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyProject.ASNCore.Dtos
-{
+{	
 	/// <summary>
 	/// 读取可编辑的Dto
 	/// </summary>
@@ -13,9 +13,6 @@ namespace MyProject.ASNCore.Dtos
 
         public WMS_ASNDetailEditDto WMS_ASNDetail { get; set; }
 
-							//// custom codes		
-							
-
-							//// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

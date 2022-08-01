@@ -13,7 +13,7 @@ namespace MyProject.InventoryCore.Dtos
 {	
 	/// <summary>
 	/// 的列表DTO
-	/// <see cref="WMS_Inventory"/>
+	/// <see cref="WMS_Inventory_Used"/>
 	/// </summary>
     public class WMS_InventoryListDto : EntityDto<long>,IHasCreationTime 
     {

@@ -31,9 +31,9 @@
                   >
                     <el-option
                       v-for="item in i.table_ColumnsDetails"
-                      :key="item.code"
+                      :key="item.codeStr"
                       :label="item.name"
-                      :value="item.code"
+                      :value="item.codeStr"
                     >
                     </el-option>
                   </el-select>
@@ -106,9 +106,9 @@
                   >
                     <el-option
                       v-for="item in v.table_ColumnsDetails"
-                      :key="item.codeN"
+                      :key="item.codeInt"
                       :label="item.name"
-                      :value="item.codeN"
+                      :value="item.codeInt"
                     >
                     </el-option>
                   </el-select>

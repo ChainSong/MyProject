@@ -3,35 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 
 
 namespace MyProject.TableColumns.DomainService
 {
-    public interface ITable_ColumnsDetailManager : IDomainService
-    {
+    public interface ITable_ColumnsDetailManager : IDomainService//MyProjectDomainServiceBase, ITable_ColumnsDetailManager
+	{
 
 
-		/// <summary>
-		/// 返回表达式数的实体信息即IQueryable类型
-		/// </summary>
-		/// <returns></returns>
-		IQueryable<Table_ColumnsDetail> QueryTable_ColumnsDetails();
-
-		/// <summary>
-		/// 返回性能更好的IQueryable类型，但不包含EF Core跟踪标记
-		/// </summary>
-		/// <returns></returns>
-
-		IQueryable<Table_ColumnsDetail> QueryTable_ColumnsDetailsAsNoTracking();
-
-		/// <summary>
-		/// 根据Id查询实体信息
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		Task<Table_ColumnsDetail> FindByIdAsync(long id);
-	
+		
 		/// <summary>
 		/// 检查实体是否存在
 		/// </summary>

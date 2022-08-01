@@ -1,395 +1,161 @@
 
 using System;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using Abp.Domain.Entities.Auditing;
-using System.Collections.ObjectModel;
-using MyProject.ASNCore;
-
-
-namespace  MyProject.ASNCore.Dtos
-{
+using MyProject;
+namespace MyProject.ASNCore.Dtos
+{	
 	/// <summary>
-	/// 的列表DTO
+	/// WMS_ASN的列表DTO
 	/// <see cref="WMS_ASN"/>
 	/// </summary>
     public class WMS_ASNEditDto
     {
-
-        /// <summary>
-        /// Id
+		/// <summary>
+        /// Id 
         /// </summary>
-        public long? Id { get; set; }         
-
-
-        
-		/// <summary>
-		/// ExtensionGUID
-		/// </summary>
-		public Guid? ExtensionGUID { get; set; }
-
-
+        public long? Id { get; set; }
 
 		/// <summary>
-		/// ASNNumber
+		/// 字段ASNNumber
 		/// </summary>
 		public string ASNNumber { get; set; }
-
-
-
 		/// <summary>
-		/// ExternReceiptNumber
+		/// 字段ExternReceiptNumber
 		/// </summary>
 		public string ExternReceiptNumber { get; set; }
-
-
-
 		/// <summary>
-		/// CustomerID
+		/// 字段CustomerId
 		/// </summary>
-		public long CustomerID { get; set; }
-
-
-
+		public long CustomerId { get; set; }
 		/// <summary>
-		/// CustomerName
+		/// 字段CustomerName
 		/// </summary>
 		public string CustomerName { get; set; }
-
-
-
 		/// <summary>
-		/// WarehouseID
+		/// 字段WarehouseId
 		/// </summary>
-		public long WarehouseID { get; set; }
-
-
-
+		public long WarehouseId { get; set; }
 		/// <summary>
-		/// WarehouseName
+		/// 字段WarehouseName
 		/// </summary>
 		public string WarehouseName { get; set; }
-
-
-
 		/// <summary>
-		/// ExpectDate
-		/// </summary>
-		public DateTime? ExpectDate { get; set; }
-
-
-
-		/// <summary>
-		/// ASNStatus
+		/// 字段ASNStatus
 		/// </summary>
 		public int ASNStatus { get; set; }
-
-
-
 		/// <summary>
-		/// ASNType
+		/// 字段ReceiptType
 		/// </summary>
-		public string ASNType { get; set; }
-
-
-
+		public string ReceiptType { get; set; }
 		/// <summary>
-		/// PO
-		/// </summary>
-		public string PO { get; set; }
-
-
-
-		/// <summary>
-		/// Contact
+		/// 字段Contact
 		/// </summary>
 		public string Contact { get; set; }
-
-
-
 		/// <summary>
-		/// ContactInfo
+		/// 字段ContactInfo
 		/// </summary>
 		public string ContactInfo { get; set; }
-
-
-
 		/// <summary>
-		/// CompleteDate
-		/// </summary>
-		public DateTime? CompleteDate { get; set; }
-
-
-
-		/// <summary>
-		/// Remark
+		/// 字段Remark
 		/// </summary>
 		public string Remark { get; set; }
-
-
-
 		/// <summary>
-		/// Creator
+		/// 字段Creator
 		/// </summary>
 		public string Creator { get; set; }
-
-
-
 		/// <summary>
-		/// CreationTime
+		/// 字段CreationTime
 		/// </summary>
 		public DateTime CreationTime { get; set; }
-
-
-
 		/// <summary>
-		/// Updator
+		/// 字段Updator
 		/// </summary>
 		public string Updator { get; set; }
-
-
-
 		/// <summary>
-		/// UpdateTime
-		/// </summary>
-		public DateTime? UpdateTime { get; set; }
-
-
-
-		/// <summary>
-		/// Str1
+		/// 字段Str1
 		/// </summary>
 		public string Str1 { get; set; }
-
-
-
 		/// <summary>
-		/// Str2
+		/// 字段Str2
 		/// </summary>
 		public string Str2 { get; set; }
-
-
-
 		/// <summary>
-		/// Str3
+		/// 字段Str3
 		/// </summary>
 		public string Str3 { get; set; }
-
-
-
 		/// <summary>
-		/// Str4
+		/// 字段Str4
 		/// </summary>
 		public string Str4 { get; set; }
-
-
-
 		/// <summary>
-		/// Str5
+		/// 字段Str5
 		/// </summary>
 		public string Str5 { get; set; }
-
-
-
 		/// <summary>
-		/// Str6
+		/// 字段Str6
 		/// </summary>
 		public string Str6 { get; set; }
-
-
-
 		/// <summary>
-		/// Str7
+		/// 字段Str7
 		/// </summary>
 		public string Str7 { get; set; }
-
-
-
 		/// <summary>
-		/// Str8
+		/// 字段Str8
 		/// </summary>
 		public string Str8 { get; set; }
-
-
-
 		/// <summary>
-		/// Str9
+		/// 字段Str9
 		/// </summary>
 		public string Str9 { get; set; }
-
-
-
 		/// <summary>
-		/// Str10
+		/// 字段Str10
 		/// </summary>
 		public string Str10 { get; set; }
-
-
-
 		/// <summary>
-		/// Str11
+		/// 字段Str11
 		/// </summary>
 		public string Str11 { get; set; }
-
-
-
 		/// <summary>
-		/// Str12
+		/// 字段Str12
 		/// </summary>
 		public string Str12 { get; set; }
-
-
-
 		/// <summary>
-		/// Str13
+		/// 字段Str13
 		/// </summary>
 		public string Str13 { get; set; }
-
-
-
 		/// <summary>
-		/// Str14
+		/// 字段Str14
 		/// </summary>
 		public string Str14 { get; set; }
-
-
-
 		/// <summary>
-		/// Str15
+		/// 字段Str15
 		/// </summary>
 		public string Str15 { get; set; }
-
-
-
 		/// <summary>
-		/// Str16
+		/// 字段Str16
 		/// </summary>
 		public string Str16 { get; set; }
-
-
-
 		/// <summary>
-		/// Str17
+		/// 字段Str17
 		/// </summary>
 		public string Str17 { get; set; }
-
-
-
 		/// <summary>
-		/// Str18
+		/// 字段Str18
 		/// </summary>
 		public string Str18 { get; set; }
-
-
-
 		/// <summary>
-		/// Str19
+		/// 字段Str19
 		/// </summary>
 		public string Str19 { get; set; }
-
-
-
 		/// <summary>
-		/// Str20
+		/// 字段Str20
 		/// </summary>
 		public string Str20 { get; set; }
-
-
-
-		/// <summary>
-		/// DateTime1
-		/// </summary>
-		public DateTime? DateTime1 { get; set; }
-
-
-
-		/// <summary>
-		/// DateTime2
-		/// </summary>
-		public DateTime? DateTime2 { get; set; }
-
-
-
-		/// <summary>
-		/// DateTime3
-		/// </summary>
-		public DateTime? DateTime3 { get; set; }
-
-
-
-		/// <summary>
-		/// DateTime4
-		/// </summary>
-		public DateTime? DateTime4 { get; set; }
-
-
-
-		/// <summary>
-		/// DateTime5
-		/// </summary>
-		public DateTime? DateTime5 { get; set; }
-
-
-
-		/// <summary>
-		/// Int1
-		/// </summary>
-		public int Int1 { get; set; }
-
-
-
-		/// <summary>
-		/// Int2
-		/// </summary>
-		public int Int2 { get; set; }
-
-
-
-		/// <summary>
-		/// Int3
-		/// </summary>
-		public int Int3 { get; set; }
-
-
-
-		/// <summary>
-		/// Int4
-		/// </summary>
-		public int Int4 { get; set; }
-
-
-
-		/// <summary>
-		/// Int5
-		/// </summary>
-		public int Int5 { get; set; }
-
-
-
-		/// <summary>
-		/// WMS_ASNDetails
-		/// </summary>
-		public List<WMS_ASNDetail> WMS_ASNDetails { get; set; }
-
-
-
+		 
+	 
 		
-							//// custom codes
-									
-							
-
-									
-							
-
-									
-							
-
-
-        public List<WMS_ASNDetailEditDto> WMS_ASNDetailEditDtos { get; set; }
-
-        
-							
-							
-							//// custom codes end
-    }
+		/* 这里创建自己的代码 */
+	}
 }

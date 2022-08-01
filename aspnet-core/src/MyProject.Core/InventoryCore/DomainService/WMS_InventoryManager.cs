@@ -15,13 +15,13 @@ namespace MyProject.InventoryCore.DomainService
     ///</summary>
     public class WMS_InventoryManager : MyProjectDomainServiceBase, IWMS_InventoryManager
     {
-        private readonly IRepository<WMS_Inventory, long> _wMS_InventoryRepository;
+        private readonly IRepository<WMS_Inventory_Used, long> _wMS_InventoryRepository;
 
         /// <summary>
         /// CustomerDetail的构造方法
         /// 通过构造函数注册服务到依赖注入容器中
         ///</summary>
-        public WMS_InventoryManager(IRepository<WMS_Inventory, long> wMS_InventoryRepository)
+        public WMS_InventoryManager(IRepository<WMS_Inventory_Used, long> wMS_InventoryRepository)
         {
             _wMS_InventoryRepository = wMS_InventoryRepository;
         }
@@ -38,14 +38,14 @@ namespace MyProject.InventoryCore.DomainService
 		 
 		 
 		 
-        public async Task<WMS_Inventory> CreateAsync(WMS_Inventory entity)
+        public async Task<WMS_Inventory_Used> CreateAsync(WMS_Inventory_Used entity)
         {
              entity.Id=   await _wMS_InventoryRepository.InsertAndGetIdAsync(entity);
 
             return entity;
         }
 
-        public async Task UpdateAsync(WMS_Inventory entity)
+        public async Task UpdateAsync(WMS_Inventory_Used entity)
         {
             await _wMS_InventoryRepository.UpdateAsync(entity);
         }

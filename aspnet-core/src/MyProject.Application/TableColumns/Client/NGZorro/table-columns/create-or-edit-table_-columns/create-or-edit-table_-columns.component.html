@@ -1,0 +1,509 @@
+
+<form nz-form #validateForm="ngForm" (ngSubmit)="submitForm()" nzLayout="horizontal" autocomplete="off">
+    <!-- 模态框头部 -->
+    <div class="modal-header">
+        <div class="modal-title">
+            <i class="iconfont icon-medicine-box mr-sm"></i>
+            <span *ngIf="entity.id">{{l('Edit')}}</span>
+            <span *ngIf="!entity.id">{{l('Create')}}</span>
+        </div>
+    </div>
+    <!-- 模态框内容 -->
+    <fieldset>
+        <!-- 提示信息 -->
+        <!-- <nz-alert nzType="info" nzCloseable [nzShowIcon]="true" nzMessage="l('我想提示点什么内容给你说')"></nz-alert> -->
+                   <!-- RoleName : RoleName 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="roleName">  
+                            {{l('Table_ColumnsRoleName')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="roleName" #roleName="ngModel"
+                                       [(ngModel)]="entity.roleName"
+                                      [placeholder]="l('Table_ColumnsRoleNameInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--RoleName : RoleName 的控件范围结束=END= -->
+                   <!-- TableName : TableName 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tableName">  
+                            {{l('Table_ColumnsTableName')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="tableName" #tableName="ngModel"
+                                       [(ngModel)]="entity.tableName"
+                                      [placeholder]="l('Table_ColumnsTableNameInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--TableName : TableName 的控件范围结束=END= -->
+                   <!-- TableNameCH : TableNameCH 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tableNameCH">  
+                            {{l('Table_ColumnsTableNameCH')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="tableNameCH" #tableNameCH="ngModel"
+                                       [(ngModel)]="entity.tableNameCH"
+                                      [placeholder]="l('Table_ColumnsTableNameCHInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--TableNameCH : TableNameCH 的控件范围结束=END= -->
+                   <!-- DisplayName : DisplayName 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="displayName">  
+                            {{l('Table_ColumnsDisplayName')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="displayName" #displayName="ngModel"
+                                       [(ngModel)]="entity.displayName"
+                                      [placeholder]="l('Table_ColumnsDisplayNameInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--DisplayName : DisplayName 的控件范围结束=END= -->
+                   <!-- DbColumnName : DbColumnName 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="dbColumnName">  
+                            {{l('Table_ColumnsDbColumnName')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="dbColumnName" #dbColumnName="ngModel"
+                                       [(ngModel)]="entity.dbColumnName"
+                                      [placeholder]="l('Table_ColumnsDbColumnNameInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--DbColumnName : DbColumnName 的控件范围结束=END= -->
+                   <!-- IsKey : IsKey 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isKey">  
+                            {{l('IsKey')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isKey" #isKey="ngModel"
+                                    [(ngModel)]="entity.isKey"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsKey : IsKey 的控件范围结束=END= -->
+                   <!-- IsSearchCondition : IsSearchCondition 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isSearchCondition">  
+                            {{l('IsSearchCondition')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isSearchCondition" #isSearchCondition="ngModel"
+                                    [(ngModel)]="entity.isSearchCondition"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsSearchCondition : IsSearchCondition 的控件范围结束=END= -->
+                   <!-- IsHide : IsHide 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isHide">  
+                            {{l('IsHide')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isHide" #isHide="ngModel"
+                                    [(ngModel)]="entity.isHide"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsHide : IsHide 的控件范围结束=END= -->
+                   <!-- IsReadOnly : IsReadOnly 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isReadOnly">  
+                            {{l('IsReadOnly')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isReadOnly" #isReadOnly="ngModel"
+                                    [(ngModel)]="entity.isReadOnly"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsReadOnly : IsReadOnly 的控件范围结束=END= -->
+                   <!-- IsShowInList : IsShowInList 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isShowInList">  
+                            {{l('IsShowInList')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isShowInList" #isShowInList="ngModel"
+                                    [(ngModel)]="entity.isShowInList"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsShowInList : IsShowInList 的控件范围结束=END= -->
+                   <!-- IsImportColumn : IsImportColumn 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isImportColumn">  
+                            {{l('IsImportColumn')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isImportColumn" #isImportColumn="ngModel"
+                                    [(ngModel)]="entity.isImportColumn"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsImportColumn : IsImportColumn 的控件范围结束=END= -->
+                   <!-- IsDropDownList : IsDropDownList 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isDropDownList">  
+                            {{l('IsDropDownList')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isDropDownList" #isDropDownList="ngModel"
+                                    [(ngModel)]="entity.isDropDownList"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsDropDownList : IsDropDownList 的控件范围结束=END= -->
+                   <!-- IsCreate : IsCreate 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isCreate">  
+                            {{l('IsCreate')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isCreate" #isCreate="ngModel"
+                                    [(ngModel)]="entity.isCreate"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsCreate : IsCreate 的控件范围结束=END= -->
+                   <!-- IsUpdate : IsUpdate 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isUpdate">  
+                            {{l('IsUpdate')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="isUpdate" #isUpdate="ngModel"
+                                    [(ngModel)]="entity.isUpdate"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--IsUpdate : IsUpdate 的控件范围结束=END= -->
+                   <!-- SearchConditionOrder : SearchConditionOrder 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="searchConditionOrder">  
+                            {{l('SearchConditionOrder')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="searchConditionOrder" #searchConditionOrder="ngModel"
+                                    [(ngModel)]="entity.searchConditionOrder"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--SearchConditionOrder : SearchConditionOrder 的控件范围结束=END= -->
+                   <!-- Group : Group 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group">  
+                            {{l('Table_ColumnsGroup')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="group" #group="ngModel"
+                                       [(ngModel)]="entity.group"
+                                      [placeholder]="l('Table_ColumnsGroupInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--Group : Group 的控件范围结束=END= -->
+                   <!-- Type : Type 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type">  
+                            {{l('Table_ColumnsType')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="type" #type="ngModel"
+                                       [(ngModel)]="entity.type"
+                                      [placeholder]="l('Table_ColumnsTypeInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--Type : Type 的控件范围结束=END= -->
+                   <!-- Order : Order 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order">  
+                            {{l('Order')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="order" #order="ngModel"
+                                    [(ngModel)]="entity.order"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--Order : Order 的控件范围结束=END= -->
+                   <!-- ForView : ForView 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="forView">  
+                            {{l('ForView')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="forView" #forView="ngModel"
+                                    [(ngModel)]="entity.forView"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--ForView : ForView 的控件范围结束=END= -->
+                   <!-- CreationTime : CreationTime 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="creationTime">  
+                            {{l('CreationTime')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <app-date-picker nzShowTime
+                                                 [nzFormat]="yyyy-MM-dd HH:mm:ss"
+                                                 [nzPlaceHolder]="l('PleaseSelectTime')"
+                                                 name="creationTime"
+                                                 #creationTime="ngModel"
+                                                 [(ngModel)]="entity.creationTime"></app-date-picker>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--CreationTime : CreationTime 的控件范围结束=END= -->
+                   <!-- TenantId : TenantId 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tenantId">  
+                            {{l('TenantId')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="tenantId" #tenantId="ngModel"
+                                    [(ngModel)]="entity.tenantId"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--TenantId : TenantId 的控件范围结束=END= -->
+                   <!-- ProjectId : ProjectId 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="projectId">  
+                            {{l('ProjectId')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="projectId" #projectId="ngModel"
+                                    [(ngModel)]="entity.projectId"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--ProjectId : ProjectId 的控件范围结束=END= -->
+                   <!-- CustomerId : CustomerId 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customerId">  
+                            {{l('CustomerId')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-input-number
+                                    name="customerId" #customerId="ngModel"
+                                    [(ngModel)]="entity.customerId"
+                                    [nzMin]="0"
+                                    [nzMax]="1000000"
+                                    [nzStep]="1"
+                                ></nz-input-number>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--CustomerId : CustomerId 的控件范围结束=END= -->
+                   <!-- Validation : Validation 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="validation">  
+                            {{l('Table_ColumnsValidation')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="validation" #validation="ngModel"
+                                       [(ngModel)]="entity.validation"
+                                      [placeholder]="l('Table_ColumnsValidationInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--Validation : Validation 的控件范围结束=END= -->
+                   <!-- Associated : Associated 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="associated">  
+                            {{l('Table_ColumnsAssociated')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <input nz-input name="associated" #associated="ngModel"
+                                       [(ngModel)]="entity.associated"
+                                      [placeholder]="l('Table_ColumnsAssociatedInputDesc')" >
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--Associated : Associated 的控件范围结束=END= -->
+                   <!-- Table_ColumnsDetails : Table_ColumnsDetails 的控件范围=Start= -->
+                <nz-form-item nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="table_ColumnsDetails">  
+                            {{l('Table_ColumnsDetails')}}
+                            </nz-form-label>
+                    <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
+                        <!--  控件位置 -->
+                                <nz-select name="table_ColumnsDetails" #table_ColumnsDetails="ngModel"
+                                           [(ngModel)]="entity.table_ColumnsDetails" nzAllowClear
+                                           [nzPlaceHolder]="l('PleaseSelectAtLeastOneItem')"  style="width: 120px;">
+                                    <!-- 请配置你的数据源 -->
+                                    <!-- <nz-option *ngFor="let option of optionList" [nzValue]="option" [nzLabel]="option.label">
+                                    </nz-option>                    -->
+                                </nz-select>
+
+
+                    </nz-form-control>
+             
+                </nz-form-item>
+                <!--Table_ColumnsDetails : Table_ColumnsDetails 的控件范围结束=END= -->
+
+    </fieldset>
+    <!-- 模态框底部 -->
+    <div class="modal-footer">
+        <button nz-button [nzType]="'default'" type="button" (click)="close()" [disabled]="saving">
+            <i class="iconfont icon-close-circle"></i> {{l("Cancel")}}
+        </button>
+        <button nz-button [nzType]="'primary'" type="submit" [disabled]="!validateForm.form.valid|| saving" [nzLoading]="saving">
+            <i class="iconfont icon-save" *ngIf="!saving"></i> {{l("Save")}}
+        </button>
+    </div>
+</form>

@@ -1,20 +1,19 @@
 
-
-using System.Collections.Generic;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using MyProject.CustomerCore;
 
 namespace MyProject.CustomerCore.Dtos
-{
-    public class CreateOrUpdateCustomerUserMappingInput
+{	
+	
+    /// <summary>
+	/// CustomerUserMapping的列表DTO
+	/// </summary>
+	public class CreateOrUpdateCustomerUserMappingInput
     {
         [Required]
         public CustomerUserMappingEditDto CustomerUserMapping { get; set; }
-							
-							//// custom codes
-									
-							
 
-							//// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

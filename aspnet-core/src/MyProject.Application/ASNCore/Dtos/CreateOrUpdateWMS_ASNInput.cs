@@ -1,21 +1,19 @@
 
-
-using System.Collections.Generic;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using MyProject.ASNCore;
 
 namespace MyProject.ASNCore.Dtos
-{
-    public class CreateOrUpdateWMS_ASNInput
+{	
+	
+    /// <summary>
+	/// WMS_ASN的列表DTO
+	/// </summary>
+	public class CreateOrUpdateWMS_ASNInput
     {
         [Required]
         public WMS_ASNEditDto WMS_ASN { get; set; }
 
-        //// custom codes
-
-        [Required]
-        public List<WMS_ASNDetailEditDto> WMS_ASNDetails { get; set; }
-
-        //// custom codes end
+		/* 这里创建自己的代码 */
     }
 }

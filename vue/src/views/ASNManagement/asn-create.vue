@@ -43,9 +43,9 @@
                 >
                   <el-option
                     v-for="item in i.table_ColumnsDetails"
-                    :key="item.code"
+                    :key="item.codeStr"
                     :label="item.name"
-                    :value="item.code"
+                    :value="item.codeStr"
                   >
                   </el-option>
                 </el-select>
@@ -121,9 +121,9 @@
                       >
                         <el-option
                           v-for="item in v.table_ColumnsDetails"
-                          :key="item.code"
+                          :key="item.codeStr"
                           :label="item.name"
-                          :value="item.code"
+                          :value="item.codeStr"
                         >
                         </el-option>
                       </el-select>
@@ -208,7 +208,7 @@ export default class asnCreate extends AbpBase {
           localStorage.getItem(this.tableColumnHeader.tableName)
         ) as Array<TableColumns>;
         this.tableColumnHeaders.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation.toUpperCase() == "Required".toUpperCase()) {
             this.headerRule[a.dbColumnName] = [
               {
                 required: true,
@@ -216,6 +216,7 @@ export default class asnCreate extends AbpBase {
                 trigger: "blur",
               },
             ];
+          }
         });
         console.log(this.headerRule);
       })
@@ -232,7 +233,7 @@ export default class asnCreate extends AbpBase {
           localStorage.getItem(this.tableColumnDetail.tableName)
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
-          if (a.validation == "Required")
+          if (a.validation.toUpperCase() == "Required".toUpperCase()) {
             this.detailRule[a.dbColumnName] = [
               {
                 required: true,
@@ -240,14 +241,14 @@ export default class asnCreate extends AbpBase {
                 trigger: "blur",
               },
             ];
+          }
         });
       })
       .catch((err) => {
         console.log(err);
       });
 
-
-      this.$store
+    this.$store
       .dispatch({
         type: "tableColumns/GetByTableNameList",
         data: this.tableColumnDetail,

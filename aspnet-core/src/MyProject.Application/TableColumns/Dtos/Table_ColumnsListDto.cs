@@ -16,32 +16,14 @@ namespace MyProject.TableColumns.Dtos
     /// <see cref="Table_Columns"/>
     /// </summary>
     [AutoMap(typeof(Table_Columns))]
-    public class Table_ColumnsListDto : EntityDto<long>
+    public class Table_ColumnsListDto : EntityDto<long>, IHasCreationTime
     {
-        /// <summary>
-        /// TenantId
-        /// </summary>
-        public long TenantId { get; set; }
-
-        /// <summary>
-        /// ProjectID
-        /// </summary>
-        public long ProjectId { get; set; }
-
 
 
         /// <summary>
         /// RoleName
         /// </summary>
         public string RoleName { get; set; }
-
-
-
-        /// <summary>
-        /// CustomerID
-        /// </summary>
-
-        public long CustomerId { get; set; }
 
 
 
@@ -134,15 +116,7 @@ namespace MyProject.TableColumns.Dtos
         /// </summary>
         public int IsUpdate { get; set; }
 
-        /// <summary>
-        /// Validation
-        /// </summary>
-        public string Validation { get; set; }
 
-        /// <summary>
-        /// Associated
-        /// </summary>
-        public string Associated { get; set; }
 
         /// <summary>
         /// SearchConditionOrder
@@ -187,16 +161,59 @@ namespace MyProject.TableColumns.Dtos
 
 
         /// <summary>
-        /// TableID
+        /// TenantId
         /// </summary>
-        public long TableId { get; set; }
+        public long TenantId { get; set; }
+
+
+
+        /// <summary>
+        /// ProjectId
+        /// </summary>
+        public long ProjectId { get; set; }
+
+
+
+        /// <summary>
+        /// CustomerId
+        /// </summary>
+        public long CustomerId { get; set; }
+
+
+
+        /// <summary>
+        /// Validation
+        /// </summary>
+        public string Validation { get; set; }
+
+
+
+        /// <summary>
+        /// Associated
+        /// </summary>
+        public string Associated { get; set; }
+
+
+
+        /// <summary>
+        /// Table_ColumnsDetails
+        /// </summary>
+        public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
 
 
 
 
         //// custom codes
 
-        public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
+
+
+
+
+
+
+        //public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
+
+
 
         //// custom codes end
     }

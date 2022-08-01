@@ -1,6 +1,8 @@
 import { Store, Module, ActionContext } from 'vuex'
 import ListModule from './list-module'
 import ListState from './list-state'
+// import session from '/session'
+import Util from '../../lib/util';
 import TableColumns from '../entities/tableColumns'
 import Ajax from '../../lib/ajax'
 import PageResult from '@/store/entities/page-result';
@@ -36,15 +38,21 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
             console.log( context.state.list);
             console.log(page);
         },
-         GetAll(context:ActionContext<TableColumnsState,any>,payload:any){
-             Ajax.post('/api/services/app/Table_Columns/GetAll',payload.data);
+        async GetAll(context:ActionContext<TableColumnsState,any>,payload:any){
+            //  Ajax.post('/api/services/app/Table_Columns/GetAll',payload.data);
+            let reponse=await Ajax.post('/api/services/app/Table_Columns/GetAll',payload.data);
+            console.log("reponse");
+            console.log(reponse);
+            return reponse.data.result as PageResult<TableColumns>;
         },
         // async create(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.post('/api/services/app/Role/Create',payload.data);
         // },
-        // async update(context:ActionContext<RoleState,any>,payload:any){
-        //     await Ajax.put('/api/services/app/Role/Update',payload.data);
-        // },
+        async update(context:ActionContext<TableColumnsState,any>,payload:any){
+            console.log(JSON.stringify(payload.data));
+            // localStorage.removeItem(Util.abp.session.tenantId+"_"+payload.data[0].);
+            await Ajax.post('/api/services/app/Table_Columns/BatchUpdate',payload.data);
+        },
         // async delete(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.delete('/api/services/app/Role/Delete?Id='+payload.data.id);
         // },
@@ -57,10 +65,12 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         //     context.state.permissions=reponse.data.result.items;
         // },
         async GetByTableNameList(context: ActionContext<TableColumnsState, any>, payload: any) {
-            var tableColumnsStorage = localStorage.getItem(payload.data.tableName);
+            // console.log("Util.abp.session.tenant.tenantId");
+            // console.log(Util.abp.session.tenantId);
+            var tableColumnsStorage = localStorage.getItem(Util.abp.session.tenantId+"_"+payload.data.tableName);
            console.log(payload.data);
-            if (tableColumnsStorage != null && tableColumnsStorage.length > 10) {
-            // if (tableColumnsStorage != null && tableColumnsStorage.length == 10) {
+           // if (tableColumnsStorage != null && tableColumnsStorage.length > 10) {
+             if (tableColumnsStorage != null && tableColumnsStorage.length ==0) {
                 if (context.state.list == null && context.state.list.length == 0) {
                     localStorage.setItem(payload.data.tableName, null);
                 }

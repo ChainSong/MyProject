@@ -8,29 +8,12 @@ using Abp.Domain.Services;
 
 namespace MyProject.TableColumns.DomainService
 {
-    public interface ITable_ColumnsManager : IDomainService
+    public interface ITable_ColumnsManager : IDomainService//I52AbpDomainService<Table_Columns, long>
     {
 
 
-        /// <summary>
-        /// 返回表达式数的实体信息即IQueryable类型
-        /// </summary>
-        /// <returns></returns>
-        IQueryable<Table_Columns> QueryTable_Columnss();
 
-        /// <summary>
-        /// 返回性能更好的IQueryable类型，但不包含EF Core跟踪标记
-        /// </summary>
-        /// <returns></returns>
 
-        IQueryable<Table_Columns> QueryTable_ColumnssAsNoTracking();
-
-        /// <summary>
-        /// 根据Id查询实体信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<Table_Columns> FindByIdAsync(long id);
 
         /// <summary>
         /// 检查实体是否存在

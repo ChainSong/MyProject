@@ -23,7 +23,7 @@
               </template> -->
                 <template v-if="i.type == 'DropDownList'">
                   <template v-for="DropDown in i.table_ColumnsDetails">
-                    <label v-if="DropDown.code==header[i.dbColumnName]" v-text="DropDown.name" :key="DropDown.code"></label>
+                    <label v-if="DropDown.codeStr==header[i.dbColumnName]" v-text="DropDown.name" :key="DropDown.codeStr"></label>
                   </template>
                 <!-- <el-select
                   v-model="header[i.dbColumnName]"

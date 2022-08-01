@@ -17,7 +17,7 @@
             <FormItem
               :label="i.displayName"
               v-if="i.isCreate"
-              style="width: 100%"
+              style="width: 90%"
               :prop="i.dbColumnName"
             >
               <template v-if="i.type == 'TextBox'">
@@ -43,9 +43,9 @@
                 >
                   <el-option
                     v-for="item in i.table_ColumnsDetails"
-                    :key="item.code"
+                    :key="item.codeStr"
                     :label="item.name"
-                    :value="item.code"
+                    :value="item.codeStr"
                   >
                   </el-option>
                 </el-select>
@@ -209,7 +209,7 @@ export default class CustomerCreate extends AbpBase {
         ) as Array<TableColumns>;
            console.log( this.tableColumnHeaders)
         this.tableColumnHeaders.forEach((a) => {
-          if (a.validation == "Required") {
+          if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
             //  console.log("添加验证"+a.dbColumnName)
             this.headerRule[a.dbColumnName] = [
               {
@@ -234,7 +234,7 @@ export default class CustomerCreate extends AbpBase {
           localStorage.getItem(this.tableColumnDetail.tableName)
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
-          if (a.validation == "Required") {
+          if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
             // console.log("添加验证"+a.dbColumnName)
             this.detailRule[a.dbColumnName] = [
               {

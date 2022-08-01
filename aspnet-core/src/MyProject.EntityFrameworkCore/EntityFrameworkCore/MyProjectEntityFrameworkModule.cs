@@ -18,6 +18,7 @@ namespace MyProject.EntityFrameworkCore
 
         public override void PreInitialize()
         {
+           
             if (!SkipDbContextRegistration)
             {
                 Configuration.Modules.AbpEfCore().AddDbContext<MyProjectDbContext>(options =>
@@ -32,11 +33,13 @@ namespace MyProject.EntityFrameworkCore
                    }
                });
             }
+         
         }
 
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(MyProjectEntityFrameworkModule).GetAssembly());
+           
         }
 
         public override void PostInitialize()

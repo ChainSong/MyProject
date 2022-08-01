@@ -1,13 +1,13 @@
 
 using Abp.Runtime.Validation;
-using MyProject.Dtos;
+using MyProject;
 using MyProject.CustomerCore;
-
+using MyProject.Dtos;
 namespace MyProject.CustomerCore.Dtos
 {
-    /// <summary>
-    /// 获取的传入参数Dto
-    /// </summary>
+	/// <summary>
+	/// 获取的传入参数Dto
+	/// </summary>
     public class GetCustomerDetailsInput : PagedSortedAndFilteredInputDto, IShouldNormalize
     {
 
@@ -21,11 +21,9 @@ namespace MyProject.CustomerCore.Dtos
                 Sorting = "Id";
             }
         }
-
-        //// custom codes
-
-
-
-        //// custom codes end
+		
+		//// 自定义编码开始
+				
+		//// 自定义编码结束
     }
 }

@@ -1,6 +1,4 @@
 
-
-// ReSharper disable once CheckNamespace
 namespace MyProject.Authorization
 {
 	/// <summary>
@@ -10,47 +8,42 @@ namespace MyProject.Authorization
 	public static  class WMS_ReceiptPermissions
 	{
 		/// <summary>
-		/// WMS_Receipt权限节点
+		/// 【WMS_Receipt】权限节点
 		///</summary>
-		public const string WMS_Receipt_Node = "Pages.WMS_Receipt";
+		public const string Node = "Pages.WMS_Receipt";
 
 		/// <summary>
-		/// WMS_Receipt查询授权
+		/// 【WMS_Receipt】查询授权
 		///</summary>
-		public const string WMS_Receipt_Query = WMS_Receipt_Node+".Query";
+		public const string Query = "Pages.WMS_Receipt.Query";
 
 		/// <summary>
-		/// WMS_Receipt创建权限
+		/// 【WMS_Receipt】创建权限
 		///</summary>
-		public const string WMS_Receipt_Create = WMS_Receipt_Node+".Create";
+		public const string Create = "Pages.WMS_Receipt.Create";
 
 		/// <summary>
-		/// WMS_Receipt修改权限
+		/// 【WMS_Receipt】修改权限
 		///</summary>
-		public const string WMS_Receipt_Edit = WMS_Receipt_Node+".Edit";
+		public const string Edit = "Pages.WMS_Receipt.Edit";
 
 		/// <summary>
-		/// WMS_Receipt删除权限
+		/// 【WMS_Receipt】删除权限
 		///</summary>
-		public const string WMS_Receipt_Delete = WMS_Receipt_Node+".Delete";
+		public const string Delete = "Pages.WMS_Receipt.Delete";
 
         /// <summary>
-		/// WMS_Receipt批量删除权限
+		/// 【WMS_Receipt】批量删除权限
 		///</summary>
-		public const string WMS_Receipt_BatchDelete = WMS_Receipt_Node+".BatchDelete";
+		public const string BatchDelete = "Pages.WMS_Receipt.BatchDelete";
 
 		/// <summary>
-		/// WMS_Receipt导出Excel
+		/// 【WMS_Receipt】导出Excel
 		///</summary>
-		public const string WMS_Receipt_ExportExcel=WMS_Receipt_Node+".ExportExcel";
+		public const string ExportExcel="Pages.WMS_Receipt.ExportExcel";
 
-		 
-		 
-							//// custom codes
-									
-							
-
-							//// custom codes end
+		/* 以下可以自定义权限 */ 
+		
          
     }
 

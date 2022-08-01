@@ -1,13 +1,9 @@
-
-
 using System.Linq;
 using Abp.Authorization;
 using Abp.Configuration.Startup;
 using Abp.Localization;
 using Abp.MultiTenancy;
-using MyProject.Authorization;
 
-// ReSharper disable once CheckNamespace
 namespace MyProject.Authorization
 {
     /// <summary>
@@ -19,11 +15,10 @@ namespace MyProject.Authorization
     {
         private readonly bool _isMultiTenancyEnabled;
 
-        public WMS_ReceiptReceivingAuthorizationProvider()
-        {
+		public WMS_ReceiptReceivingAuthorizationProvider()
+		{
 
-        }
-
+		}
 
         public WMS_ReceiptReceivingAuthorizationProvider(bool isMultiTenancyEnabled)
         {
@@ -35,27 +30,30 @@ namespace MyProject.Authorization
             _isMultiTenancyEnabled = multiTenancyConfig.IsEnabled;
         }
 
-        public override void SetPermissions(IPermissionDefinitionContext context)
-        {
-            // 在这里配置了WMS_ReceiptReceiving 的权限。
-            //var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
+		public override void SetPermissions(IPermissionDefinitionContext context)
+		{
+			// 在这里配置了Member 的权限。
+			var pages = context.GetPermissionOrNull(AppLtmPermissions.Pages) ?? context.CreatePermission(AppLtmPermissions.Pages, L("Pages"));
 
-            //var administration = pages.Children.FirstOrDefault(p => p.Name == AppPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
+			var administration = pages.Children.FirstOrDefault(p => p.Name == AppLtmPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppLtmPermissions.Pages_Administration, L("Administration"));
 
-            //var wMS_ReceiptReceiving = administration.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Node , L("WMS_ReceiptReceiving"));
-            //wMS_ReceiptReceiving.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Query, L("QueryWMS_ReceiptReceiving"));
-            //wMS_ReceiptReceiving.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Create, L("CreateWMS_ReceiptReceiving"));
-            //wMS_ReceiptReceiving.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Edit, L("EditWMS_ReceiptReceiving"));
-            //wMS_ReceiptReceiving.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_Delete, L("DeleteWMS_ReceiptReceiving"));
-            //wMS_ReceiptReceiving.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_BatchDelete, L("BatchDeleteWMS_ReceiptReceiving"));
-            //wMS_ReceiptReceiving.CreateChildPermission(WMS_ReceiptReceivingPermissions.WMS_ReceiptReceiving_ExportExcel, L("ExportToExcel"));
-            //// custom codes
-            //// custom codes end
-        }
+			var permission = administration.CreateChildPermission(WMS_ReceiptReceivingPermissions.Node , L("WMS_ReceiptReceiving"));
+			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Query, L("QueryWMS_ReceiptReceiving"));
+			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Create, L("CreateWMS_ReceiptReceiving"));
+			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Edit, L("EditWMS_ReceiptReceiving"));
+			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Delete, L("DeleteWMS_ReceiptReceiving"));
+			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.BatchDelete, L("BatchDeleteWMS_ReceiptReceiving"));
+			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.ExportExcel, L("ExportToExcel"));
 
-        //private static ILocalizableString L(string name)
-        //{
-        //	return new LocalizableString(name, AppConsts.LocalizationSourceName);
-        //}
+			//// 添加自定义代码开始
+									
+			
+			//// 添加自定义代码 结束
+		}
+
+		private static ILocalizableString L(string name)
+		{
+			return new LocalizableString(name, MyProjectConsts.LocalizationSourceName);
+		}
     }
 }
