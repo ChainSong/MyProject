@@ -18,41 +18,58 @@
               :label="i.displayName"
               v-if="i.isCreate"
               style="width: 90%"
-              :prop="i.dbColumnName"
+              :prop="i.columnName"
             >
               <template v-if="i.type == 'TextBox'">
                 <el-input
                   placeholder="请输入内容"
-                  v-model="header[i.dbColumnName]"
+                  v-model="header[i.columnName]"
                   v-if="i.isCreate"
                 >
                 </el-input>
                 <!-- <Input
-                    v-model="customer[i.dbColumnName]"
+                    v-model="customer[i.columnName]"
                     v-if="i.isSearchCondition"
                   >
                   </Input> -->
               </template>
-              <template v-if="i.type == 'DropDownList'">
+              <template v-if="i.type == 'DropDownListInt'">
                 <el-select
-                  v-model="header[i.dbColumnName]"
+                  v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   placeholder="请选择"
                   style="width: 100%"
                   filterable
                 >
                   <el-option
-                    v-for="item in i.table_ColumnsDetails"
-                    :key="item.codeStr"
+                    v-for="item in i.tableColumnsDetails"
+                    :key="item.codeInt"
                     :label="item.name"
-                    :value="item.codeStr"
+                    :value="item.codeInt"
+                  >
+                  </el-option>
+                </el-select>
+              </template>
+              <template v-if="i.type == 'DropDownListStr'">
+                <el-select
+                  v-model="header[i.columnName]"
+                  v-if="i.isCreate"
+                  placeholder="请选择"
+                  style="width: 100%"
+                  filterable
+                >
+                  <el-option
+                    v-for="item in i.tableColumnsDetails"
+                    :key="item.codeInt"
+                    :label="item.name"
+                    :value="item.codeInt"
                   >
                   </el-option>
                 </el-select>
               </template>
               <template v-if="i.type == 'DatePicker'">
                 <el-date-picker
-                  v-model="header[i.dbColumnName]"
+                  v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   type="date"
                   placeholder="选择日期"
@@ -62,7 +79,7 @@
               </template>
               <template v-if="i.type == 'DateTimePicker'" span="12">
                 <el-date-picker
-                  v-model="header[i.dbColumnName]"
+                  v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   type="datetime"
                   start-placeholder="选择日期时间"
@@ -94,20 +111,20 @@
                 v-if="v.isCreate"
                 :key="index"
                 :fixed="false"
-                :prop="v.dbColumnName"
+                :prop="v.columnName"
                 :label="v.displayName"
                 width="150"
               >
                 <template slot-scope="scope">
                   <el-form-item
                     :key="scope.row.key"
-                    :prop="'line.' + scope.$index + '.' + v.dbColumnName"
-                    :rules="detailRule[v.dbColumnName]"
+                    :prop="'line.' + scope.$index + '.' + v.columnName"
+                    :rules="detailRule[v.columnName]"
                   >
                     <template v-if="v.type == 'TextBox'">
                       <el-input
                         placeholder="请输入内容"
-                        v-model="details.line[scope.$index][v.dbColumnName]"
+                        v-model="details.line[scope.$index][v.columnName]"
                         v-if="v.isCreate"
                       >
                       </el-input>
@@ -120,7 +137,7 @@
                         style="width: 100%"
                       >
                         <el-option
-                          v-for="item in v.table_ColumnsDetails"
+                          v-for="item in v.tableColumnsDetails"
                           :key="item.code"
                           :label="item.name"
                           :value="item.code"
@@ -210,8 +227,8 @@ export default class CustomerCreate extends AbpBase {
            console.log( this.tableColumnHeaders)
         this.tableColumnHeaders.forEach((a) => {
           if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
-            //  console.log("添加验证"+a.dbColumnName)
-            this.headerRule[a.dbColumnName] = [
+            //  console.log("添加验证"+a.columnName)
+            this.headerRule[a.columnName] = [
               {
                 required: true,
                 message: this.L("FieldIsRequired", undefined, a.displayName),
@@ -235,8 +252,8 @@ export default class CustomerCreate extends AbpBase {
         ) as Array<TableColumns>;
         this.tableColumnDetails.forEach((a) => {
           if (a.validation.toUpperCase() == "Required".toUpperCase() ) {
-            // console.log("添加验证"+a.dbColumnName)
-            this.detailRule[a.dbColumnName] = [
+            // console.log("添加验证"+a.columnName)
+            this.detailRule[a.columnName] = [
               {
                 required: true,
                 message: this.L("FieldIsRequired", undefined, a.displayName),

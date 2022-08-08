@@ -1,15 +1,17 @@
 
 using System;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.OrderCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Order的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_OrderListDto   
+	[AutoMap(typeof(WMS_Order))]
+	public class WMS_OrderListDto   
     {
 		/// <summary>
         /// Id 

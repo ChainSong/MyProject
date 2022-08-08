@@ -84,6 +84,7 @@
           <el-table-column prop="validation" label="验证">
             <template slot-scope="scope">
               <el-select v-model="scope.row.validation" placeholder="请选择">
+                <el-option label="无" value=""> </el-option>
                 <el-option label="Required" value="Required"> </el-option>
               </el-select>
               <!-- <el-input
@@ -96,6 +97,7 @@
             <template slot-scope="scope">
               <el-select v-model="scope.row.type" placeholder="请选择">
                 <el-option label="TextBox" value="TextBox"> </el-option>
+                <el-option label="InputNumber " value="InputNumber"> </el-option>
                 <el-option label="DropDownList" value="DropDownList">
                 </el-option>
                 <el-option label="DatePicker" value="DatePicker"> </el-option>

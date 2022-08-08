@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.ASNCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_ASNDetail的列表DTO
 	/// <see cref="WMS_ASNDetail"/>
 	/// </summary>
-    public class WMS_ASNDetailEditDto
+	[AutoMap(typeof(WMS_ASNDetail))]
+	public class WMS_ASNDetailEditDto
     {
 		/// <summary>
         /// Id 

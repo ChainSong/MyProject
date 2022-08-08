@@ -43,7 +43,7 @@ namespace MyProject.Authorization
 			permission.CreateChildPermission(CustomerPermissions.Edit, L("EditCustomer"));
 			permission.CreateChildPermission(CustomerPermissions.Delete, L("DeleteCustomer"));
 			permission.CreateChildPermission(CustomerPermissions.BatchDelete, L("BatchDeleteCustomer"));
-			permission.CreateChildPermission(CustomerPermissions.ExportExcel, L("ExportToExcel"));
+			permission.CreateChildPermission(CustomerPermissions.ExportExcel, L("ExportToExcelCustomer"));
 
 			//// 添加自定义代码开始
 									

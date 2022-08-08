@@ -53,7 +53,14 @@ namespace MyProject.TableColumns.Dtos
         /// </summary>
         public string DbColumnName { get; set; }
 
-
+        public string ColumnName
+        {
+            get
+            {
+                var resolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+                return resolver.GetResolvedPropertyName(DbColumnName);
+            }
+        }
 
         /// <summary>
         /// IsKey
@@ -193,12 +200,14 @@ namespace MyProject.TableColumns.Dtos
         /// </summary>
         public string Associated { get; set; }
 
-
-
+        public int Precision { get; set; }
+        public double Step { get; set; }
+        public double Max { get; set; }
+        public double Min { get; set; }
         /// <summary>
         /// Table_ColumnsDetails
         /// </summary>
-        public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
+        public List<Table_ColumnsDetail> TableColumnsDetails { get; set; }
 
 
 

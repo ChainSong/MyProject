@@ -21,7 +21,7 @@
     <text name="LeaveEmptyToSwitchToHost" value="留空以切换到Host"/>
     <text name="LogIn" value="登录" />
     <text name="LoginFailed" value="登录失败!" />
-    <text name="AppName" >MyProject</text>
+    <text name="AppName" >WMS</text>
     <text name="UserNamePlaceholder" >请输入账户</text>
     <text name="PasswordPlaceholder" >请输入密码</text>
     <text name="CopyRight" >© 2018 MyProject</text>
@@ -103,8 +103,31 @@
     <text name="EditTableColumns">编辑表字段</text>
     <text name="Query">查询</text>
     <text name="Export">导出</text>
-    <text name="Import">导入</text> 
-
+    <text name="Import">导入</text>
+    <text name="WMS_Product">产品</text>
+    <text name="Product">产品</text>
+    <text name="QueryWMS_Product">查询产品</text>
+    <text name="CreateWMS_Product">新增产品</text>
+    <text name="EditWMS_Product">编辑产品</text>
+    <text name="DeleteWMS_Product">删除产品</text>
+    <text name="BatchDeleteWMS_Product">批量删除产品</text>
+    <text name="ExportToExcel">导入产品</text>
+    <text name="Customer">客户</text>
+    <text name="QueryCustomer">查询客户</text>
+    <text name="CreateCustomer">创建客户</text>
+    <text name="EditCustomer">编辑客户</text>
+    <text name="DeleteCustomer">删除客户</text>
+    <text name="BatchDeleteCustomer">批量删除客户</text>
+    <text name="ExportToExcelCustomer">导入客户</text>
+    <text name="Warehouse">仓库</text>
+    <text name="Warehouses">仓库</text>
+    <text name="QueryWMS_Warehouse">查询仓库</text>
+    <text name="CreateWMS_Warehouse">创建仓库</text>
+    <text name="EditWMS_Warehouse">编辑仓库</text>
+    <text name="DeleteWMS_Warehouse">删除仓库</text>
+    <text name="BatchDeleteWMS_Warehouse">批量删除仓库</text>
+    <text name="ExportToExcelWarehouse">导入仓库</text>
+    <text name="WMS_Warehouse">仓库</text>
   </texts>
 </localizationDictionary>
 

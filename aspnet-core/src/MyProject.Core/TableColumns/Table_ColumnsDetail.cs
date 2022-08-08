@@ -14,6 +14,9 @@ namespace MyProject.TableColumns
         public string CodeStr { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+
+        public string Color { get; set; }
+        
         public int Status { get; set; }
         public string Associated { get; set; }
         public string Creator { get; set; }

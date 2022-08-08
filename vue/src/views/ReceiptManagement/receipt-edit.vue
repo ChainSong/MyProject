@@ -44,7 +44,7 @@
                   style="width: 100%"
                 >
                   <el-option
-                    v-for="item in i.table_ColumnsDetails"
+                    v-for="item in i.tableColumnsDetails"
                     :key="item.codeInt"
                     :label="item.name"
                     :value="item.codeInt"

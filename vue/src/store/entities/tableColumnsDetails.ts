@@ -6,6 +6,7 @@ export default class tableColumnsDetails extends Entity<number>{
     codeStr: string;
     name: string;
     type: string;
+    color: string;
     associated: string;
     status: number;
     creator: string;

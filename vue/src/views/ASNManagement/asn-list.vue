@@ -193,7 +193,7 @@ import asnQuery from "./asn-query.vue";
 @Component({
     components: { asnCreate,asnEdit,asnQuery},
 })
-export default class CustomerList extends AbpBase {
+export default class asnList extends AbpBase {
   tableColumn: TableColumns = new TableColumns();
   asn: asn = new asn();
   tableColumns: Array<TableColumns> = new Array<TableColumns>();

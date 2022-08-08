@@ -11,7 +11,7 @@ namespace MyProject.CustomerCore.Dtos
 	/// </summary>
 	public class CreateOrUpdateCustomerDetailInput
     {
-        [Required]
+        //[Required]
         public CustomerDetailEditDto CustomerDetail { get; set; }
 
 		/* 这里创建自己的代码 */

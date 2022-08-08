@@ -19,7 +19,7 @@ namespace MyProject.TableColumns
         public string TableName { get; set; }
         public string TableNameCH { get; set; }
         public string DisplayName { get; set; }
-        public string DbColumnName { get; set; }
+        public string DbColumnName { get; set; } 
         public int IsKey { get; set; }
         public int IsSearchCondition { get; set; }
         public int IsHide { get; set; }
@@ -34,11 +34,16 @@ namespace MyProject.TableColumns
         public string Group { get; set; }
         public string Type { get; set; }
         public string Associated { get; set; }
+        public int Precision { get; set; }
+        public double Step { get; set; }
+        public double Max { get; set; }
+        public double Min { get; set; }
+
         public int Order { get; set; }
         public int ForView { get; set; }
         public DateTime CreationTime { get; set; } = new DateTime();
 
 
-        public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
+        public List<Table_ColumnsDetail> TableColumnsDetails { get; set; }
     }
 }

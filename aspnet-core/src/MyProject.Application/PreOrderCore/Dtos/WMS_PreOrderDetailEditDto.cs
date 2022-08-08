@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.PreOrderCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_PreOrderDetail的列表DTO
 	/// <see cref="WMS_PreOrderDetail"/>
 	/// </summary>
-    public class WMS_PreOrderDetailEditDto
+	[AutoMap(typeof(WMS_PreOrderDetail))]
+	public class WMS_PreOrderDetailEditDto
     {
 		/// <summary>
         /// Id 

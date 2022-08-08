@@ -5,30 +5,37 @@
         <Form ref="queryForm" :label-width="90" label-position="left" inline>
           <Row>
             <Col v-for="i in tableColumns" v-bind:key="i.id" span="6">
-            <FormItem :label="i.displayName" v-if="i.isSearchCondition" style="width: 100%">
+            <FormItem :label="i.displayName" v-if="i.isSearchCondition" style="width: 95%">
               <template v-if="i.type == 'TextBox'">
-                <el-input placeholder="请输入内容" v-model="customer[i.dbColumnName]" v-if="i.isSearchCondition">
+                <el-input placeholder="请输入内容" v-model="customer[i.columnName]" v-if="i.isSearchCondition">
                 </el-input>
                 <!-- <Input
-                    v-model="customer[i.dbColumnName]"
+                    v-model="customer[i.columnName]"
                     v-if="i.isSearchCondition"
                   >
                   </Input> -->
               </template>
-              <template v-if="i.type == 'DropDownList'">
-                <el-select v-model="customer[i.dbColumnName]" v-if="i.isSearchCondition" placeholder="请选择">
-                  <el-option v-for="item in i.table_ColumnsDetails" :key="item.codeStr" :label="item.name"
+              <template v-if="i.type == 'DropDownListInt'">
+                <el-select v-model="customer[i.columnName]" v-if="i.isSearchCondition" placeholder="请选择">
+                  <el-option v-for="item in i.tableColumnsDetails" :key="item.codeInt" :label="item.name"
+                    :value="item.codeInt">
+                  </el-option>
+                </el-select>
+              </template>
+              <template v-if="i.type == 'DropDownListStr'">
+                <el-select v-model="customer[i.columnName]" v-if="i.isSearchCondition" placeholder="请选择">
+                  <el-option v-for="item in i.tableColumnsDetails" :key="item.codeStr" :label="item.name"
                     :value="item.codeStr">
                   </el-option>
                 </el-select>
               </template>
               <template v-if="i.type == 'DatePicker'">
-                <el-date-picker v-model="customer[i.dbColumnName]" type="daterange" v-if="i.isSearchCondition"
+                <el-date-picker v-model="customer[i.columnName]" type="daterange" v-if="i.isSearchCondition"
                   range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 100%">
                 </el-date-picker>
               </template>
               <template v-if="i.type == 'DateTimePicker'" span="12">
-                <el-date-picker v-model="customer[i.dbColumnName]" v-if="i.isSearchCondition" type="datetimerange"
+                <el-date-picker v-model="customer[i.columnName]" v-if="i.isSearchCondition" type="datetimerange"
                   range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 100%">
                 </el-date-picker>
               </template>
@@ -38,7 +45,7 @@
           <Row>
             <Button icon="ios-search" type="primary" size="large" class="toolbar-btn" @click="getpage">{{ L("Find")
             }}</Button>
-            <Button type="primary" size="large" class="toolbar-btn" @click="create" icon="android-add">{{ L("Add")
+            <Button type="primary" size="large" class="toolbar-btn" v-if="isGranted('Pages.Customer.Create')" @click="create" icon="android-add">{{ L("Add")
             }}</Button>
           </Row>
         </Form>
@@ -47,17 +54,25 @@
         <el-table :data="list" style="width: 100%" max-height="300">
           <template v-for="v in tableColumns">
             <template v-if="v.isShowInList">
-              <el-table-column v-if="v.type == 'DropDownList'" v-bind:key="v.dbColumnName" :fixed="false"
-                :prop="v.dbColumnName" :label="v.displayName" width="150" max-height="50">
-                <template slot-scope="scope">
-                  <el-select v-model="list[scope.$index][v.dbColumnName]" v-bind:disabled="true">
-                    <el-option v-for="item in v.table_ColumnsDetails" :key="item.codeStr" :label="item.name"
-                      :value="item.codeStr">
-                    </el-option>
-                  </el-select>
+              <el-table-column v-if="v.type == 'DropDownListInt'" v-bind:key="v.columnName" :fixed="false"
+                :prop="v.columnName" :label="v.displayName" width="150" max-height="50">
+                <template slot-scope="scope"   >
+                  <el-tag size="medium" v-for="item in v.tableColumnsDetails"   v-if="item.codeInt == list[scope.$index][v.columnName]"  v-bind="item.codeInt"
+                    :key="item.codeInt" show-icon :type="item.color">
+                    {{ item.name }}
+                  </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column v-else v-bind:key="v.dbColumnName" :fixed="false" :prop="v.dbColumnName"
+              <el-table-column v-else-if="v.type == 'DropDownListStr'" v-bind:key="v.columnName" :fixed="false"
+                :prop="v.columnName" :label="v.displayName" width="150" max-height="50">
+                <template slot-scope="scope"   >
+                  <el-tag size="medium" v-for="item in v.tableColumnsDetails"   v-if="item.codeStr == list[scope.$index][v.columnName]"  v-bind="item.codeStr"
+                    :key="item.codeStr" show-icon :type="item.color">
+                    {{ item.name }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column v-else v-bind:key="v.columnName" :fixed="false" :prop="v.columnName"
                 :label="v.displayName" width="150" max-height="50">
               </el-table-column>
             </template>
@@ -65,9 +80,8 @@
           <el-table-column fixed="right" label="操作" width="130">
             <template slot-scope="scope">
               <el-button @click="handleQuery(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
-
-              <el-popconfirm confirm-button-text="确定" cancel-button-text="取消" icon="el-icon-info" icon-color="red"
+              <el-button @click="handleEdit(scope.row)" v-if="isGranted('Pages.Customer.Edit')" type="text" size="small">编辑</el-button>
+              <el-popconfirm confirm-button-text="确定" v-if="isGranted('Pages.Customer.Delete')" cancel-button-text="取消" icon="el-icon-info" icon-color="red"
                 @confirm="handleDelete(scope.row)" title="确定删除吗？">
                 <el-button slot="reference" type="text" size="small">删除</el-button>
               </el-popconfirm>
@@ -126,6 +140,12 @@ export default class CustomerList extends AbpBase {
   get currentPage() {
     return this.$store.state.customer.currentPage;
   }
+  isGranted(Granted)
+  {
+    console.log(Granted);
+    console.log(abp.auth.isGranted(Granted));
+   return abp.auth.isGranted(Granted)
+  }
   create() {
     this.createModalShow = true;
   }
@@ -142,7 +162,7 @@ export default class CustomerList extends AbpBase {
     this.queryModalShow = true;
   }
   async getpage() {
- 
+
     this.customer.maxResultCount = this.pageSize;
     this.customer.skipCount = (this.currentPage - 1) * this.pageSize;
     await this.$store.dispatch({
@@ -176,7 +196,7 @@ export default class CustomerList extends AbpBase {
       })
       .catch((err) => {
         console.log(err);
-      }); 
+      });
   }
   created() {
     this.gettableColumn();

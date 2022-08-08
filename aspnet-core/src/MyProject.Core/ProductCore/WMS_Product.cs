@@ -36,7 +36,7 @@ namespace MyProject.ProductCore
         [StringLength(50)]
         public string SKULevel { get; set; }
 
-        public long? SuperId { get; set; }
+        public long SuperId { get; set; }
 
         [StringLength(50)]
         public string SKUGroup { get; set; }
@@ -63,26 +63,26 @@ namespace MyProject.ProductCore
         public string DangerCode { get; set; }
 
         [StringLength(50)]
-        public string Vvolume { get; set; }
+        public double Volume { get; set; }
 
         [StringLength(50)]
-        public string StandardVolume { get; set; }
+        public double StandardVolume { get; set; }
 
         [StringLength(50)]
-        public string Weight { get; set; }
+        public double Weight { get; set; }
 
         [StringLength(50)]
-        public string StandardWeight { get; set; }
+        public double StandardWeight { get; set; }
 
         [StringLength(50)]
-        public string NetWeight { get; set; }
+        public double NetWeight { get; set; }
 
         [StringLength(50)]
-        public string StandardNetWeight { get; set; }
+        public double StandardNetWeight { get; set; }
 
-        public decimal? Price { get; set; }
+        public double Price { get; set; }
 
-        public decimal? ActualPrice { get; set; }
+        public double ActualPrice { get; set; }
 
         [StringLength(50)]
         public string Cost { get; set; }
@@ -90,11 +90,11 @@ namespace MyProject.ProductCore
         [StringLength(50)]
         public string Color { get; set; }
 
-        public double? Length { get; set; }
+        public double Length { get; set; }
 
-        public double? Wide { get; set; }
+        public double Wide { get; set; }
 
-        public double? High { get; set; }
+        public double High { get; set; }
 
         public int ExpirationDate { get; set; }
 
@@ -175,10 +175,10 @@ namespace MyProject.ProductCore
         [Column(TypeName = "datetime2")]
         public DateTime? DateTime3 { get; set; } 
 
-        public int? Int1 { get; set; }
+        public int Int1 { get; set; }
 
-        public int? Int2 { get; set; }
+        public int Int2 { get; set; }
 
-        public int? Int3 { get; set; }
+        public int Int3 { get; set; }
     }
-}
+} 

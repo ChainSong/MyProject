@@ -6,7 +6,7 @@
       width="80"
       @on-visible-change="visibleChange"
     >
-      <Form ref="editHeader" label-position="top" :rules="rule">
+      <Form ref="editHeader" label-position="top" :rules="headerRule">
         <Row>
           <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
             <FormItem
@@ -108,9 +108,7 @@
                     <template v-if="v.type == 'TextBox'">
                       <el-input
                         placeholder="请输入内容"
-                        v-model="
-                          detailDatas.details[scope.$index][v.dbColumnName]
-                        "
+                        v-model="detailDatas.details[scope.$index][v.dbColumnName]"
                         v-if="v.isUpdate"
                       >
                       </el-input>
@@ -122,9 +120,7 @@
                     </template>
                     <template v-if="v.type == 'DropDownList'">
                       <el-select
-                        v-model="
-                          detailDatas.details[scope.$index][v.dbColumnName]
-                        "
+                        v-model="detailDatas.details[scope.$index][v.dbColumnName]"
                         v-if="v.isUpdate"
                         placeholder="请选择"
                         style="width: 100%"
@@ -140,9 +136,7 @@
                     </template>
                     <template v-if="v.type == 'DatePicker'">
                       <el-date-picker
-                        v-model="
-                          detailDatas.details[scope.$index][v.dbColumnName]
-                        "
+                        v-model="detailDatas.details[scope.$index][v.dbColumnName]"
                         v-if="v.isUpdate"
                         type="date"
                         placeholder="选择日期"
@@ -152,9 +146,7 @@
                     </template>
                     <template v-if="v.type == 'DateTimePicker'" span="12">
                       <el-date-picker
-                        v-model="
-                          detailDatas.details[scope.$index][v.dbColumnName]
-                        "
+                        v-model="detailDatas.details[scope.$index][v.dbColumnName]"
                         v-if="v.isUpdate"
                         type="datetime"
                         start-placeholder="选择日期时间"

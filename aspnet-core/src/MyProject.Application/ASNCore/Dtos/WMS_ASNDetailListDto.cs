@@ -1,15 +1,17 @@
 
 using System;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.ASNCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_ASNDetail的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_ASNDetailListDto  
+	[AutoMap(typeof(WMS_ASNDetail))]
+	public class WMS_ASNDetailListDto  
     {
 		/// <summary>
         /// Id 

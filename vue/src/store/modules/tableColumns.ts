@@ -28,15 +28,17 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
     actions = {
         async GetPaged(context:ActionContext<TableColumnsState,any>,payload:any){
             context.state.loading=true;
+            // console.log("GetPaged");
+            // console.log(payload.data);
             let reponse=await Ajax.post('/api/services/app/Table_Columns/GetPaged',payload.data);
             context.state.loading=false;
-            console.log("reponse.data.result");
-            console.log(reponse.data.result);
+            // console.log("reponse.data.result");
+            // console.log(reponse.data.result);
             let page=reponse.data.result as PageResult<TableColumns>;
             context.state.totalCount=page.totalCount;
             context.state.list=page.items;
-            console.log( context.state.list);
-            console.log(page);
+            // console.log( context.state.list);
+            // console.log(page);
         },
         async GetAll(context:ActionContext<TableColumnsState,any>,payload:any){
             //  Ajax.post('/api/services/app/Table_Columns/GetAll',payload.data);
@@ -49,8 +51,8 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         //     await Ajax.post('/api/services/app/Role/Create',payload.data);
         // },
         async update(context:ActionContext<TableColumnsState,any>,payload:any){
-            console.log(JSON.stringify(payload.data));
-            // localStorage.removeItem(Util.abp.session.tenantId+"_"+payload.data[0].);
+            console.log(payload.data);
+            localStorage.removeItem(payload.data.table_Columnss[0].tableName);
             await Ajax.post('/api/services/app/Table_Columns/BatchUpdate',payload.data);
         },
         // async delete(context:ActionContext<RoleState,any>,payload:any){
@@ -67,10 +69,10 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         async GetByTableNameList(context: ActionContext<TableColumnsState, any>, payload: any) {
             // console.log("Util.abp.session.tenant.tenantId");
             // console.log(Util.abp.session.tenantId);
-            var tableColumnsStorage = localStorage.getItem(Util.abp.session.tenantId+"_"+payload.data.tableName);
+            var tableColumnsStorage = localStorage.getItem(payload.data.tableName);
            console.log(payload.data);
            // if (tableColumnsStorage != null && tableColumnsStorage.length > 10) {
-             if (tableColumnsStorage != null && tableColumnsStorage.length ==0) {
+             if (tableColumnsStorage != null && tableColumnsStorage.length >10) {
                 if (context.state.list == null && context.state.list.length == 0) {
                     localStorage.setItem(payload.data.tableName, null);
                 }

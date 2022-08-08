@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.ProductCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Product的列表DTO
 	/// <see cref="WMS_Product"/>
 	/// </summary>
-    public class WMS_ProductEditDto
+	[AutoMap(typeof(WMS_Product))]
+	public class WMS_ProductEditDto
     {
 		/// <summary>
         /// Id 
@@ -50,6 +53,10 @@ namespace MyProject.ProductCore.Dtos
 		/// </summary>
 		public string SKULevel { get; set; }
 		/// <summary>
+		/// 字段SuperId
+		/// </summary>
+		public long SuperId { get; set; }
+		/// <summary>
 		/// 字段SKUGroup
 		/// </summary>
 		public string SKUGroup { get; set; }
@@ -82,29 +89,37 @@ namespace MyProject.ProductCore.Dtos
 		/// </summary>
 		public string DangerCode { get; set; }
 		/// <summary>
-		/// 字段Vvolume
+		/// 字段Volume
 		/// </summary>
-		public string Vvolume { get; set; }
+		public double Volume { get; set; }
 		/// <summary>
 		/// 字段StandardVolume
 		/// </summary>
-		public string StandardVolume { get; set; }
+		public double StandardVolume { get; set; }
 		/// <summary>
 		/// 字段Weight
 		/// </summary>
-		public string Weight { get; set; }
+		public double Weight { get; set; }
 		/// <summary>
 		/// 字段StandardWeight
 		/// </summary>
-		public string StandardWeight { get; set; }
+		public double StandardWeight { get; set; }
 		/// <summary>
 		/// 字段NetWeight
 		/// </summary>
-		public string NetWeight { get; set; }
+		public double NetWeight { get; set; }
 		/// <summary>
 		/// 字段StandardNetWeight
 		/// </summary>
-		public string StandardNetWeight { get; set; }
+		public double StandardNetWeight { get; set; }
+		/// <summary>
+		/// 字段Price
+		/// </summary>
+		public double Price { get; set; }
+		/// <summary>
+		/// 字段ActualPrice
+		/// </summary>
+		public double ActualPrice { get; set; }
 		/// <summary>
 		/// 字段Cost
 		/// </summary>
@@ -113,6 +128,18 @@ namespace MyProject.ProductCore.Dtos
 		/// 字段Color
 		/// </summary>
 		public string Color { get; set; }
+		/// <summary>
+		/// 字段Length
+		/// </summary>
+		public double Length { get; set; }
+		/// <summary>
+		/// 字段Wide
+		/// </summary>
+		public double Wide { get; set; }
+		/// <summary>
+		/// 字段High
+		/// </summary>
+		public double High { get; set; }
 		/// <summary>
 		/// 字段ExpirationDate
 		/// </summary>
@@ -125,6 +152,10 @@ namespace MyProject.ProductCore.Dtos
 		/// 字段Creator
 		/// </summary>
 		public string Creator { get; set; }
+		/// <summary>
+		/// 字段CreationTime
+		/// </summary>
+		public DateTime CreationTime { get; set; }
 		/// <summary>
 		/// 字段Str1
 		/// </summary>
@@ -205,6 +236,18 @@ namespace MyProject.ProductCore.Dtos
 		/// 字段Str20
 		/// </summary>
 		public string Str20 { get; set; }
+		/// <summary>
+		/// 字段Int1
+		/// </summary>
+		public int Int1 { get; set; }
+		/// <summary>
+		/// 字段Int2
+		/// </summary>
+		public int Int2 { get; set; }
+		/// <summary>
+		/// 字段Int3
+		/// </summary>
+		public int Int3 { get; set; }
 		
 		/* 这里创建自己的代码 */
 	}

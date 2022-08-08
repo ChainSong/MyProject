@@ -5,11 +5,11 @@
         <div class="header">
           <a>
             <img class="logo"/>
-            <span class="title">{{L('AppName')}}</span>
+            <span class="title">WMS</span>
           </a>
         </div>
-        <div class="desc">
-          {{L('WelcomeMessage')}}
+        <div class="desc">Welcome to WMS!
+          <!-- {{L('WelcomeMessage')}} -->
         </div>
       </div>
       <div class="main">

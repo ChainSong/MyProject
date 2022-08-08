@@ -21,6 +21,8 @@ using MyProject.TableColumns.DomainService;
 using MyProject.Authorization;
 using Abp.Runtime.Caching;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MyProject.TableColumns
 {
@@ -71,48 +73,41 @@ namespace MyProject.TableColumns
         //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Query)]
         public async Task<PagedResultDto<Table_ColumnsListDto>> GetPaged(GetTable_ColumnssInput input)
         {
-            try
-            {
-
-                var query = _table_ColumnsRepository.GetAll()
-                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
-                              //模糊搜索RoleName
-                              a.RoleName.Contains(input.RoleName))
-                .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a =>
-
-                              //模糊搜索TableName
-                              a.TableName.Contains(input.TableName))
-                .WhereIf(input.TenantId != 0, a =>
-                                //模糊搜索TenantId
-                                a.TenantId == (input.TenantId))
-                 .WhereIf(input.CustomerId != 0, a =>
-                                //模糊搜索CustomerId
-                                a.CustomerId == (input.CustomerId))
-                .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
-                              //模糊搜索RoleName
-                              a.RoleName.Contains(input.RoleName)
-                ).Select(a => new Table_Columns { CustomerId = a.CustomerId, RoleName = a.RoleName, TableName = a.TableName, TableNameCH = a.TableNameCH }).Distinct();
-                // TODO:根据传入的参数添加过滤条件
-
-                var count = query.Count();
-
-                var table_ColumnsList = await query
-                //.OrderBy(input.Sorting).AsNoTracking()
-                   .OrderByDescending(t => t.TableName).AsNoTracking()
-                .PageBy(input)
-                .ToListAsync();
 
 
-                var table_ColumnsListDtos = ObjectMapper.Map<List<Table_ColumnsListDto>>(table_ColumnsList);
+            var query = _table_ColumnsRepository.GetAll()
+            .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
+                          //模糊搜索RoleName
+                          a.RoleName.Contains(input.RoleName))
+            .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a =>
 
-                return new PagedResultDto<Table_ColumnsListDto>(count, table_ColumnsListDtos);
+                          //模糊搜索TableName
+                          a.TableName.Contains(input.TableName))
+            .WhereIf(input.TenantId != 0, a =>
+                            //模糊搜索TenantId
+                            a.TenantId == (input.TenantId))
+             .WhereIf(input.CustomerId != 0, a =>
+                            //模糊搜索CustomerId
+                            a.CustomerId == (input.CustomerId))
+            .WhereIf(!input.RoleName.IsNullOrWhiteSpace(), a =>
+                          //模糊搜索RoleName
+                          a.RoleName.Contains(input.RoleName)
+            ).Select(a => new Table_Columns { CustomerId = a.CustomerId, RoleName = a.RoleName, TableName = a.TableName, TableNameCH = a.TableNameCH }).Distinct();
+            // TODO:根据传入的参数添加过滤条件
 
-            }
-            catch (Exception ex)
-            {
+            var count = query.Count();
 
-            }
-            return new PagedResultDto<Table_ColumnsListDto>();
+            var table_ColumnsList = await query
+            //.OrderBy(input.Sorting).AsNoTracking()
+            .OrderByDescending(t => t.TableName).AsNoTracking()
+            .PageBy(input)
+            .ToListAsync();
+
+
+            var table_ColumnsListDtos = ObjectMapper.Map<List<Table_ColumnsListDto>>(table_ColumnsList);
+
+            return new PagedResultDto<Table_ColumnsListDto>(count, table_ColumnsListDtos);
+
         }
 
         /// <summary>
@@ -215,7 +210,8 @@ namespace MyProject.TableColumns
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Create, Table_ColumnsPermissions.Table_Columns_Edit)]
+        //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Create, Table_ColumnsPermissions.Table_Columns_Edit)]
+        [HttpPost]
         public async Task CreateOrUpdate(CreateOrUpdateTable_ColumnsInput input)
         {
 
@@ -234,7 +230,7 @@ namespace MyProject.TableColumns
         /// <summary>
         /// 新增
         /// </summary>
-        [AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Create)]
+        //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Create)]
         protected virtual async Task<Table_ColumnsEditDto> Create(Table_ColumnsEditDto input)
         {
             //TODO:新增前的逻辑判断，是否允许新增
@@ -250,7 +246,7 @@ namespace MyProject.TableColumns
         /// <summary>
         /// 编辑
         /// </summary>
-        [AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Edit)]
+        //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Edit)]
         protected virtual async Task Update(Table_ColumnsEditDto input)
         {
             //TODO:更新前的逻辑判断，是否允许更新
@@ -278,16 +274,17 @@ namespace MyProject.TableColumns
             {
                 //TODO:更新前的逻辑判断，是否允许更新
                 var entity = await _table_ColumnsRepository.GetAsync(item.Id.Value);
-                entity.Table_ColumnsDetails = new List<Table_ColumnsDetail>();
+                entity.TableColumnsDetails = new List<Table_ColumnsDetail>();
                 //item.tal = new List<Table_ColumnsDetail>();
                 //item.MapTo(entity);
                 //将input属性的值赋值到entity中
                 ObjectMapper.Map(item, entity);
                 //Mapper(ObjectMapper);
                 await _table_ColumnsManager.UpdateAsync(entity);
-                await GetTables(new GetTable_ColumnssInput { TableName = table_Columns.Table_Columnss.FirstOrDefault().TableName });
 
             }
+            await GetTables(new GetTable_ColumnssInput { TableName = table_Columns.Table_Columnss.FirstOrDefault().TableName });
+
             //}
             //catch (Exception ex)
             //{
@@ -402,6 +399,7 @@ namespace MyProject.TableColumns
             input.Sorting = "Order";
             //input.TenantId = AbpSession.TenantId.Value;
 
+
             var query = _table_ColumnsRepository.GetAll().AsNoTracking()
             //模糊搜索TableName
             .WhereIf(!input.TableName.IsNullOrWhiteSpace(), a => a.TableName == input.TableName)
@@ -424,8 +422,9 @@ namespace MyProject.TableColumns
               ,
                 DisplayName = a.DisplayName
               ,
-                    //由于框架约定大于配置， 数据库的字段首字母小写
-                DbColumnName = a.DbColumnName.Substring(0, 1).ToLower() + a.DbColumnName.Substring(1)
+                //由于框架约定大于配置， 数据库的字段首字母小写
+                //DbColumnName = a.DbColumnName.Substring(0, 1).ToLower() + a.DbColumnName.Substring(1)
+                DbColumnName = a.DbColumnName
               ,
                 IsKey = a.IsKey
               ,
@@ -443,7 +442,7 @@ namespace MyProject.TableColumns
               ,
                 Associated = a.Associated
               ,
-                Table_ColumnsDetails = _table_ColumnsDetailRepository.GetAll().Where(b => b.Associated == a.Associated)
+                TableColumnsDetails = _table_ColumnsDetailRepository.GetAll().Where(b => b.Associated == a.Associated)
               .Select(b =>
                 new Table_ColumnsDetail
                 {
@@ -452,6 +451,7 @@ namespace MyProject.TableColumns
                     CodeStr = b.CodeStr,
                     Name = b.Name,
                     Type = b.Type,
+                    Color = b.Color,
                     Associated = b.Associated,
                     Status = b.Status,
                     Creator = b.Creator,
@@ -472,6 +472,11 @@ namespace MyProject.TableColumns
                 Type = a.Type
               ,
                 Order = a.Order
+                ,
+                Precision = a.Precision,
+                Step = a.Step,
+                Max = a.Max,
+                Min = a.Min
               ,
                 ForView = a.ForView
             })
@@ -489,12 +494,7 @@ namespace MyProject.TableColumns
              .ToListAsync();
             _cacheManage.GetCache("TableColumn").Set("TableColumn_" + input.TableName + "_" + input.TenantId, table_ColumnsList);
             return table_ColumnsList;
-            //}
-            //catch (Exception ex)
-            //{
 
-            //    throw;
-            //}
 
         }
 
@@ -513,5 +513,4 @@ namespace MyProject.TableColumns
 
     }
 }
-
 

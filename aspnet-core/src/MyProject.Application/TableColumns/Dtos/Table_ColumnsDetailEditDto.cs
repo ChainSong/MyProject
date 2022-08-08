@@ -43,7 +43,7 @@ namespace MyProject.TableColumns.Dtos
         /// </summary>
         public string Type { get; set; }
 
-
+        public string Color { get; set; }
 
         /// <summary>
         /// Status

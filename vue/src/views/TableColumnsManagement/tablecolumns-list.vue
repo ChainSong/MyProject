@@ -167,17 +167,11 @@ export default class TablecolumnsList extends AbpBase {
   // }
 
   handleEdit(row) {
-    // console.log(row);
-    //  if(row!="undefined")
-    //  {
-    //    this.editModalShow = true;
-    //  }
-      console.log("row");
-     console.log(row);
     this.tableColumn.tableName=row.tableName;
-    this.get();
+    // this.get();
     this.$store.commit("tableColumns/edit", row);
     this.editModalShow = true;
+     this.tableColumn.tableName="";
   }
   created() {
     this.get();

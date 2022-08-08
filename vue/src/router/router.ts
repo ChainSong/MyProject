@@ -65,7 +65,7 @@ export const appRouters: Array<Router> = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'Customers', permission: 'Pages.Customers', meta: { title: 'Customers' }, name: 'Customers', component: () => import('../views/CustomerManagement/customer-list.vue') }
+        { path: 'Customers', permission: 'Pages.Customer', meta: { title: 'Customers' }, name: 'Customers', component: () => import('../views/CustomerManagement/customer-list.vue') }
     ]
 },{
     path: '/ASNManagement',
@@ -88,9 +88,29 @@ export const appRouters: Array<Router> = [{
         { path: 'Receipt', permission: 'Pages.Receipt', meta: { title: 'Receipt' }, name: 'Receipt', component: () => import('../views/ReceiptManagement/receipt-list.vue') }
     ]
 },{
+    path: '/ProductManagement',
+    name: 'ProductManagement',
+    permission: '4',
+    meta: { title: '产品管理' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'Product', permission: 'Pages.WMS_Product', meta: { title: 'Product' }, name: 'Product', component: () => import('../views/ProductManagement/product-list.vue') }
+    ]
+},{
+    path: '/WarehouseManagement',
+    name: 'WarehouseManagement',
+    permission: '6',
+    meta: { title: '仓库管理' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'Warehouse', permission: 'Pages.Warehouse', meta: { title: 'Warehouse' }, name: 'Warehouse', component: () => import('../views/WarehouseManagement/warehouse-list.vue') }
+    ]
+},{
     path: '/TableColumnsManagement',
     name: 'TableColumnsManagement',
-    permission: '3',
+    permission: '99',
     meta: { title: '表字段' },
     icon: '&#xe68a;',
     component: main,

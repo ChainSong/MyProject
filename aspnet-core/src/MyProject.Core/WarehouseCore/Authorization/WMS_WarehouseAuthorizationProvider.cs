@@ -43,7 +43,7 @@ namespace MyProject.Authorization
 			permission.CreateChildPermission(WMS_WarehousePermissions.Edit, L("EditWMS_Warehouse"));
 			permission.CreateChildPermission(WMS_WarehousePermissions.Delete, L("DeleteWMS_Warehouse"));
 			permission.CreateChildPermission(WMS_WarehousePermissions.BatchDelete, L("BatchDeleteWMS_Warehouse"));
-			permission.CreateChildPermission(WMS_WarehousePermissions.ExportExcel, L("ExportToExcel"));
+			permission.CreateChildPermission(WMS_WarehousePermissions.ExportExcelWarehouse, L("ExportToExcelWarehouse"));
 
 			//// 添加自定义代码开始
 									

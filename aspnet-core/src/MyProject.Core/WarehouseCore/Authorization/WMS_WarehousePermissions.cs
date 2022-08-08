@@ -10,37 +10,37 @@ namespace MyProject.Authorization
 		/// <summary>
 		/// 【WMS_Warehouse】权限节点
 		///</summary>
-		public const string Node = "Pages.WMS_Warehouse";
+		public const string Node = "Pages.Warehouse";
 
 		/// <summary>
 		/// 【WMS_Warehouse】查询授权
 		///</summary>
-		public const string Query = "Pages.WMS_Warehouse.Query";
+		public const string Query = "Pages.Warehouse.Query";
 
 		/// <summary>
 		/// 【WMS_Warehouse】创建权限
 		///</summary>
-		public const string Create = "Pages.WMS_Warehouse.Create";
+		public const string Create = "Pages.Warehouse.Create";
 
 		/// <summary>
 		/// 【WMS_Warehouse】修改权限
 		///</summary>
-		public const string Edit = "Pages.WMS_Warehouse.Edit";
+		public const string Edit = "Pages.Warehouse.Edit";
 
 		/// <summary>
 		/// 【WMS_Warehouse】删除权限
 		///</summary>
-		public const string Delete = "Pages.WMS_Warehouse.Delete";
+		public const string Delete = "Pages.Warehouse.Delete";
 
         /// <summary>
 		/// 【WMS_Warehouse】批量删除权限
 		///</summary>
-		public const string BatchDelete = "Pages.WMS_Warehouse.BatchDelete";
+		public const string BatchDelete = "Pages.Warehouse.BatchDelete";
 
 		/// <summary>
 		/// 【WMS_Warehouse】导出Excel
 		///</summary>
-		public const string ExportExcel="Pages.WMS_Warehouse.ExportExcel";
+		public const string ExportExcelWarehouse = "Pages.Warehouse.ExportExcel";
 
 		/* 以下可以自定义权限 */ 
 		

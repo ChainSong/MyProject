@@ -1,49 +1,31 @@
 <template>
   <div>
-    <Modal
-      :title="L('CustomerQuery')"
-      :value="value"
-      width="80"
-      @on-visible-change="visibleChange"
-    >
+    <Modal :title="L('CustomerQuery')" :value="value" width="80" @on-visible-change="visibleChange">
       <Form label-position="top">
         <Row>
           <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
-            <FormItem
-              :label="i.displayName"
-              :prop="i.displayName"
-              v-if="i.isCreate"
-              style="width: 90%"
-            >
-              <template v-if="i.type == 'TextBox'">
-                <label v-text="header[i.dbColumnName]"></label>
-              </template>
-              <!-- <template v-if="i.type == 'DropDownList'">
+          <FormItem :label="i.displayName" :prop="i.displayName" v-if="i.isCreate" style="width: 90%">
+            <template v-if="i.type == 'TextBox'">
+              <label v-text="header[i.columnName]"></label>
+            </template>
+            <!-- <template v-if="i.type == 'DropDownList'">
                 <label v-text="i.table_ColumnsDetails"></label>
               </template> -->
-                <template v-if="i.type == 'DropDownList'">
-                  <template v-for="DropDown in i.table_ColumnsDetails">
-                    <label v-if="DropDown.codeStr==header[i.dbColumnName]" v-text="DropDown.name" :key="DropDown.codeStr"></label>
-                  </template>
-                <!-- <el-select
-                  v-model="header[i.dbColumnName]"
-                  v-if="i.isCreate"
-                  placeholder="请选择"
-                  style="width: 100%"
-                  disabled
-                >
-                  <el-option
-                    v-for="item in i.table_ColumnsDetails"
-                    :key="item.code"
-                    :label="item.name"
-                    :value="item.code"
-                  >
-                  </el-option>
-                </el-select> -->
-              </template> 
-              <!-- <template v-if="i.type == 'DatePicker'">
+            <template v-if="i.type == 'DropDownListInt'">
+              <template v-for="DropDown in i.tableColumnsDetails">
+                <label v-if="DropDown.codeInt == header[i.columnName]" v-text="DropDown.name"
+                  :key="DropDown.codeInt"></label>
+              </template>
+            </template>
+            <template v-if="i.type == 'DropDownListStr'">
+              <template v-for="DropDown in i.tableColumnsDetails">
+                <label v-if="DropDown.codeStr == header[i.columnName]" v-text="DropDown.name"
+                  :key="DropDown.codeStr"></label>
+              </template>
+            </template>
+            <!-- <template v-if="i.type == 'DatePicker'">
                 <el-date-picker
-                  v-model="header[i.dbColumnName]"
+                  v-model="header[i.columnName]"
                   v-if="i.isUpdate"
                   type="date"
                   placeholder="选择日期"
@@ -53,21 +35,21 @@
               </template>
               <template v-if="i.type == 'DateTimePicker'" span="12">
                 <el-date-picker
-                  v-model="header[i.dbColumnName]"
+                  v-model="header[i.columnName]"
                   v-if="i.isUpdate"
                   type="datetime"
                   start-placeholder="选择日期时间"
                   style="width: 100%"
                 >
                 </el-date-picker>
-              </template> -->  
-              <!-- <el-input
+              </template> -->
+            <!-- <el-input
                 placeholder="请输入内容"
-                v-model="header[i.dbColumnName]"
+                v-model="header[i.columnName]"
                 v-if="i.isUpdate"
               >
               </el-input> -->
-            </FormItem>
+          </FormItem>
           </Col>
         </Row>
       </Form>
@@ -80,38 +62,12 @@
       > -->
       <template>
         <el-form :model="detailDatas" ref="editDetail">
-          <el-table
-            :data="detailDatas.details"
-            style="width: 100%"
-            height="250"
-          >
+          <el-table :data="detailDatas.details" style="width: 100%" height="250">
             <template v-for="(v, index) in tableColumnDetails">
-              <el-table-column
-                v-if="v.isUpdate"
-                :key="index"
-                :fixed="false"
-                :label="v.displayName"
-                width="150"
-              >
-              <template slot-scope="scope">
-                 <label v-text="detailDatas.details[scope.$index][v.dbColumnName]"></label>
-              </template>
-              <!-- <template slot-scope="scope">
-                  <el-form-item
-                    :key="scope.row.key"
-                    :prop="'details.' + scope.$index + '.' + index"
-                  >
-                    <template v-if="v.type == 'TextBox'">
-                      <el-input
-                        placeholder="请输入内容"
-                        v-model="
-                          detailDatas.details[scope.$index][v.dbColumnName]
-                        "
-                        v-if="v.isUpdate"
-                      >
-                      </el-input>
-                    </template>
-                </template> -->
+              <el-table-column v-if="v.isUpdate" :key="index" :fixed="false" :label="v.displayName" width="150">
+                <template slot-scope="scope">
+                  <label v-text="detailDatas.details[scope.$index][v.columnName]"></label>
+                </template>
               </el-table-column>
             </template>
           </el-table>
@@ -149,32 +105,40 @@ export default class CustomerQuery extends AbpBase {
   gettableColumn() {
     this.tableColumnHeader.tableName = "Customer";
     this.tableColumnDetail.tableName = "CustomerDetail";
-    this.$store
-      .dispatch({
-        type: "tableColumns/GetByTableNameList",
-        data: this.tableColumnHeader,
-      })
-      .then((res) => {
-        this.tableColumnHeaders = JSON.parse(
-          localStorage.getItem(this.tableColumnHeader.tableName)
-        ) as Array<TableColumns>;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    this.$store
-      .dispatch({
-        type: "tableColumns/GetByTableNameList",
-        data: this.tableColumnDetail,
-      })
-      .then((res) => {
-        this.tableColumnDetails = JSON.parse(
-          localStorage.getItem(this.tableColumnDetail.tableName)
-        ) as Array<TableColumns>;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.tableColumnHeaders = JSON.parse(
+      localStorage.getItem(this.tableColumnHeader.tableName)
+    ) as Array<TableColumns>;
+
+    this.tableColumnDetails = JSON.parse(
+      localStorage.getItem(this.tableColumnDetail.tableName)
+    ) as Array<TableColumns>;
+
+    // this.$store
+    //   .dispatch({
+    //     type: "tableColumns/GetByTableNameList",
+    //     data: this.tableColumnHeader,
+    //   })
+    //   .then((res) => {
+    //     this.tableColumnHeaders = JSON.parse(
+    //       localStorage.getItem(this.tableColumnHeader.tableName)
+    //     ) as Array<TableColumns>;
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // this.$store
+    //   .dispatch({
+    //     type: "tableColumns/GetByTableNameList",
+    //     data: this.tableColumnDetail,
+    //   })
+    //   .then((res) => {
+    //     this.tableColumnDetails = JSON.parse(
+    //       localStorage.getItem(this.tableColumnDetail.tableName)
+    //     ) as Array<TableColumns>;
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
   get() {
     this.$store
@@ -205,7 +169,7 @@ export default class CustomerQuery extends AbpBase {
   cancel() {
     this.$emit("input", false);
   }
-  
+
 }
 </script>
  

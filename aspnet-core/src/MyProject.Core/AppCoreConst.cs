@@ -17,7 +17,7 @@ namespace MyProject
             /// <summary>
             /// 生成到数据库中的表名称前缀
             /// </summary>
-            public const string TABLE_PREFIX = "";
+            public const string TABLE_PREFIX = "SOEI_";
 
             public const string Basic = "Basic";
 

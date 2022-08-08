@@ -13,19 +13,19 @@
                 <template v-if="i.type == 'TextBox'">
                   <el-input
                     placeholder="请输入内容"
-                    v-model="receipt[i.dbColumnName]"
+                    v-model="receipt[i.columnName]"
                     v-if="i.isSearchCondition"
                   >
                   </el-input>
                   <!-- <Input
-                    v-model="receipt[i.dbColumnName]"
+                    v-model="receipt[i.columnName]"
                     v-if="i.isSearchCondition"
                   >
                   </Input> -->
                 </template>
                 <template v-if="i.type == 'DropDownList'">
                   <el-select
-                    v-model="receipt[i.dbColumnName]"
+                    v-model="receipt[i.columnName]"
                     v-if="i.isSearchCondition"
                     placeholder="请选择"
                   >
@@ -40,7 +40,7 @@
                 </template>
                 <template v-if="i.type == 'DatePicker'">
                   <el-date-picker
-                    v-model="receipt[i.dbColumnName]"
+                    v-model="receipt[i.columnName]"
                     type="daterange"
                     v-if="i.isSearchCondition"
                     range-separator="~"
@@ -52,7 +52,7 @@
                 </template>
                 <template v-if="i.type == 'DateTimePicker'" span="12">
                   <el-date-picker
-                    v-model="receipt[i.dbColumnName]"
+                    v-model="receipt[i.columnName]"
                     v-if="i.isSearchCondition"
                     type="datetimerange"
                     range-separator="~"
@@ -91,9 +91,9 @@
             <template v-if="v.isShowInList">
               <el-table-column
                 v-if="v.type == 'DropDownList'"
-                v-bind:key="v.dbColumnName"
+                v-bind:key="v.columnName"
                 :fixed="false"
-                :prop="v.dbColumnName"
+                :prop="v.columnName"
                 :label="v.displayName"
                 width="150"
                 max-height="50"
@@ -101,7 +101,7 @@
                 <template
                   slot-scope="scope" >
                  <el-select
-                    v-model="list[scope.$index][v.dbColumnName]"
+                    v-model="list[scope.$index][v.columnName]"
                     v-bind:disabled="true"
                   >
                     <el-option
@@ -116,9 +116,9 @@
               </el-table-column>
               <el-table-column
                 v-else
-                v-bind:key="v.dbColumnName"
+                v-bind:key="v.columnName"
                 :fixed="false"
-                :prop="v.dbColumnName"
+                :prop="v.columnName"
                 :label="v.displayName"
                 width="150"
                 max-height="50"

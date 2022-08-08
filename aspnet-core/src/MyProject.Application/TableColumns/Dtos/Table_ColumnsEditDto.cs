@@ -183,7 +183,10 @@ namespace  MyProject.TableColumns.Dtos
 		/// </summary>
 		public long CustomerId { get; set; }
 
-
+		public int Precision { get; set; }
+		public double Step { get; set; }
+		public double Max { get; set; }
+		public double Min { get; set; }
 
 		/// <summary>
 		/// Validation

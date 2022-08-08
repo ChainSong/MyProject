@@ -11,7 +11,7 @@ namespace MyProject.ProductCore.Dtos
 	/// </summary>
 	public class CreateOrUpdateWMS_ProductInput
     {
-        [Required]
+        //[Required]
         public WMS_ProductEditDto WMS_Product { get; set; }
 
 		/* 这里创建自己的代码 */
