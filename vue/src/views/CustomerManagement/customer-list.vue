@@ -1,6 +1,11 @@
 <template>
   <div>
     <Card dis-hover>
+       <el-collapse accordion>
+        <el-collapse-item>
+          <template slot="title">
+        <el-lable style="color:#409EFF"> 查询条件<i class="el-icon-search" ></i></el-lable>
+          </template>
       <div class="page-body">
         <Form ref="queryForm" :label-width="90" label-position="left" inline>
           <Row>
@@ -50,8 +55,11 @@
           </Row>
         </Form>
       </div>
+        </el-collapse-item>
+       </el-collapse>
+      
       <div class="margin-top-10">
-        <el-table :data="list" style="width: 100%" max-height="300">
+        <el-table :data="list" style="width: 100%" >
           <template v-for="v in tableColumns">
             <template v-if="v.isShowInList">
               <el-table-column v-if="v.type == 'DropDownListInt'" v-bind:key="v.columnName" :fixed="false"
@@ -77,13 +85,13 @@
               </el-table-column>
             </template>
           </template>
-          <el-table-column fixed="right" label="操作" width="130">
+          <el-table-column fixed="right" label="操作" width="200">
             <template slot-scope="scope">
-              <el-button @click="handleQuery(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="handleEdit(scope.row)" v-if="isGranted('Pages.Customer.Edit')" type="text" size="small">编辑</el-button>
+              <el-button @click="handleQuery(scope.row)"   class="el-icon-s-comment"  type="text" size="small">查看</el-button>
+              <el-button @click="handleEdit(scope.row)" class="el-icon-edit" v-if="isGranted('Pages.Customer.Edit')" type="text" size="small">编辑</el-button>
               <el-popconfirm confirm-button-text="确定" v-if="isGranted('Pages.Customer.Delete')" cancel-button-text="取消" icon="el-icon-info" icon-color="red"
                 @confirm="handleDelete(scope.row)" title="确定删除吗？">
-                <el-button slot="reference" type="text" size="small">删除</el-button>
+                <el-button slot="reference" type="text" class="el-icon-delete"  style="color:#F56C6C;margin-left: 10px;" size="small">删除</el-button>
               </el-popconfirm>
             </template>
           </el-table-column>

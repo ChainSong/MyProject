@@ -3,7 +3,7 @@
     <Modal
       title="创建产品"
       :value="value"
-      width="80"
+      width="50"
       @on-visible-change="visibleChange"
     >
       <Form
@@ -13,7 +13,7 @@
         :model="header"
       >
         <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
+          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="12">
             <FormItem
               :label="i.displayName"
               v-if="i.isCreate"
@@ -21,20 +21,16 @@
               :prop="i.columnName"
             >
               <template v-if="i.type == 'TextBox'">
-                <el-input
+                <el-input  size="small"
                   placeholder="请输入内容"
                   v-model="header[i.columnName]"
                   v-if="i.isCreate"
                 >
                 </el-input>
-                <!-- <Input
-                    v-model="product[i.columnName]"
-                    v-if="i.isSearchCondition"
-                  >
-                  </Input> -->
+                
               </template>
               <template v-if="i.type == 'DropDownListInt'">
-                <el-select
+                <el-select  size="small"
                   v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   placeholder="请选择"
@@ -51,7 +47,7 @@
                 </el-select>
               </template>
               <template v-if="i.type == 'DropDownListStr'">
-                <el-select
+                <el-select  size="small"
                   v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   placeholder="请选择"
@@ -68,7 +64,7 @@
                 </el-select>
               </template>
               <template v-if="i.type == 'DatePicker'">
-                <el-date-picker
+                <el-date-picker  size="small"
                   v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   type="date"
@@ -78,7 +74,7 @@
                 </el-date-picker>
               </template>
               <template v-if="i.type == 'DateTimePicker'" span="12">
-                <el-date-picker
+                <el-date-picker  size="small"
                   v-model="header[i.columnName]"
                   v-if="i.isCreate"
                   type="datetime"
@@ -91,99 +87,7 @@
           </Col>
         </Row>
       </Form>
-      <!-- <el-button
-        @click="handleAdd"
-        type="primary"
-        size="large"
-        class="toolbar-btn"
-        >添加一条</el-button
-      > -->
-      <!-- <template>
-        <el-form
-          label-position="top"
-          :model="details"
-          ref="details"
-          :rules="detailRule"
-        >
-          <el-table :data="details.line" style="width: 100%" height="250">
-            <template v-for="(v, index) in tableColumnDetails">
-              <el-table-column
-                v-if="v.isCreate"
-                :key="index"
-                :fixed="false"
-                :prop="v.columnName"
-                :label="v.displayName"
-                width="150"
-              >
-                <template slot-scope="scope">
-                  <el-form-item
-                    :key="scope.row.key"
-                    :prop="'line.' + scope.$index + '.' + v.columnName"
-                    :rules="detailRule[v.columnName]"
-                  >
-                    <template v-if="v.type == 'TextBox'">
-                      <el-input
-                        placeholder="请输入内容"
-                        v-model="details.line[scope.$index][v.columnName]"
-                        v-if="v.isCreate"
-                      >
-                      </el-input>
-                    </template>
-                    <template v-if="v.type == 'DropDownList'">
-                      <el-select
-                        v-model="scope.row[index]"
-                        v-if="v.isCreate"
-                        placeholder="请选择"
-                        style="width: 100%"
-                      >
-                        <el-option
-                          v-for="item in v.table_ColumnsDetails"
-                          :key="item.codeStr"
-                          :label="item.name"
-                          :value="item.codeStr"
-                        >
-                        </el-option>
-                      </el-select>
-                    </template>
-                    <template v-if="v.type == 'DatePicker'">
-                      <el-date-picker
-                        v-model="scope.row[index]"
-                        v-if="v.isCreate"
-                        type="date"
-                        placeholder="选择日期"
-                        style="width: 100%"
-                      >
-                      </el-date-picker>
-                    </template>
-                    <template v-if="v.type == 'DateTimePicker'" span="12">
-                      <el-date-picker
-                        v-model="scope.row[index]"
-                        v-if="v.isCreate"
-                        type="datetime"
-                        start-placeholder="选择日期时间"
-                        style="width: 100%"
-                      >
-                      </el-date-picker>
-                    </template>
-                  </el-form-item>
-                </template>
-              </el-table-column>
-            </template>
-            <template>
-              <el-table-column>
-                <template slot-scope="scope">
-                  <el-button
-                    size="mini"
-                    type="danger"
-                    @click="handleDelete(scope.$index)"
-                    >Delete</el-button
-                  >
-                </template>
-              </el-table-column>
-            </template>
-          </el-table>
-        </el-form>
-      </template> -->
+      
       <div slot="footer">
         <Button @click="cancel">{{ L("Cancel") }}</Button>
         <Button @click="save" type="primary">{{ L("OK") }}</Button>

@@ -5,6 +5,7 @@ using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
 using Abp.AutoMapper;
+using System.Collections.Generic;
 
 namespace MyProject.CustomerCore.Dtos
 {
@@ -115,9 +116,12 @@ namespace MyProject.CustomerCore.Dtos
 		/// <summary>
 		/// 字段CreationTime
 		/// </summary>
-		public DateTime CreationTime { get; set; }
- 
+		public DateTime? CreationTime { get; set; }
+		public DateTime? UpdateTime { get; set; }
 		
-		/* 这里创建自己的代码 */
-	}
+
+		public CustomerDetailListDto[] CustomerDetails { get; set; }
+        /* 这里创建自己的代码 */
+
+    }
 }

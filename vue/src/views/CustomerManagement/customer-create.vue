@@ -289,7 +289,9 @@ export default class CustomerCreate extends AbpBase {
     (this.$refs.header as any).validate(async (valid: boolean) => {
       if (valid) {
         (this.$refs.details as any).validate(async (valid: boolean) => {
+          
           if (valid) {
+            this.header.customerDetails= this.details.line;
             await this.$store.dispatch({
               type: "customer/create",
               data: {

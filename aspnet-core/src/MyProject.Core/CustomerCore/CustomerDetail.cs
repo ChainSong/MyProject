@@ -11,7 +11,7 @@ namespace MyProject.CustomerCore
 {
     public class CustomerDetail : Entity<long>, IHasCreationTime
     {
-        //[ForeignKey("CustomerId")]
+        [ForeignKey("CustomerId")]
         public long CustomerId { get; set; }
         public long ProjectId { get; set; }
         public string CustomerCode { get; set; }

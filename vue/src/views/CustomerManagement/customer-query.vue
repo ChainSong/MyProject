@@ -1,78 +1,53 @@
 <template>
   <div>
-    <Modal :title="L('CustomerQuery')" :value="value" width="80" @on-visible-change="visibleChange">
-      <Form label-position="top">
-        <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
-          <FormItem :label="i.displayName" :prop="i.displayName" v-if="i.isCreate" style="width: 90%">
-            <template v-if="i.type == 'TextBox'">
-              <label v-text="header[i.columnName]"></label>
-            </template>
-            <!-- <template v-if="i.type == 'DropDownList'">
-                <label v-text="i.table_ColumnsDetails"></label>
-              </template> -->
-            <template v-if="i.type == 'DropDownListInt'">
-              <template v-for="DropDown in i.tableColumnsDetails">
-                <label v-if="DropDown.codeInt == header[i.columnName]" v-text="DropDown.name"
-                  :key="DropDown.codeInt"></label>
-              </template>
-            </template>
-            <template v-if="i.type == 'DropDownListStr'">
-              <template v-for="DropDown in i.tableColumnsDetails">
-                <label v-if="DropDown.codeStr == header[i.columnName]" v-text="DropDown.name"
-                  :key="DropDown.codeStr"></label>
-              </template>
-            </template>
-            <!-- <template v-if="i.type == 'DatePicker'">
-                <el-date-picker
-                  v-model="header[i.columnName]"
-                  v-if="i.isUpdate"
-                  type="date"
-                  placeholder="选择日期"
-                  style="width: 100%"
-                >
-                </el-date-picker>
-              </template>
-              <template v-if="i.type == 'DateTimePicker'" span="12">
-                <el-date-picker
-                  v-model="header[i.columnName]"
-                  v-if="i.isUpdate"
-                  type="datetime"
-                  start-placeholder="选择日期时间"
-                  style="width: 100%"
-                >
-                </el-date-picker>
-              </template> -->
-            <!-- <el-input
-                placeholder="请输入内容"
-                v-model="header[i.columnName]"
-                v-if="i.isUpdate"
-              >
-              </el-input> -->
-          </FormItem>
-          </Col>
-        </Row>
-      </Form>
-      <!-- <el-button
-        @click="handleAdd"
-        type="primary"
-        size="large"
-        class="toolbar-btn"
-        >添加一条</el-button
-      > -->
-      <template>
-        <el-form :model="detailDatas" ref="editDetail">
-          <el-table :data="detailDatas.details" style="width: 100%" height="250">
-            <template v-for="(v, index) in tableColumnDetails">
-              <el-table-column v-if="v.isUpdate" :key="index" :fixed="false" :label="v.displayName" width="150">
-                <template slot-scope="scope">
-                  <label v-text="detailDatas.details[scope.$index][v.columnName]"></label>
+    <Modal title="客户详情" :value="value" width="80" @on-visible-change="visibleChange">
+      <el-container>
+        <el-main>
+          <el-descriptions class="margin-top" :column="3"  size="small" border>
+            <template v-for="i in tableColumnHeaders">
+              <el-descriptions-item v-bind:key="i.id" :prop="i.displayName" v-if="i.isCreate">
+                <template slot="label" width="100">
+                  <i></i>
+                  {{ i.displayName }}
                 </template>
-              </el-table-column>
+                <template v-if="i.type == 'TextBox'">
+                  <label font-family="Helvetica Neue" v-text="header[i.columnName]"></label>
+                </template>
+                <template v-if="i.type == 'DropDownListStr'">
+                  <template v-for="DropDown in i.tableColumnsDetails">
+                    <label v-if="DropDown.codeStr == header[i.columnName]" v-text="DropDown.name" show-icon
+                      :type="DropDown.color" :key="DropDown.codeStr"></label>
+                  </template>
+                </template>
+                <template v-if="i.type == 'DropDownListInt'">
+                  <template v-for="DropDown in i.tableColumnsDetails">
+                    <label v-if="DropDown.codeInt == header[i.columnName]" show-icon :type="DropDown.color"
+                      v-text="DropDown.name" :key="DropDown.codeInt"></label>
+                  </template>
+                </template>
+              </el-descriptions-item>
             </template>
-          </el-table>
-        </el-form>
-      </template>
+          </el-descriptions>
+        </el-main>
+      </el-container>
+
+      <el-container title="客户明细信息">
+        <el-main>
+          <template >
+            <el-form :model="detailDatas" ref="editDetail">
+              <el-table :data="detailDatas.details" style="width: 100%" height="250">
+                <template v-for="(v, index) in tableColumnDetails">
+                  <el-table-column v-if="v.isUpdate" :key="index" :fixed="false" :label="v.displayName" width="150">
+                    <template slot-scope="scope">
+                      <label v-text="detailDatas.details[scope.$index][v.columnName]"></label>
+                    </template>
+                  </el-table-column>
+                </template>
+              </el-table>
+            </el-form>
+          </template>
+        </el-main>
+      </el-container>
       <div slot="footer">
         <Button @click="cancel">{{ L("Cancel") }}</Button>
       </div>
@@ -163,6 +138,7 @@ export default class CustomerQuery extends AbpBase {
         {},
         this.$store.state.customer.queryCustomer
       );
+      console.log(this.$store.state.customer.queryCustomer)
       this.get();
     }
   }

@@ -1,38 +1,38 @@
 <template>
   <div>
-    <Modal title="修改产品" :value="value" width="80" @on-visible-change="visibleChange">
+    <Modal title="修改产品" :value="value" width="50" @on-visible-change="visibleChange">
       <Form ref="editHeader" label-position="top" :rules="headerRule">
         <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
-          <FormItem :label="i.displayName" v-if="i.isCreate" style="width: 90%">
+          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="11">
+          <FormItem :label="i.displayName" v-if="i.isCreate" style="width: 85%">
             <template v-if="i.type == 'TextBox'">
-              <el-input placeholder="请输入内容" v-model="header[i.columnName]" v-if="i.isCreate"
+              <el-input placeholder="请输入内容"  size="small" v-model="header[i.columnName]" v-if="i.isCreate"
                 v-bind:disabled="i.isUpdate == 0">
               </el-input>
             </template>
             <template v-if="i.type == 'DropDownListInt'">
-              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
-                placeholder="请选择" style="width: 90%">
+              <el-select v-model="header[i.columnName]" v-if="i.isCreate"  size="small" v-bind:disabled="i.isUpdate == 1"
+                placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in i.tableColumnsDetails" :key="item.codeInt" :label="item.name"
                   :value="item.codeInt">
                 </el-option>
               </el-select>
             </template>
             <template v-if="i.type == 'DropDownListStr'">
-              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
-                placeholder="请选择" style="width: 90%">
+              <el-select v-model="header[i.columnName]" v-if="i.isCreate"  size="small" v-bind:disabled="i.isUpdate == 1"
+                placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in i.tableColumnsDetails" :key="item.codeStr" :label="item.name"
                   :value="item.codeStr">
                 </el-option>
               </el-select>
             </template>
             <template v-if="i.type == 'DatePicker'">
-              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate"  size="small" v-bind:disabled="i.isUpdate == 1"
                 type="date" placeholder="选择日期" style="width: 100%">
               </el-date-picker>
             </template>
             <template v-if="i.type == 'DateTimePicker'" span="12">
-              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+              <el-date-picker v-model="header[i.columnName]"  size="small" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
                 type="datetime" start-placeholder="选择日期时间" style="width: 100%">
               </el-date-picker>
             </template>
