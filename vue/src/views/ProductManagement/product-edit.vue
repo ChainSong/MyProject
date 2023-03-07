@@ -3,15 +3,15 @@
     <Modal title="修改产品" :value="value" width="50" @on-visible-change="visibleChange">
       <Form ref="editHeader" label-position="top" :rules="headerRule">
         <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="11">
-          <FormItem :label="i.displayName" v-if="i.isCreate" style="width: 85%">
+          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="12">
+          <FormItem :label="i.displayName" v-if="i.isCreate" style="width: 90%;height: 45px;">
             <template v-if="i.type == 'TextBox'">
-              <el-input placeholder="请输入内容"  size="small" v-model="header[i.columnName]" v-if="i.isCreate"
+              <el-input placeholder="请输入内容" v-model="header[i.columnName]" v-if="i.isCreate" size="small"
                 v-bind:disabled="i.isUpdate == 0">
               </el-input>
             </template>
             <template v-if="i.type == 'DropDownListInt'">
-              <el-select v-model="header[i.columnName]" v-if="i.isCreate"  size="small" v-bind:disabled="i.isUpdate == 1"
+              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1" size="small"
                 placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in i.tableColumnsDetails" :key="item.codeInt" :label="item.name"
                   :value="item.codeInt">
@@ -19,21 +19,34 @@
               </el-select>
             </template>
             <template v-if="i.type == 'DropDownListStr'">
-              <el-select v-model="header[i.columnName]" v-if="i.isCreate"  size="small" v-bind:disabled="i.isUpdate == 1"
+              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1" size="small"
                 placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in i.tableColumnsDetails" :key="item.codeStr" :label="item.name"
                   :value="item.codeStr">
                 </el-option>
               </el-select>
             </template>
+
+            <template v-if="i.type == 'DropDownListStrRemote'">
+              <select-tool :objData="i" :valData="header[i.columnName]" v-if="i.isCreate" :isDisabled="i.isUpdate"
+                @getChildrenVal="getChildrenVal" style="width: 90%;" size="small"></select-tool>
+            </template>
+               <!-- <template v-if="i.type == 'DropDownListStr'">
+              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1" size="small"
+                placeholder="请选择" style="width: 100%">
+                <el-option v-for="item in  aaaaaaa('xxxxxx/api/xxxxlist')" :key="item.codeStr" :label="item.name"
+                  :value="item.codeStr">
+                </el-option>
+              </el-select>
+            </template> -->
             <template v-if="i.type == 'DatePicker'">
-              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate"  size="small" v-bind:disabled="i.isUpdate == 1"
-                type="date" placeholder="选择日期" style="width: 100%">
+              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+                size="small" type="date" placeholder="选择日期" style="width: 100%">
               </el-date-picker>
             </template>
             <template v-if="i.type == 'DateTimePicker'" span="12">
-              <el-date-picker v-model="header[i.columnName]"  size="small" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
-                type="datetime" start-placeholder="选择日期时间" style="width: 100%">
+              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+                size="small" type="datetime" start-placeholder="选择日期时间" style="width: 100%">
               </el-date-picker>
             </template>
           </FormItem>
@@ -54,7 +67,10 @@ import Util from "../../lib/util";
 import AbpBase from "../../lib/abpbase";
 import Header from "../../store/entities/product";
 import TableColumns from "@/store/entities/tableColumns";
-@Component
+import selectTool from "../Tool/select-tool.vue";
+@Component({
+  components: { selectTool },
+})
 export default class productEdit extends AbpBase {
   @Prop({ type: Boolean, default: false }) value: boolean;
   tableColumnHeader: TableColumns = new TableColumns();
@@ -65,6 +81,7 @@ export default class productEdit extends AbpBase {
   headers: Array<Header> = new Array<Header>();
   headerRule = {};
   detailRule = {};
+  refurbish: number = 0;
   created() {
     this.gettableColumn();
   }
@@ -146,6 +163,20 @@ export default class productEdit extends AbpBase {
     //   });
   }
 
+  //动态拉下列表子组件回传
+  getChildrenVal(column, label, relationColumn, value, row) {
+ 
+    if (label != undefined) {
+      if (row < 0) {
+        if (column != "" || column != undefined) {
+          this.header[column] = label;
+        }
+        if (relationColumn != "" || relationColumn != undefined) {
+          this.header[relationColumn] = value;
+        }
+      } 
+    }
+  }
   get() {
     this.$store
       .dispatch({
@@ -154,6 +185,8 @@ export default class productEdit extends AbpBase {
       })
       .then((res) => {
         this.header = res;
+         //给自定义组件重新赋值Key 让子组件重新加载
+        this.refurbish = Math.ceil(Math.random() * 1000);
       })
       .catch((err) => {
         console.log(err);

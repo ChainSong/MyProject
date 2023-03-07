@@ -1,6 +1,7 @@
 
 using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyProject.CustomerCore.Dtos
@@ -13,7 +14,8 @@ namespace MyProject.CustomerCore.Dtos
     {
         //[Required]
         public CustomerUserMappingEditDto CustomerUserMapping { get; set; }
+        public List<CustomerUserMappingEditDto> CustomerUserMappings { get; set; }
 
-		/* 这里创建自己的代码 */
+        /* 这里创建自己的代码 */
     }
 }

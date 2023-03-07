@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 using MyProject.Dtos;
 using MyProject.ASNCore;
-using MyProject.ASNCore.Dtos;
+using MyProject.ASNCore.Dtos; 
 
 namespace MyProject.ASNCore
 {
@@ -22,11 +22,11 @@ namespace MyProject.ASNCore
         /// <returns></returns>
         Task<PagedResultDto<WMS_ASNListDto>> GetPaged(GetWMS_ASNsInput input);
 
-
-		/// <summary>
-		/// 通过指定id获取ListDto信息
-		/// </summary>
-		Task<WMS_ASNListDto> GetById(EntityDto<long> input);
+        [Transactionable]
+        /// <summary>
+        /// 通过指定id获取ListDto信息
+        /// </summary>
+        Task<WMS_ASNListDto> GetById(EntityDto<long> input);
 
         /// <summary>
         /// 返回实体的EditDto
@@ -40,7 +40,7 @@ namespace MyProject.ASNCore
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task CreateOrUpdate(CreateOrUpdateWMS_ASNInput input);
+        Task<OrderStatusDto> CreateOrUpdate(CreateOrUpdateWMS_ASNInput input);
 
 
         /// <summary>

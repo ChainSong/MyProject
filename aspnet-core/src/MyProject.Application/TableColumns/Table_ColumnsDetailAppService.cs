@@ -20,6 +20,7 @@ using MyProject.TableColumns.Exporting;
 using MyProject.TableColumns.DomainService;
 using MyProject.Authorization;
 using Abp.Runtime.Caching;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyProject.TableColumns
 {
@@ -40,7 +41,7 @@ namespace MyProject.TableColumns
         //private readonly ITable_ColumnsListExcelExporter _table_ColumnsListExcelExporter;
         private readonly ICacheManager _cacheManage;
 
-        private readonly ITable_ColumnsManager _table_ColumnsManager;
+        //private readonly ITable_ColumnsManager _table_ColumnsManager;
         private readonly ITable_ColumnsDetailManager _table_ColumnsDetailManager;
         /// <summary>
         /// 构造函数
@@ -88,12 +89,8 @@ namespace MyProject.TableColumns
         {
 
             var query = _table_ColumnsDetailRepository.GetAll().WhereIf(!input.FilterText.IsNullOrWhiteSpace(), a =>
-
                           //模糊搜索Code
-                          a.CodeStr.Contains(input.FilterText)  
-
-
-
+                          a.CodeStr.Contains(input.FilterText)
 
             );
             // TODO:根据传入的参数添加过滤条件
@@ -108,6 +105,38 @@ namespace MyProject.TableColumns
             var table_ColumnsDetailListDtos = ObjectMapper.Map<List<Table_ColumnsDetailListDto>>(table_ColumnsDetailList);
 
             return new PagedResultDto<Table_ColumnsDetailListDto>(count, table_ColumnsDetailListDtos);
+        }
+
+
+        /// <summary>
+        /// 获取的不分页列表信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        //[AbpAuthorize(Table_ColumnsPermissions.Table_Columns_Query)]
+        public async Task<PagedResultDto<Table_ColumnsDetailListDto>> GetAll(GetTable_ColumnsDetailsInput input)
+        {
+            try
+            {
+
+                var query = _table_ColumnsDetailRepository.GetAll()
+                .WhereIf(!input.Associated.IsNullOrWhiteSpace(), a =>
+                              //模糊搜索RoleName
+                              a.Associated == (input.Associated)
+                );
+                // TODO:根据传入的参数添加过滤条件
+                var count = await query.CountAsync();
+                var table_ColumnsDetailList = await query
+                //.OrderByDescending(t => t.Id).AsNoTracking()
+                .ToListAsync();
+                var table_ColumnsDetailListDtos = ObjectMapper.Map<List<Table_ColumnsDetailListDto>>(table_ColumnsDetailList);
+                return new PagedResultDto<Table_ColumnsDetailListDto>(count, table_ColumnsDetailListDtos);
+            }
+            catch (Exception ed)
+            {
+                throw;
+            }
         }
 
 

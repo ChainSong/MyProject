@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProject.CommonCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,20 @@ namespace MyProject.Dtos
 {
 
 
-    public class Response
+    public   class Response
     {
-        public int Code { get; set; }
+        public   StatusCode Code { get; set; }
+        public   string Msg { get; set; }
 
     }
 
-    public class Response<T>
+    public   class Response<T>
     {
-        public int Code { get; set; }
+        public   StatusCode Code { get; set; }
 
-        public T Data { get; set; }
+        public   string Msg { get; set; }
+
+        public   T Data { get; set; }
 
     }
 

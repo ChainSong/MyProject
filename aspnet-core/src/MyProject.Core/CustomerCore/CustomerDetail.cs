@@ -19,7 +19,7 @@ namespace MyProject.CustomerCore
         public string Contact { get; set; }
         public string TEL { get; set; }
         public string Creator { get; set; }
-        public DateTime CreationTime { get; set; } = new DateTime();
+        public DateTime CreationTime { get; set; } 
         public virtual Customer Customer { get; set; }
         
         //DateTime IHasCreationTime.CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

@@ -1,12 +1,16 @@
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+
 import Vue from 'vue';
+
+import ElementUI, { Form } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI,{size:'mini'});
+
 import App from './app.vue';
 import iView from 'iview';
 import {router} from './router/index';
 import 'famfamfam-flags/dist/sprite/famfamfam-flags.css';
 import './theme.less';
+
 import Ajax from './lib/ajax';
 import Util from './lib/util';
 import SignalRAspNetCoreHelper from './lib/SignalRAspNetCoreHelper';
@@ -14,6 +18,12 @@ Vue.use(iView);
 import store from './store/index';
 Vue.config.productionTip = false;
 import { appRouters,otherRouters} from './router/router';
+
+import  {getformatDate, getformatTime}  from './utils/formatDateTime';
+Vue.prototype.getformatDate=getformatDate;
+Vue.prototype.getformatTime=getformatTime;
+
+
 if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
   let language=navigator.language;
   abp.utils.setCookieValue('Abp.Localization.CultureName',language,new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);

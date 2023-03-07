@@ -11,7 +11,6 @@
                         </Col>
                         <Col span="6">
                             <FormItem :label="L('IsActive')+':'" style="width:100%">
-                                <!--Select should not set :value="'All'" it may not trigger on-change when first select 'NoActive'(or 'Actived') then select 'All'-->
                                 <Select :placeholder="L('Select')" @on-change="isActiveChange">
                                     <Option value="All">{{L('All')}}</Option>
                                     <Option value="Actived">{{L('Actived')}}</Option>
@@ -39,6 +38,9 @@
         </Card>
         <create-user v-model="createModalShow" @save-success="getpage"></create-user>
         <edit-user v-model="editModalShow" @save-success="getpage"></edit-user>
+        <warehouse-user-mapping v-model="warehouseUserMappingShow" @save-success="getpage"></warehouse-user-mapping>
+        <customer-user-mapping v-model="customerUserMappingShow" @save-success="getpage"></customer-user-mapping>
+
     </div>
 </template>
 <script lang="ts">
@@ -48,6 +50,9 @@
     import PageRequest from '@/store/entities/page-request'
     import CreateUser from './create-user.vue'
     import EditUser from './edit-user.vue'
+    import WarehouseUserMapping from '../../WarehouseManagement/warehouse-user-mapping.vue'
+    import CustomerUserMapping from '../../CustomerManagement/customer-user-mapping.vue'
+   
     class  PageUserRequest extends PageRequest{
         keyword:string;
         isActive:boolean=null;//nullable
@@ -56,21 +61,33 @@
     }
 
     @Component({
-        components:{CreateUser,EditUser}
+        components:{CreateUser,EditUser,WarehouseUserMapping,CustomerUserMapping}
     })
     export default class Users extends AbpBase{
-        edit(){
-            this.editModalShow=true;
-        }
         //filters
         pagerequest:PageUserRequest=new PageUserRequest();
         creationTime:Date[]=[];
-
         createModalShow:boolean=false;
         editModalShow:boolean=false;
+        warehouseUserMappingShow:boolean=false;
+        customerUserMappingShow:boolean=false;
+
+        edit(){
+            this.editModalShow=true;
+        }
+        warehouseUserMapping(){
+            console.log("this.warehouseUserMappingShow=true;")
+            this.warehouseUserMappingShow=true;
+        }
+        customerUserMapping(){
+            console.log("this.customerUserMappingShow=true;")
+            
+            this.customerUserMappingShow=true;
+        }
         get list(){
             return this.$store.state.user.list;
         };
+         
         get loading(){
             return this.$store.state.user.loading;
         }
@@ -146,7 +163,7 @@
         },{
             title:this.L('Actions'),
             key:'Actions',
-            width:150,
+            width:280,
             render:(h:any,params:any)=>{
                 return h('div',[
                     h('Button',{
@@ -163,7 +180,36 @@
                                 this.edit();
                             }
                         }
-                    },this.L('Edit')),
+                    },this.L('Edit')), h('Button',{
+                        props:{
+                            type:'primary',
+                            size:'small'
+                        },
+                        style:{
+                            marginRight:'5px'
+                        },
+                        on:{
+                            click:()=>{
+                                this.$store.commit('user/edit',params.row);
+                                this.warehouseUserMapping();
+                            }
+                        }
+                    },this.L('管理仓库')),
+                    h('Button',{
+                        props:{
+                            type:'primary',
+                            size:'small'
+                        },
+                        style:{
+                            marginRight:'5px'
+                        },
+                        on:{
+                            click:()=>{
+                                this.$store.commit('user/edit',params.row);
+                                this.customerUserMapping();
+                            }
+                        }
+                    },this.L('管理客户')),
                     h('Button',{
                         props:{
                             type:'error',

@@ -3,6 +3,7 @@ using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,10 @@ namespace MyProject.PreOrderCore
 {
     public class WMS_PreOrderDetail : Entity<long>, IHasCreationTime
     {
+
+        [ForeignKey("PreOrderId")]
+        public long PreOrderId { get; set; }
+
         [Required]
         [StringLength(50)]
         public string PreOrderNumber { get; set; }
@@ -47,9 +52,9 @@ namespace MyProject.PreOrderCore
         [StringLength(50)]
         public string GoodsType { get; set; }
 
-        public double? OriginalQty { get; set; }
+        public double OriginalQty { get; set; }
 
-        public double? AllocatedQty { get; set; }
+        public double OrderQty { get; set; }
 
         [StringLength(100)]
         public string BoxCode { get; set; }
@@ -162,5 +167,7 @@ namespace MyProject.PreOrderCore
         public int? Int4 { get; set; }
 
         public int? Int5 { get; set; }
+
+        public virtual WMS_PreOrder PreOrder { get; set; }
     }
 }

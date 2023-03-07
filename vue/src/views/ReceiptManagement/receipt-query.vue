@@ -1,106 +1,78 @@
 <template>
   <div>
-    <Modal
-      :title="L('ReceiptQuery')"
-      :value="value"
-      width="80"
-      @on-visible-change="visibleChange"
-    >
-      <Form label-position="top">
-        <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
-            <FormItem
-              :label="i.displayName"
-              :prop="i.displayName"
-              v-if="i.isCreate"
-              style="width: 100%"
-            >
-              <template v-if="i.type == 'TextBox'">
-                <label v-text="header[i.dbColumnName]"></label>
-              </template>
-              <!-- <template v-if="i.type == 'DropDownList'">
-                <label v-text="i.table_ColumnsDetails"></label>
-              </template> -->
-                <template v-if="i.type == 'DropDownList'">
-                  <template v-for="DropDown in i.table_ColumnsDetails">
-                    <label v-if="DropDown.codeStr==header[i.dbColumnName]" v-text="DropDown.name" :key="DropDown.codeStr"></label>
-                  </template>
-                <!-- <el-select
-                  v-model="header[i.dbColumnName]"
-                  v-if="i.isCreate"
-                  placeholder="请选择"
-                  style="width: 100%"
-                  disabled
-                >
-                  <el-option
-                    v-for="item in i.table_ColumnsDetails"
-                    :key="item.code"
-                    :label="item.name"
-                    :value="item.code"
-                  >
-                  </el-option>
-                </el-select> -->
-              </template> 
-              <!-- <template v-if="i.type == 'DatePicker'">
-                <el-date-picker
-                  v-model="header[i.dbColumnName]"
-                  v-if="i.isUpdate"
-                  type="date"
-                  placeholder="选择日期"
-                  style="width: 100%"
-                >
-                </el-date-picker>
-              </template>
-              <template v-if="i.type == 'DateTimePicker'" span="12">
-                <el-date-picker
-                  v-model="header[i.dbColumnName]"
-                  v-if="i.isUpdate"
-                  type="datetime"
-                  start-placeholder="选择日期时间"
-                  style="width: 100%"
-                >
-                </el-date-picker>
-              </template> -->  
-              <!-- <el-input
-                placeholder="请输入内容"
-                v-model="header[i.dbColumnName]"
-                v-if="i.isUpdate"
-              >
-              </el-input> -->
-            </FormItem>
-          </Col>
-        </Row>
-      </Form>
-      <!-- <el-button
-        @click="handleAdd"
-        type="primary"
-        size="large"
-        class="toolbar-btn"
-        >添加一条</el-button
-      > -->
-      <template>
-        <el-form :model="detailDatas" ref="editDetail">
-          <el-table
-            :data="detailDatas.details"
-            style="width: 100%"
-            height="250"
-          >
-            <template v-for="(v, index) in tableColumnDetails">
-              <el-table-column
-                v-if="v.isUpdate"
-                :key="index"
-                :fixed="false"
-                :label="v.displayName"
-                width="150"
-              >
-              <template slot-scope="scope">
-                 <label v-text="detailDatas.details[scope.$index][v.dbColumnName]"></label>
-              </template>
-              </el-table-column>
+    <Modal title="入库详情" :value="value" width="60" @on-visible-change="visibleChange">
+      <!-- <el-container>
+        <el-main> -->
+      <el-descriptions class="margin-top" :column="3" size="small" border>
+        <template v-for="i in tableColumnHeaders">
+          <el-descriptions-item v-bind:key="i.id" :prop="i.displayName" v-if="i.isCreate == 1 || i.isKey == 1">
+            <template slot="label" width="100">
+              <i></i>
+              {{ i.displayName }}
             </template>
-          </el-table>
-        </el-form>
-      </template>
+            <template v-if="i.type == 'TextBox'">
+              <label font-family="Helvetica Neue" v-text="header[i.columnName]"></label>
+            </template>
+            <template v-else-if="i.type == 'DropDownListStrRemote'">
+              <label font-family="Helvetica Neue" v-text="header[i.columnName]"></label>
+            </template>
+            <template v-else-if="i.type == 'DatePicker'">
+              <label font-family="Helvetica Neue" v-text="getformatDate(header[i.columnName])"></label>
+            </template>
+            <template v-else-if="i.type == 'DateTimePicker'">
+              <label font-family="Helvetica Neue" v-text="getformatTime(header[i.columnName])"></label>
+            </template>
+            <template v-else-if="i.type == 'DropDownListStr'">
+              <template v-for="DropDown in i.tableColumnsDetails">
+                <label v-if="DropDown.codeStr == header[i.columnName]" v-text="DropDown.name" show-icon
+                  :type="DropDown.color" :key="DropDown.codeStr"></label>
+              </template>
+            </template>
+            <template v-else-if="i.type == 'DropDownListInt'">
+              <el-tag size="medium" v-for="item in i.tableColumnsDetails" v-if="item.codeInt == header[i.columnName]"
+                v-bind="item.codeInt" :key="item.codeInt" show-icon :type="item.color">
+                {{ item.name }}
+              </el-tag>
+              <!-- <template v-for="DropDown in i.tableColumnsDetails">
+                <label v-if="DropDown.codeInt == header[i.columnName]" show-icon :type="DropDown.color"
+                  v-text="DropDown.name" :key="DropDown.codeInt"></label>
+              </template> -->
+            </template>
+          </el-descriptions-item>
+        </template>
+      </el-descriptions>
+      <!-- </el-main>
+      </el-container> -->
+      <el-container title="预入库明细信息">
+        <el-main>
+          <template>
+            <el-form :model="detailDatas" ref="editDetail">
+              <el-table :data="detailDatas.details" size="small" height="250" show-overflow-tooltip>
+                <template v-for="(v, index) in tableColumnDetails">
+                  <el-table-column v-if="v.type == 'DatePicker' && v.isCreate" v-bind:key="v.id" :fixed="false"
+                    :formatter="formatDate" :prop="v.columnName" :label="v.displayName" min-width="100" max-height="50">
+                    <template slot-scope="scope">
+                      {{ getformatDate(detailDatas.details[scope.$index][v.columnName]) }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column v-else-if="v.type == 'DateTimePicker' && v.isCreate" v-bind:key="v.id" :fixed="false"
+                    :formatter="formatDate" :prop="v.columnName" :label="v.displayName" min-width="100" max-height="50">
+                    <template slot-scope="scope">
+                      {{ getformatTime(list[scope.$index][v.columnName]) }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column v-else-if="v.isCreate" :key="index" :fixed="false" :label="v.displayName"
+                    width="120">
+                    <template slot-scope="scope">
+                      <label v-text="detailDatas.details[scope.$index][v.columnName]"></label>
+                    </template>
+                  </el-table-column>
+                </template>
+              </el-table>
+            </el-form>
+          </template>
+        </el-main>
+      </el-container>
       <div slot="footer">
         <Button @click="cancel">{{ L("Cancel") }}</Button>
       </div>
@@ -113,7 +85,8 @@ import Util from "../../lib/util";
 import AbpBase from "../../lib/abpbase";
 import Header from "../../store/entities/receipt";
 import Detail from "../../store/entities/receiptDetail";
-import TableColumns from "../../store/entities/tableColumns";
+import TableColumns from "@/store/entities/tableColumns";
+import { getformatDate, getformatTime } from "@/utils/formatDateTime";
 @Component
 export default class ReceiptQuery extends AbpBase {
   @Prop({ type: Boolean, default: false }) value: boolean;
@@ -127,12 +100,21 @@ export default class ReceiptQuery extends AbpBase {
   details: Array<Detail> = new Array<Detail>();
   detailDatas = { line: null, details: [new Detail()] };
   created() {
+
     this.gettableColumn();
   }
 
   gettableColumn() {
     this.tableColumnHeader.tableName = "WMS_Receipt";
     this.tableColumnDetail.tableName = "WMS_ReceiptDetail";
+    // this.tableColumnHeaders = JSON.parse(
+    //   localStorage.getItem(this.tableColumnHeader.tableName)
+    // ) as Array<TableColumns>;
+    // this.tableColumnDetails = JSON.parse(
+    //   localStorage.getItem(this.tableColumnDetail.tableName)
+    // ) as Array<TableColumns>;
+
+
     this.$store
       .dispatch({
         type: "tableColumns/GetByTableNameList",
@@ -167,14 +149,19 @@ export default class ReceiptQuery extends AbpBase {
         data: this.header,
       })
       .then((res) => {
-        this.header = res;
-        this.detailDatas.details = res.receiptDetails;
+        if (res != undefined) {
+          this.header = res; 
+          this.detailDatas.details = res.receiptDetails;
+        }
+        // console.log("res");
+        // console.log(this.detailDatas.details);
       })
       .catch((err) => {
         console.log(err);
       });
   }
   visibleChange(value: boolean) {
+    console.log(value);
     if (!value) {
       this.$emit("input", value);
     } else {
@@ -183,13 +170,25 @@ export default class ReceiptQuery extends AbpBase {
         {},
         this.$store.state.receipt.queryReceipt
       );
+      // console.log(this.header);
       this.get();
     }
   }
   cancel() {
     this.$emit("input", false);
   }
-  
+  //方法区
+  formatDate(row, column) {
+    // 获取单元格数据
+    let data = row[column.property]
+    if (data == null) {
+      return null
+    }
+    let dt = new Date(data);
+    // console.log("row");
+    // console.log(row);
+    return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+  }
 }
 </script>
  

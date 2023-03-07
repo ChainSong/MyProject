@@ -37,6 +37,7 @@ namespace MyProject.PreOrderCore.DomainService
                         .Select(x => new WMS_PreOrderDetail
                         {
                            
+                            PreOrderId = x.PreOrderId,
                             PreOrderNumber = x.PreOrderNumber,
                             ExternOrderNumber = x.ExternOrderNumber,
                             CustomerId = x.CustomerId,

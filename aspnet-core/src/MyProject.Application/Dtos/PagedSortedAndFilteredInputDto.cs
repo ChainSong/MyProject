@@ -6,10 +6,6 @@ namespace MyProject.Dtos
     {
         public string FilterText { get; set; }
 
-
-
-		 
-		 
          
 
     }

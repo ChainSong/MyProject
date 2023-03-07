@@ -1,235 +1,146 @@
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.ASNCore.Dtos
 {
-	/// <summary>
-	/// WMS_ASNDetail的列表DTO
-	/// <see cref=""/>
-	/// </summary>
-	[AutoMap(typeof(WMS_ASNDetail))]
-	public class WMS_ASNDetailListDto  
+    /// <summary>
+    /// WMS_ASNDetail的列表DTO
+    /// <see cref=""/>
+    /// </summary>
+    [AutoMap(typeof(WMS_ASNDetail))]
+    public class WMS_ASNDetailListDto
     {
-		/// <summary>
+        /// <summary>
         /// Id 
         /// </summary>
         public long? Id { get; set; }
 
-		/// <summary>
-		/// 字段ASNId
-		/// </summary>
-		public long ASNId { get; set; }
+        public long ASNId { get; set; }
 
-		/// <summary>
-		/// 字段ASNNumber
-		/// </summary>
-		public string ASNNumber { get; set; }
+        public string ASNNumber { get; set; }
 
-		/// <summary>
-		/// 字段ExternReceiptNumber
-		/// </summary>
-		public string ExternReceiptNumber { get; set; }
+        public string ExternReceiptNumber { get; set; }
 
-		/// <summary>
-		/// 字段CustomerId
-		/// </summary>
-		public long CustomerId { get; set; }
+        public long CustomerId { get; set; }
 
-		/// <summary>
-		/// 字段CustomerName
-		/// </summary>
-		public string CustomerName { get; set; }
+        public string CustomerName { get; set; }
 
-		/// <summary>
-		/// 字段WarehouseName
-		/// </summary>
-		public string WarehouseName { get; set; }
+        public long? WarehouseId { get; set; }
 
-		/// <summary>
-		/// 字段LineNumber
-		/// </summary>
-		public string LineNumber { get; set; }
+        public string WarehouseName { get; set; }
 
-		/// <summary>
-		/// 字段SKU
-		/// </summary>
-		public string SKU { get; set; }
+        public string LineNumber { get; set; }
 
-		/// <summary>
-		/// 字段UPC
-		/// </summary>
-		public string UPC { get; set; }
+        public string SKU { get; set; }
 
-		/// <summary>
-		/// 字段GoodsType
-		/// </summary>
-		public string GoodsType { get; set; }
+        public string UPC { get; set; }
 
-		/// <summary>
-		/// 字段GoodsName
-		/// </summary>
-		public string GoodsName { get; set; }
+        public string GoodsType { get; set; }
 
-		/// <summary>
-		/// 字段BoxCode
-		/// </summary>
-		public string BoxCode { get; set; }
+        public string GoodsName { get; set; }
 
-		/// <summary>
-		/// 字段TrayCode
-		/// </summary>
-		public string TrayCode { get; set; }
+        public string BoxCode { get; set; }
 
-		/// <summary>
-		/// 字段BatchCode
-		/// </summary>
-		public string BatchCode { get; set; }
+        public string TrayCode { get; set; }
 
-		/// <summary>
-		/// 字段ExpectedQty
-		/// </summary>
-		public double ExpectedQty { get; set; }
+        public string BatchCode { get; set; }
 
-		/// <summary>
-		/// 字段ReceivedQty
-		/// </summary>
-		public double ReceivedQty { get; set; }
+        public double ExpectedQty { get; set; }
 
-		/// <summary>
-		/// 字段ReceiptQty
-		/// </summary>
-		public double ReceiptQty { get; set; }
+        public double ReceivedQty { get; set; }
 
-		/// <summary>
-		/// 字段UnitCode
-		/// </summary>
-		public string UnitCode { get; set; }
+        public double ReceiptQty { get; set; }
 
-		/// <summary>
-		/// 字段Onwer
-		/// </summary>
-		public string Onwer { get; set; }
+        public string UnitCode { get; set; }
 
-		/// <summary>
-		/// 字段Creator
-		/// </summary>
-		public string Creator { get; set; }
+        public string Onwer { get; set; }
 
-		/// <summary>
-		/// 字段CreationTime
-		/// </summary>
-		public DateTime CreationTime { get; set; }
+        //[DisplayFormat(
+        //DataFormatString = "{0:yyyy/MM/dd}",
+        //ApplyFormatInEditMode = true,
+        //NullDisplayText = "Date's not provided")]
+        public DateTime? ProductionDate { get; set; }
 
-		/// <summary>
-		/// 字段Updator
-		/// </summary>
-		public string Updator { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ExpirationDate { get; set; }
 
-		/// <summary>
-		/// 字段Str1
-		/// </summary>
-		public string Str1 { get; set; }
+        public string Remark { get; set; }
 
-		/// <summary>
-		/// 字段Str2
-		/// </summary>
-		public string Str2 { get; set; }
+        public string Creator { get; set; }
 
-		/// <summary>
-		/// 字段Str3
-		/// </summary>
-		public string Str3 { get; set; }
+        public DateTime CreationTime { get; set; }
 
-		/// <summary>
-		/// 字段Str4
-		/// </summary>
-		public string Str4 { get; set; }
+        public string Updator { get; set; }
 
-		/// <summary>
-		/// 字段Str5
-		/// </summary>
-		public string Str5 { get; set; }
+        public DateTime? UpdateTime { get; set; }
 
-		/// <summary>
-		/// 字段Str6
-		/// </summary>
-		public string Str6 { get; set; }
+        public string Str1 { get; set; }
 
-		/// <summary>
-		/// 字段Str7
-		/// </summary>
-		public string Str7 { get; set; }
+        public string Str2 { get; set; }
 
-		/// <summary>
-		/// 字段Str8
-		/// </summary>
-		public string Str8 { get; set; }
+        public string Str3 { get; set; }
 
-		/// <summary>
-		/// 字段Str9
-		/// </summary>
-		public string Str9 { get; set; }
+        public string Str4 { get; set; }
 
-		/// <summary>
-		/// 字段Str10
-		/// </summary>
-		public string Str10 { get; set; }
+        public string Str5 { get; set; }
 
-		/// <summary>
-		/// 字段Str11
-		/// </summary>
-		public string Str11 { get; set; }
+        public string Str6 { get; set; }
 
-		/// <summary>
-		/// 字段Str12
-		/// </summary>
-		public string Str12 { get; set; }
+        public string Str7 { get; set; }
 
-		/// <summary>
-		/// 字段Str13
-		/// </summary>
-		public string Str13 { get; set; }
+        public string Str8 { get; set; }
 
-		/// <summary>
-		/// 字段Str14
-		/// </summary>
-		public string Str14 { get; set; }
+        public string Str9 { get; set; }
 
-		/// <summary>
-		/// 字段Str15
-		/// </summary>
-		public string Str15 { get; set; }
+        public string Str10 { get; set; }
 
-		/// <summary>
-		/// 字段Str16
-		/// </summary>
-		public string Str16 { get; set; }
+        public string Str11 { get; set; }
 
-		/// <summary>
-		/// 字段Str17
-		/// </summary>
-		public string Str17 { get; set; }
+        public string Str12 { get; set; }
 
-		/// <summary>
-		/// 字段Str18
-		/// </summary>
-		public string Str18 { get; set; }
+        public string Str13 { get; set; }
 
-		/// <summary>
-		/// 字段Str19
-		/// </summary>
-		public string Str19 { get; set; }
+        public string Str14 { get; set; }
 
-		/// <summary>
-		/// 字段Str20
-		/// </summary>
-		public string Str20 { get; set; }
+        public string Str15 { get; set; }
 
-	 
-		
-		/* 这里创建自己的代码 */
-	}
+        public string Str16 { get; set; }
+
+        public string Str17 { get; set; }
+
+        public string Str18 { get; set; }
+
+        public string Str19 { get; set; }
+
+        public string Str20 { get; set; }
+
+        public DateTime? DateTime1 { get; set; }
+
+        public DateTime? DateTime2 { get; set; }
+
+        public DateTime? DateTime3 { get; set; }
+
+        public DateTime? DateTime4 { get; set; }
+
+        public DateTime? DateTime5 { get; set; }
+
+        public int? Int1 { get; set; }
+
+        public int? Int2 { get; set; }
+
+        public int? Int3 { get; set; }
+
+        public int? Int4 { get; set; }
+
+        public int? Int5 { get; set; }
+
+
+        /* 这里创建自己的代码 */
+    }
 }
+

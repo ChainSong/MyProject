@@ -1,20 +1,23 @@
 
-
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MyProject.WarehouseCore;
 
 namespace MyProject.WarehouseCore.Dtos
-{
-    public class CreateOrUpdateWarehouseUserMappingInput
+{	
+	
+    /// <summary>
+	/// WarehouseUserMapping的列表DTO
+	/// </summary>
+	public class CreateOrUpdateWarehouseUserMappingInput
     {
-        [Required]
+   
         public WarehouseUserMappingEditDto WarehouseUserMapping { get; set; }
-							
-							//// custom codes
-									
-							
+        public List<WarehouseUserMappingEditDto> WarehouseUserMappings { get; set; }
 
-							//// custom codes end
-    }
+		
+
+		/* 这里创建自己的代码 */
+	}
 }

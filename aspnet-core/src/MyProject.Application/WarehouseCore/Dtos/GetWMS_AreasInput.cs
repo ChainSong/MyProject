@@ -3,6 +3,8 @@ using Abp.Runtime.Validation;
 using MyProject;
 using MyProject.WarehouseCore;
 using MyProject.Dtos;
+using System;
+
 namespace MyProject.WarehouseCore.Dtos
 {
 	/// <summary>
@@ -21,9 +23,27 @@ namespace MyProject.WarehouseCore.Dtos
                 Sorting = "Id";
             }
         }
-		
-		//// 自定义编码开始
-				
-		//// 自定义编码结束
+
+        //// 自定义编码开始
+        public long? WarehouseId { get; set; }
+
+        public string WarehouseName { get; set; }
+
+        public string AreaName { get; set; }
+
+        public int AreaStatus { get; set; }
+
+        public string AreaType { get; set; }
+
+        public string Remark { get; set; }
+
+        public string Creator { get; set; }
+
+        public DateTime? CreationTime { get; set; }
+
+        public string Updator { get; set; }
+
+        public DateTime? UpdateTime { get; set; }
+        //// 自定义编码结束
     }
 }

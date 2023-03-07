@@ -10,37 +10,47 @@ namespace MyProject.Authorization
 		/// <summary>
 		/// 【WMS_PreOrder】权限节点
 		///</summary>
-		public const string Node = "Pages.WMS_PreOrder";
+		public const string Node = "Pages.PreOrder";
 
 		/// <summary>
 		/// 【WMS_PreOrder】查询授权
 		///</summary>
-		public const string Query = "Pages.WMS_PreOrder.Query";
+		public const string Query = "Pages.PreOrder.Query";
 
 		/// <summary>
 		/// 【WMS_PreOrder】创建权限
 		///</summary>
-		public const string Create = "Pages.WMS_PreOrder.Create";
+		public const string Create = "Pages.PreOrder.Create";
 
 		/// <summary>
 		/// 【WMS_PreOrder】修改权限
 		///</summary>
-		public const string Edit = "Pages.WMS_PreOrder.Edit";
+		public const string Edit = "Pages.PreOrder.Edit";
 
 		/// <summary>
 		/// 【WMS_PreOrder】删除权限
 		///</summary>
-		public const string Delete = "Pages.WMS_PreOrder.Delete";
+		public const string Delete = "Pages.PreOrder.Delete";
 
         /// <summary>
 		/// 【WMS_PreOrder】批量删除权限
 		///</summary>
-		public const string BatchDelete = "Pages.WMS_PreOrder.BatchDelete";
+		public const string BatchDelete = "Pages.PreOrder.BatchDelete";
 
+		/// <summary>
+		/// 【WMS_PreOrder】批量自动分配权限
+		///</summary>
+		//public const string BatchAutomatedOutbound = "Pages.PreOrder.BatchAutomatedOutbound";
+
+		/// <summary>
+		/// 【WMS_PreOrder】预出库单转出库单
+		///</summary>
+		public const string PreOrderForOrder = "Pages.PreOrder.PreOrderForOrder";
+		
 		/// <summary>
 		/// 【WMS_PreOrder】导出Excel
 		///</summary>
-		public const string ExportExcel="Pages.WMS_PreOrder.ExportExcel";
+		public const string ExportExcel="Pages.PreOrder.ExportExcel";
 
 		/* 以下可以自定义权限 */ 
 		

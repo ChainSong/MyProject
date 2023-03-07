@@ -19,7 +19,7 @@ namespace MyProject.WarehouseCore
         [StringLength(50)]
         public string AreaName { get; set; }
 
-        public int? AreaStatus { get; set; }
+        public int AreaStatus { get; set; }
 
         [StringLength(50)]
         public string AreaType { get; set; }

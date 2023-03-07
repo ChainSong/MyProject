@@ -61,6 +61,11 @@ namespace MyProject.ReceiptReceivingCore.Dtos
 		/// 字段ReceiptReceivingStatus
 		/// </summary>
 		public int ReceiptReceivingStatus { get; set; }
+
+		/// <summary>
+		/// 用来区分标记（多货，缺货，串货）
+		/// </summary>
+		public int GoodsStatus { get; set; }
 		/// <summary>
 		/// 字段LineNumber
 		/// </summary>

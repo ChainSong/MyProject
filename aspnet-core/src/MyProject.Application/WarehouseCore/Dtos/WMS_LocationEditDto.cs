@@ -4,13 +4,17 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.WarehouseCore.Dtos
 {	
 	/// <summary>
 	/// WMS_Location的列表DTO
 	/// <see cref="WMS_Location"/>
 	/// </summary>
-    public class WMS_LocationEditDto
+	[AutoMap(typeof(WMS_Location))]
+
+	public class WMS_LocationEditDto
     {
 		/// <summary>
         /// Id 
@@ -37,6 +41,11 @@ namespace MyProject.WarehouseCore.Dtos
 		/// 字段Location
 		/// </summary>
 		public string Location { get; set; }
+		
+		/// <summary>
+		/// 字段LocationType
+		/// </summary>
+		public int LocationStatus { get; set; }
 		/// <summary>
 		/// 字段LocationType
 		/// </summary>
@@ -56,11 +65,11 @@ namespace MyProject.WarehouseCore.Dtos
 		/// <summary>
 		/// 字段IsMultiLot
 		/// </summary>
-		public bool IsMultiLot { get; set; }
+		public int IsMultiLot { get; set; }
 		/// <summary>
 		/// 字段IsMultiSKU
 		/// </summary>
-		public bool IsMultiSKU { get; set; }
+		public int IsMultiSKU { get; set; }
 		/// <summary>
 		/// 字段LocationLevel
 		/// </summary>
@@ -84,12 +93,14 @@ namespace MyProject.WarehouseCore.Dtos
 		/// <summary>
 		/// 字段CreationTime
 		/// </summary>
-		public DateTime CreationTime { get; set; }
+		public DateTime? CreationTime { get; set; }
 		/// <summary>
 		/// 字段Updator
 		/// </summary>
 		public string Updator { get; set; }
-		
+
+		public DateTime? UpdateTime { get; set; }
+
 		/* 这里创建自己的代码 */
 	}
 }

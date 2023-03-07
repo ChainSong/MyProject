@@ -42,7 +42,7 @@ class ProductModule extends ListModule<ProductState,any,product>{
             await Ajax.post('/api/services/app/WMS_Product/CreateOrUpdate',payload.data);
         },
         async delete(context:ActionContext<ProductState,any>,payload:any){
-            await Ajax.delete('/api/services/app/WMS_Product/Delete?Id='+payload.data.id);
+            await Ajax.get('/api/services/app/WMS_Product/Delete?Id='+payload.data.id);
         },
         // async update(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.put('/api/services/app/Role/Update',payload.data);

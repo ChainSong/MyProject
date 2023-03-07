@@ -9,12 +9,12 @@ using Newtonsoft.Json;
 
 namespace MyProject.Common.RabbitMQCommon
 {
-    public class RabbitSender
+    public   class RabbitSender
     {
         private static IModel _channel;
         private static readonly object Object = new object();
-        private RabbitSenderOption option;
-        public RabbitSender(RabbitSenderOption rso)
+        private   RabbitSenderOption option;
+        public   RabbitSender(RabbitSenderOption rso)
         {
             this.option = rso;
             Conn(option);
@@ -32,7 +32,7 @@ namespace MyProject.Common.RabbitMQCommon
                 return arguments;
             }
         }
-        public void Send()
+        public  void Send()
         {
             //Conn(option);
             //_channel.QueueDeclare(queue: option.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: QueueArguments);

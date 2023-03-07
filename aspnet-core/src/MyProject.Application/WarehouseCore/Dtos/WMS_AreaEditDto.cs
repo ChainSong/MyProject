@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.WarehouseCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Area的列表DTO
 	/// <see cref="WMS_Area"/>
 	/// </summary>
-    public class WMS_AreaEditDto
+	[AutoMap(typeof(WMS_Area))]
+	public class WMS_AreaEditDto
     {
 		/// <summary>
         /// Id 
@@ -20,15 +23,27 @@ namespace MyProject.WarehouseCore.Dtos
 		/// <summary>
 		/// 字段WarehouseName
 		/// </summary>
+		public string WarehouseId { get; set; }
+
+
+		/// <summary>
+		/// 字段WarehouseName
+		/// </summary>
 		public string WarehouseName { get; set; }
 		/// <summary>
 		/// 字段AreaName
 		/// </summary>
 		public string AreaName { get; set; }
+
 		/// <summary>
 		/// 字段AreaType
 		/// </summary>
 		public string AreaType { get; set; }
+
+		/// <summary>
+		/// AreaStatus
+		/// </summary>
+		public int AreaStatus { get; set; }
 		/// <summary>
 		/// 字段Remark
 		/// </summary>
@@ -40,7 +55,9 @@ namespace MyProject.WarehouseCore.Dtos
 		/// <summary>
 		/// 字段CreationTime
 		/// </summary>
-		public DateTime CreationTime { get; set; }
+		public DateTime? CreationTime { get; set; }
+		public DateTime? UpdateTime { get; set; }
+		
 		/// <summary>
 		/// 字段Updator
 		/// </summary>

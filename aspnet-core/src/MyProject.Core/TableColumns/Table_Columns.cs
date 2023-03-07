@@ -38,10 +38,15 @@ namespace MyProject.TableColumns
         public double Step { get; set; }
         public double Max { get; set; }
         public double Min { get; set; }
-
+        public string Default { get; set; }
+        public string RelationDBColumn { get; set; }
         public int Order { get; set; }
+
+        public string Characteristic { get; set; }
         public int ForView { get; set; }
-        public DateTime CreationTime { get; set; } = new DateTime();
+        public string Link { get; set; }
+        
+        public DateTime CreationTime { get; set; } =   DateTime.Now;
 
 
         public List<Table_ColumnsDetail> TableColumnsDetails { get; set; }

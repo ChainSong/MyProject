@@ -12,31 +12,33 @@ namespace MyProject.OrderCore.DomainService
     /// <summary>
     /// 领域服务层一个模块的核心业务逻辑
     ///</summary>
-    public class WMS_OrderDetailManager :DomainServiceBase, IWMS_OrderDetailManager
+    public class WMS_OrderDetailManager : DomainServiceBase, IWMS_OrderDetailManager
     {
-		
-		private readonly IRepository<WMS_OrderDetail,long> _wms_orderdetailRepository;
 
-		/// <summary>
-		/// 【WMS_OrderDetail】的构造方法
-		/// 通过构造函数注册服务到依赖注入容器中
-		///</summary>
-	    public WMS_OrderDetailManager(IRepository<WMS_OrderDetail, long> wms_orderdetailRepository)	{
-			_wms_orderdetailRepository =  wms_orderdetailRepository;
-		}
+        private readonly IRepository<WMS_OrderDetail, long> _wms_orderdetailRepository;
 
-		#region -------------------------------------------------辅助工具生成---------------------------------------------- 
+        /// <summary>
+        /// 【WMS_OrderDetail】的构造方法
+        /// 通过构造函数注册服务到依赖注入容器中
+        ///</summary>
+        public WMS_OrderDetailManager(IRepository<WMS_OrderDetail, long> wms_orderdetailRepository)
+        {
+            _wms_orderdetailRepository = wms_orderdetailRepository;
+        }
+
+        #region -------------------------------------------------辅助工具生成---------------------------------------------- 
 
         /// <summary>
         /// 返回列表查询用
         /// </summary>
         /// <returns></returns>
-        public IQueryable<WMS_OrderDetail> QueryEntityListAsNoTracking() { 
+        public IQueryable<WMS_OrderDetail> QueryEntityListAsNoTracking()
+        {
 
             var query = _wms_orderdetailRepository.GetAll().AsNoTracking()
                         .Select(x => new WMS_OrderDetail
                         {
-                           
+
                             ASNDetailId = x.ASNDetailId,
                             PreOrderNumber = x.PreOrderNumber,
                             ExternOrderNumber = x.ExternOrderNumber,
@@ -48,7 +50,7 @@ namespace MyProject.OrderCore.DomainService
                             UPC = x.UPC,
                             GoodsName = x.GoodsName,
                             GoodsType = x.GoodsType,
-                            OriginalQty = x.OriginalQty,
+                            OrderQty = x.OrderQty,
                             AllocatedQty = x.AllocatedQty,
                             BoxCode = x.BoxCode,
                             TrayCode = x.TrayCode,
@@ -118,7 +120,7 @@ namespace MyProject.OrderCore.DomainService
             var result = await _wms_orderdetailRepository.GetAll().AnyAsync(a => a.Id == id);
             return result;
         }
-		/// <summary>
+        /// <summary>
         /// 【WMS_OrderDetail】创建实体
         /// </summary>
         /// <param name="id"></param>
@@ -157,20 +159,20 @@ namespace MyProject.OrderCore.DomainService
             //TODO:删除前的逻辑判断，是否允许删除
             await _wms_orderdetailRepository.DeleteAsync(a => input.Contains(a.Id));
         }
-	    #endregion
+        #endregion
 
 
         #region -------------------------------------------------用户自定义------------------------------------------------
-		/*请在此扩展领域服务接口*/
-		#endregion
-			
-		
+        /*请在此扩展领域服务接口*/
+        #endregion
 
 
 
-		 
-		  
-		 
 
-	}
+
+
+
+
+
+    }
 }

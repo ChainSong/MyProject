@@ -61,6 +61,10 @@
         left: 0;
         z-index: 21;
         transition: width .3s;
+        
+    }
+    .sidebar-menu-con::-webkit-scrollbar{
+        width:0px;
     }
     .layout-text{
         display: inline-block;
@@ -92,10 +96,12 @@
         height: 100%;
     }
     .tags-con{
+        padding-bottom: 0;
         height: 40px;
         z-index: -1;
         overflow: hidden;
-        background: #f0f2f5;
+        padding: 0;
+        // background: #f0f2f5;
         .tags-outer-scroll-con{
             position: relative;
             box-sizing: border-box;
@@ -108,6 +114,7 @@
                 overflow: visible;
                 white-space: nowrap;
                 transition: left .3s ease;
+
             }
             .close-all-tag-con{
                 position: absolute;
@@ -137,7 +144,8 @@
         .header-middle-con{
             position: absolute;
             left: 60px;
-            top: 0;
+            // top: 0;
+            // bottom: 0px;
             right: 340px;
             bottom: 0;
             padding: 10px;
@@ -208,7 +216,7 @@
             .lock-screen-btn-con{
                 display: inline-block;
                 width: 30px;
-                padding: 18px 0;
+                // padding: 18px 0;
                 text-align: center;
                 cursor: pointer;
                 i{
@@ -229,7 +237,7 @@
         display: flex;
         flex-direction: column;
         .single-page{
-            margin: 24px;
+            margin: 15px;
             flex:auto;
         }
     }

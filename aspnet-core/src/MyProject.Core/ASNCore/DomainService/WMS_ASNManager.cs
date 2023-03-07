@@ -1,6 +1,9 @@
 
+using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
+using Abp.EntityFrameworkCore.Repositories;
+using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,31 +15,33 @@ namespace MyProject.ASNCore.DomainService
     /// <summary>
     /// 领域服务层一个模块的核心业务逻辑
     ///</summary>
-    public class WMS_ASNManager :DomainServiceBase, IWMS_ASNManager
+    public class WMS_ASNManager : DomainServiceBase, IWMS_ASNManager
     {
-		
-		private readonly IRepository<WMS_ASN,long> _wms_asnRepository;
 
-		/// <summary>
-		/// 【WMS_ASN】的构造方法
-		/// 通过构造函数注册服务到依赖注入容器中
-		///</summary>
-	    public WMS_ASNManager(IRepository<WMS_ASN, long> wms_asnRepository)	{
-			_wms_asnRepository =  wms_asnRepository;
-		}
+        private readonly IRepository<WMS_ASN, long> _wms_asnRepository;
 
-		#region -------------------------------------------------辅助工具生成---------------------------------------------- 
+        /// <summary>
+        /// 【WMS_ASN】的构造方法
+        /// 通过构造函数注册服务到依赖注入容器中
+        ///</summary>
+        public WMS_ASNManager(IRepository<WMS_ASN, long> wms_asnRepository)
+        {
+            _wms_asnRepository = wms_asnRepository;
+        }
+
+        #region -------------------------------------------------辅助工具生成---------------------------------------------- 
 
         /// <summary>
         /// 返回列表查询用
         /// </summary>
         /// <returns></returns>
-        public IQueryable<WMS_ASN> QueryEntityListAsNoTracking() { 
+        public IQueryable<WMS_ASN> QueryEntityListAsNoTracking()
+        {
 
             var query = _wms_asnRepository.GetAll().AsNoTracking()
                         .Select(x => new WMS_ASN
                         {
-                           
+
                             ASNNumber = x.ASNNumber,
                             ExternReceiptNumber = x.ExternReceiptNumber,
                             CustomerId = x.CustomerId,
@@ -111,7 +116,7 @@ namespace MyProject.ASNCore.DomainService
             var result = await _wms_asnRepository.GetAll().AnyAsync(a => a.Id == id);
             return result;
         }
-		/// <summary>
+        /// <summary>
         /// 【WMS_ASN】创建实体
         /// </summary>
         /// <param name="id"></param>
@@ -150,20 +155,52 @@ namespace MyProject.ASNCore.DomainService
             //TODO:删除前的逻辑判断，是否允许删除
             await _wms_asnRepository.DeleteAsync(a => input.Contains(a.Id));
         }
-	    #endregion
+        #endregion
 
 
         #region -------------------------------------------------用户自定义------------------------------------------------
-		/*请在此扩展领域服务接口*/
-		#endregion
-			
-		
+        /*请在此扩展领域服务接口*/
+
+
+        /// <summary>
+        /// 批量添加
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task BulkInsert(List<WMS_ASN> entitys)
+        {
+            await _wms_asnRepository.GetDbContext().BulkInsertAsync(entitys);//GetDbContext 需要添加Abp.EntityFrameworkCore.Repositories引用
+        }
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <returns></returns>
+        public async Task BulkDelete(List<WMS_ASN> entitys)
+        {
+
+            //await _wms_asnRepository.GetAll().BatchDelete();
+            //_wms_asnRepository.GetAll().Where(m => m.Id > 100).BatchDelete();
+
+        }
+        /// <summary>
+        /// 批量修改ASN 状态
+        /// </summary>
+        /// <returns></returns>
+        //public async Task BatchUpdateStatus(List<WMS_ASN> entitys, ASNStatusCode ASNStatus)
+        //{
+        //    await _wms_asnRepository.GetAll().Where(a => entitys.Select(b => b.Id).Contains(a.Id)).BatchUpdateAsync(new WMS_ASN { ASNStatus = (int)ASNStatus });
+        //    //_articleRepository.GetAll().Where(m=>m.Id>100).BatchUpdate(new Models.Article { Title = "Updated娱乐" });
+        //}
+
+        #endregion
 
 
 
-		 
-		  
-		 
 
-	}
+
+
+
+
+
+    }
 }

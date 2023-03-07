@@ -1,28 +1,27 @@
 import Entity from './entity'
 import receiptDetail from './receiptDetail'
+import receiptReceiving from './receiptReceiving'
 
 export default class receipt extends Entity<number>{
-    receiptNumber	   :string;
-    extensionGUID	   :string;
-    aSNNumber		   :string;
-    aSNId		      :number;
-    externReceiptNumber:string;
-    customerID		  :number;
-    customerName	  :string;
-    warehouseID		  :number;
-    warehouseName	  :string;
-    expectDate		  :string;
-    aSNStatus		  :number;
-    aSNType			  :string;
-    pO				  :string;
-    contact			  :string;
-    contactInfo		  :string;
-    completeDate	  :string;
-    remark			  :string;
-    creator			  :string;
-    creationTime	  :string;
-    updator			  :string;
-    updateTime		  :string;
+    aSNId: Number;
+    aSNNumber: string;
+    receiptNumber: string;
+    externReceiptNumber: string;
+    customerId: Number;
+    customerName: string;
+    warehouseId: Number;
+    warehouseName: string;
+    receiptTime: string;
+    receiptStatus: Number;
+    receiptType: string;
+    contact: string;
+    contactInfo: string;
+    completeTime: string;
+    remark: string;
+    creator: string;
+    creationTime: string;
+    updator: string;
+    updateTime: string;
     str1			  :string;
     str2			  :string;
     str3			  :string;
@@ -53,5 +52,6 @@ export default class receipt extends Entity<number>{
     int3			  :number;
     int4			  :number;
     int5			  :number;
-    receiptDetail:Array<receiptDetail>;
+    receiptDetails:Array<receiptDetail>;
+    receiptReceivings:Array<receiptReceiving>;
 }

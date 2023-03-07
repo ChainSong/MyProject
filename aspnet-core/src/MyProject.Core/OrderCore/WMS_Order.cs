@@ -12,6 +12,11 @@ namespace MyProject.OrderCore
 {
     public class WMS_Order : Entity<long>, IHasCreationTime
     {
+        public long PreOrderId { get; set; }
+
+        [StringLength(50)]
+        public string OrderNumber { get; set; }
+
         [StringLength(50)]
         public string PreOrderNumber { get; set; }
 
@@ -35,9 +40,12 @@ namespace MyProject.OrderCore
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderStatus { get; set; }
 
-        public DateTime OrderTime { get; set; }
+        public DateTime? OrderTime { get; set; }
+        public DateTime? CompleteTime { get; set; }
 
-        public int? DetailCount { get; set; }
+
+
+        public double DetailCount { get; set; }
 
         [StringLength(50)]
         public string Creator { get; set; }
@@ -131,5 +139,7 @@ namespace MyProject.OrderCore
         public int? Int4 { get; set; }
 
         public int? Int5 { get; set; }
+
+        public virtual List<WMS_OrderDetail> OrderDetails { get; set; }
     }
 }

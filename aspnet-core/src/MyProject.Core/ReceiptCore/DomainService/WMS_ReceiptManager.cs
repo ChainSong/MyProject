@@ -1,8 +1,12 @@
 
+using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
+using Abp.EntityFrameworkCore.Repositories;
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,31 +16,33 @@ namespace MyProject.ReceiptCore.DomainService
     /// <summary>
     /// 领域服务层一个模块的核心业务逻辑
     ///</summary>
-    public class WMS_ReceiptManager :DomainServiceBase, IWMS_ReceiptManager
+    public class WMS_ReceiptManager : DomainServiceBase, IWMS_ReceiptManager
     {
-		
-		private readonly IRepository<WMS_Receipt,long> _wms_receiptRepository;
 
-		/// <summary>
-		/// 【WMS_Receipt】的构造方法
-		/// 通过构造函数注册服务到依赖注入容器中
-		///</summary>
-	    public WMS_ReceiptManager(IRepository<WMS_Receipt, long> wms_receiptRepository)	{
-			_wms_receiptRepository =  wms_receiptRepository;
-		}
+        private readonly IRepository<WMS_Receipt, long> _wms_receiptRepository;
 
-		#region -------------------------------------------------辅助工具生成---------------------------------------------- 
+        /// <summary>
+        /// 【WMS_Receipt】的构造方法
+        /// 通过构造函数注册服务到依赖注入容器中
+        ///</summary>
+        public WMS_ReceiptManager(IRepository<WMS_Receipt, long> wms_receiptRepository)
+        {
+            _wms_receiptRepository = wms_receiptRepository;
+        }
+
+        #region -------------------------------------------------辅助工具生成---------------------------------------------- 
 
         /// <summary>
         /// 返回列表查询用
         /// </summary>
         /// <returns></returns>
-        public IQueryable<WMS_Receipt> QueryEntityListAsNoTracking() { 
+        public IQueryable<WMS_Receipt> QueryEntityListAsNoTracking()
+        {
 
             var query = _wms_receiptRepository.GetAll().AsNoTracking()
                         .Select(x => new WMS_Receipt
                         {
-                           
+
                             ASNNumber = x.ASNNumber,
                             ReceiptNumber = x.ReceiptNumber,
                             ExternReceiptNumber = x.ExternReceiptNumber,
@@ -70,7 +76,7 @@ namespace MyProject.ReceiptCore.DomainService
                             Str17 = x.Str17,
                             Str18 = x.Str18,
                             Str19 = x.Str19,
-                            Str20 = x.Str20 
+                            Str20 = x.Str20
                         });
             return query;
         }
@@ -111,7 +117,7 @@ namespace MyProject.ReceiptCore.DomainService
             var result = await _wms_receiptRepository.GetAll().AnyAsync(a => a.Id == id);
             return result;
         }
-		/// <summary>
+        /// <summary>
         /// 【WMS_Receipt】创建实体
         /// </summary>
         /// <param name="id"></param>
@@ -150,20 +156,47 @@ namespace MyProject.ReceiptCore.DomainService
             //TODO:删除前的逻辑判断，是否允许删除
             await _wms_receiptRepository.DeleteAsync(a => input.Contains(a.Id));
         }
-	    #endregion
+        #endregion
 
 
         #region -------------------------------------------------用户自定义------------------------------------------------
-		/*请在此扩展领域服务接口*/
-		#endregion
-			
-		
+        /*请在此扩展领域服务接口*/
+
+
+        /// <summary>
+        /// 批量添加
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task BulkInsert(List<WMS_Receipt> entitys)
+        {
+            //Stopwatch watch = new Stopwatch();
+            //watch.Start();
+            //List<WMS_Receipt> list = new List<WMS_Receipt>();
+            //for (int i = 0; i < input.Id; i++)
+            //{
+            //    var entity = new WMS_Receipt();
+            //    entity.CateId = 2;
+            //    entity.Title = $"BulkInsert娱乐{1}";
+            //    list.Add(entity);
+            //}
+
+            await _wms_receiptRepository.GetDbContext().BulkInsertAsync(entitys, options => options.IncludeGraph = true);//GetDbContext 需要添加Abp.EntityFrameworkCore.Repositories引用
+                                                                               //watch.Stop();
+
+            //string time = watch.ElapsedMilliseconds.ToString();
+
+        }
+
+        #endregion
 
 
 
-		 
-		  
-		 
 
-	}
+
+
+
+
+
+    }
 }

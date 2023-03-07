@@ -19,6 +19,7 @@ html,body{
     height: 100%;
     background: #f0f0f0;
     overflow: hidden;
+    font-family:  "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",sans-serif !important;
 }
 #app{
   height: 100%;

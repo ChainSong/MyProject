@@ -156,7 +156,8 @@ export default class Notice extends AbpBase{
     .list{
         max-height: 400px;
         overflow: auto;
-        font-family: "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+        /* 这个地方影响动态布局 先注释掉 */
+        /* font-family: "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif; */
         font-size: 14px;
         line-height: 1.5;
         color: rgba(0,0,0,.65);

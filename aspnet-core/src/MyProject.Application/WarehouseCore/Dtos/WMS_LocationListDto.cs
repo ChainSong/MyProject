@@ -1,6 +1,7 @@
 
 using System;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.WarehouseCore.Dtos
@@ -9,7 +10,9 @@ namespace MyProject.WarehouseCore.Dtos
 	/// WMS_Location的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_LocationListDto  
+	[AutoMap(typeof(WMS_Warehouse))]
+
+	public class WMS_LocationListDto  
     {
 		/// <summary>
         /// Id 
@@ -47,6 +50,11 @@ namespace MyProject.WarehouseCore.Dtos
 		public string LocationType { get; set; }
 
 		/// <summary>
+		/// 字段LocationStatus
+		/// </summary>
+		public string LocationStatus { get; set; }
+
+		/// <summary>
 		/// 字段Classification
 		/// </summary>
 		public int Classification { get; set; }
@@ -64,12 +72,12 @@ namespace MyProject.WarehouseCore.Dtos
 		/// <summary>
 		/// 字段IsMultiLot
 		/// </summary>
-		public bool IsMultiLot { get; set; }
+		public int IsMultiLot { get; set; }
 
 		/// <summary>
 		/// 字段IsMultiSKU
 		/// </summary>
-		public bool IsMultiSKU { get; set; }
+		public int IsMultiSKU { get; set; }
 
 		/// <summary>
 		/// 字段LocationLevel

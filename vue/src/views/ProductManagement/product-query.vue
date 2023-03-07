@@ -1,15 +1,33 @@
 <template>
   <div>
     <Modal title="产品详情" :value="value" width="50" @on-visible-change="visibleChange">
-      <el-descriptions class="margin-top" :column="2"   size="small" border>
+      <el-descriptions class="margin-top" :column="2" size="small" border>
         <template v-for="i in tableColumnHeaders">
-          <el-descriptions-item v-bind:key="i.id" style="width:500px"  labelStyle="width:'200px'" :prop="i.displayName" v-if="i.isCreate">
+          <el-descriptions-item v-bind:key="i.id" style="width:500px" labelStyle="width:'200px'" :prop="i.displayName"
+            v-if="i.isCreate">
             <template slot="label">
               <i></i>
               {{ i.displayName }}
             </template>
             <template v-if="i.type == 'TextBox'">
-              <label >{{header[i.columnName]}}</label>
+              <label>{{ header[i.columnName] }}</label>
+            </template>
+            <template slot-scope="scope" v-else-if="i.type == 'DropDownListInt'">
+              <el-tag size="medium" v-for="item in i.tableColumnsDetails" v-if="item.codeInt == header[i.columnName]"
+                v-bind="item.codeInt" :key="item.codeInt" show-icon :type="item.color">
+                {{ item.name }}
+              </el-tag>
+            </template>
+
+            <template slot-scope="scope" v-else-if="i.type == 'DropDownListStr'">
+              <el-tag size="medium" v-for="item in i.tableColumnsDetails" v-if="item.codeStr == header[i.columnName]"
+                v-bind="item.codeStr" :key="item.codeStr" show-icon :type="item.color">
+                {{ item.name }}
+              </el-tag>
+            </template>
+
+            <template v-else-if="i.type == 'DropDownListStrRemote'">
+              <label>{{ header[i.columnName] }}</label>
             </template>
           </el-descriptions-item>
         </template>

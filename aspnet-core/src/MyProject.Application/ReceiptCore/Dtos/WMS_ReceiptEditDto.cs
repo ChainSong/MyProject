@@ -4,19 +4,24 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using System.Collections.Generic;
+using Abp.AutoMapper;
+
 namespace MyProject.ReceiptCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Receipt的列表DTO
 	/// <see cref="WMS_Receipt"/>
 	/// </summary>
-    public class WMS_ReceiptEditDto
+	[AutoMap(typeof(WMS_Receipt))]
+	public class WMS_ReceiptEditDto
     {
 		/// <summary>
         /// Id 
         /// </summary>
         public long? Id { get; set; }
-
+        public long? ASNId { get; set; }
+		
 		/// <summary>
 		/// 字段ASNNumber
 		/// </summary>
@@ -33,10 +38,18 @@ namespace MyProject.ReceiptCore.Dtos
 		/// 字段CustomerId
 		/// </summary>
 		public long CustomerId { get; set; }
+		
 		/// <summary>
 		/// 字段CustomerName
 		/// </summary>
 		public string CustomerName { get; set; }
+
+		/// <summary>
+		/// 字段WarehouseId
+		/// </summary>
+		public long WarehouseId { get; set; }
+		
+
 		/// <summary>
 		/// 字段WarehouseName
 		/// </summary>
@@ -45,6 +58,11 @@ namespace MyProject.ReceiptCore.Dtos
 		/// 字段ReceiptStatus
 		/// </summary>
 		public int ReceiptStatus { get; set; }
+
+        public DateTime? ReceiptTime { get; set; }
+
+        public DateTime? CompleteTime { get; set; }
+		
 		/// <summary>
 		/// 字段ReceiptType
 		/// </summary>
@@ -68,11 +86,15 @@ namespace MyProject.ReceiptCore.Dtos
 		/// <summary>
 		/// 字段CreationTime
 		/// </summary>
-		public DateTime CreationTime { get; set; }
+		public DateTime? CreationTime { get; set; }
+		
 		/// <summary>
 		/// 字段Updator
 		/// </summary>
 		public string Updator { get; set; }
+
+		public DateTime? UpdateTime { get; set; }
+
 		/// <summary>
 		/// 字段Str1
 		/// </summary>
@@ -153,8 +175,29 @@ namespace MyProject.ReceiptCore.Dtos
 		/// 字段Str20
 		/// </summary>
 		public string Str20 { get; set; }
- 
-		
-		/* 这里创建自己的代码 */
-	}
+
+
+		public DateTime? DateTime1 { get; set; }
+
+		public DateTime? DateTime2 { get; set; }
+
+		public DateTime? DateTime3 { get; set; }
+
+		public DateTime? DateTime4 { get; set; }
+
+		public DateTime? DateTime5 { get; set; }
+
+		public int? Int1 { get; set; }
+
+		public int? Int2 { get; set; }
+
+		public int? Int3 { get; set; }
+
+		public int? Int4 { get; set; }
+
+		public int? Int5 { get; set; }
+
+        public List<WMS_ReceiptDetailEditDto> WMS_ReceiptDetails { get; set; }
+        /* 这里创建自己的代码 */
+    }
 }

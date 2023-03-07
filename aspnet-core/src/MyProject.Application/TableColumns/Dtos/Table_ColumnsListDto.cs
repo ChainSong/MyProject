@@ -61,6 +61,14 @@ namespace MyProject.TableColumns.Dtos
                 return resolver.GetResolvedPropertyName(DbColumnName);
             }
         }
+        public string RelationColumn
+        {
+            get
+            {
+                var resolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+                return resolver.GetResolvedPropertyName(RelationDBColumn);
+            }
+        }
 
         /// <summary>
         /// IsKey
@@ -144,7 +152,9 @@ namespace MyProject.TableColumns.Dtos
         /// </summary>
         public string Type { get; set; }
 
-
+        public string Characteristic { get; set; }
+        public string Default { get; set; }
+        public string RelationDBColumn { get; set; }
 
         /// <summary>
         /// Order
@@ -204,6 +214,9 @@ namespace MyProject.TableColumns.Dtos
         public double Step { get; set; }
         public double Max { get; set; }
         public double Min { get; set; }
+        public string Link { get; set; }
+
+        
         /// <summary>
         /// Table_ColumnsDetails
         /// </summary>

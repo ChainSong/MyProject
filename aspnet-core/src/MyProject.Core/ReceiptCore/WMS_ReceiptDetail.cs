@@ -3,6 +3,7 @@ using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace MyProject.ReceiptCore
 {
     public class WMS_ReceiptDetail : Entity<long>, IHasCreationTime
     {
+        [ForeignKey("ReceiptId")]
         public long ReceiptId { get; set; }
 
         public long ASNId { get; set; }
@@ -68,7 +70,7 @@ namespace MyProject.ReceiptCore
 
         public double ReceivedQty { get; set; }
 
-        public double? ReceiptQty { get; set; }
+        public double ReceiptQty { get; set; }
 
         [StringLength(100)]
         public string UnitCode { get; set; }
@@ -172,7 +174,7 @@ namespace MyProject.ReceiptCore
 
         public int? Int5 { get; set; }
 
-        public virtual WMS_Receipt WMS_Receipt { get; set; }
+        public virtual WMS_Receipt Receipt { get; set; }
 
     }
 }

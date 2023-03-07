@@ -7,7 +7,7 @@
             <Col span="6">
               <FormItem label="表名" style="width: 100%">
                 <el-input
-                  placeholder="请输入表名"
+                  placeholder="请输入表名" size="small"
                   v-model="tableColumn.tableName"
                 >
                 </el-input>
@@ -78,7 +78,9 @@
               label="中文名称"
             ></el-table-column>
              <el-table-column  label="操作">
+                <template slot-scope="scope"> 
                <el-button @click="cleanCache(scope.row)" type="text" size="small">清理缓存</el-button> 
+               </template>
               </el-table-column>
             <!-- <el-table-column prop="isCreate" label="添加"> </el-table-column>
             <el-table-column prop="isSearchCondition" label="查询条件">
@@ -154,6 +156,7 @@ export default class TablecolumnsList extends AbpBase {
   }
   cleanCache(row)
   {
+
     this.$store
       .dispatch({
         type: "tableColumns/cleanCache",

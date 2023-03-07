@@ -2,6 +2,7 @@
 using AutoMapper;
 using MyProject.ReceiptReceivingCore;
 using MyProject.ReceiptReceivingCore.Dtos;
+using System.Data;
 
 // ReSharper disable once CheckNamespace
 namespace MyProject.CustomDtoAutoMapper
@@ -16,8 +17,9 @@ namespace MyProject.CustomDtoAutoMapper
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap <WMS_ReceiptReceiving,WMS_ReceiptReceivingListDto>();
-            configuration.CreateMap <WMS_ReceiptReceivingListDto,WMS_ReceiptReceiving>();
+            configuration.CreateMap <WMS_ReceiptReceiving, WMS_ReceiptReceivingListDto>();
+            configuration.CreateMap <WMS_ReceiptReceivingListDto, WMS_ReceiptReceiving>();
+
 
             configuration.CreateMap <WMS_ReceiptReceivingEditDto,WMS_ReceiptReceiving>();
             configuration.CreateMap <WMS_ReceiptReceiving,WMS_ReceiptReceivingEditDto>();

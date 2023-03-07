@@ -12,31 +12,33 @@ namespace MyProject.CustomerCore.DomainService
     /// <summary>
     /// 领域服务层一个模块的核心业务逻辑
     ///</summary>
-    public class CustomerUserMappingManager :DomainServiceBase, ICustomerUserMappingManager
+    public class CustomerUserMappingManager : DomainServiceBase, ICustomerUserMappingManager
     {
-		
-		private readonly IRepository<CustomerUserMapping,long> _customerusermappingRepository;
 
-		/// <summary>
-		/// 【CustomerUserMapping】的构造方法
-		/// 通过构造函数注册服务到依赖注入容器中
-		///</summary>
-	    public CustomerUserMappingManager(IRepository<CustomerUserMapping, long> customerusermappingRepository)	{
-			_customerusermappingRepository =  customerusermappingRepository;
-		}
+        private readonly IRepository<CustomerUserMapping, long> _customerusermappingRepository;
 
-		#region -------------------------------------------------辅助工具生成---------------------------------------------- 
+        /// <summary>
+        /// 【CustomerUserMapping】的构造方法
+        /// 通过构造函数注册服务到依赖注入容器中
+        ///</summary>
+        public CustomerUserMappingManager(IRepository<CustomerUserMapping, long> customerusermappingRepository)
+        {
+            _customerusermappingRepository = customerusermappingRepository;
+        }
+
+        #region -------------------------------------------------辅助工具生成---------------------------------------------- 
 
         /// <summary>
         /// 返回列表查询用
         /// </summary>
         /// <returns></returns>
-        public IQueryable<CustomerUserMapping> QueryEntityListAsNoTracking() { 
+        public IQueryable<CustomerUserMapping> QueryEntityListAsNoTracking()
+        {
 
             var query = _customerusermappingRepository.GetAll().AsNoTracking()
                         .Select(x => new CustomerUserMapping
                         {
-                           
+
                             UserId = x.UserId,
                             UserName = x.UserName,
                             CustomerId = x.CustomerId,
@@ -85,7 +87,7 @@ namespace MyProject.CustomerCore.DomainService
             var result = await _customerusermappingRepository.GetAll().AnyAsync(a => a.Id == id);
             return result;
         }
-		/// <summary>
+        /// <summary>
         /// 【CustomerUserMapping】创建实体
         /// </summary>
         /// <param name="id"></param>
@@ -124,20 +126,36 @@ namespace MyProject.CustomerCore.DomainService
             //TODO:删除前的逻辑判断，是否允许删除
             await _customerusermappingRepository.DeleteAsync(a => input.Contains(a.Id));
         }
-	    #endregion
+        #endregion
 
 
         #region -------------------------------------------------用户自定义------------------------------------------------
-		/*请在此扩展领域服务接口*/
-		#endregion
-			
-		
+        /*请在此扩展领域服务接口*/
+
+        /// <summary>
+        /// 【CustomerUserMapping】删除实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task UserIdDelete(long id)
+        {
+            //TODO:删除前的逻辑判断，是否允许删除
+            await _customerusermappingRepository.DeleteAsync(a => a.UserId == id);
+        }
+
+        public IQueryable<CustomerUserMapping> QueryWhere()
+        {
+            return _customerusermappingRepository.GetAll();
+        }
+        #endregion
 
 
 
-		 
-		  
-		 
 
-	}
+
+
+
+
+
+    }
 }

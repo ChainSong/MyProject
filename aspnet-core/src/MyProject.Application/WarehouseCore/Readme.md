@@ -26,7 +26,7 @@ FakerSolution  ABP 样板项目 [Github地址](https://github.com/huayhy/FakerSo
 然后复制以下代码到 的PreInitialize 方法中:
 
 ```csharp
-Configuration.Authorization.Providers.Add<WMS_LocationAuthorizationProvider>();
+Configuration.Authorization.Providers.Add<WarehouseUserMappingAuthorizationProvider>();
 
 ```
 
@@ -43,7 +43,7 @@ Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
     // ....其他代码
 
     // 只需要复制这一段
-        WMS_LocationDtoAutoMapper.CreateMappings(configuration);
+        WarehouseUserMappingDtoAutoMapper.CreateMappings(configuration);
 
     // ....其他代码
 });
@@ -53,7 +53,7 @@ Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
 打开EntityFrameworkCore类库在 **MyProjectContext**类文件中添加以下代码段：
 
 ```csharp
-public virtual DbSet<WMS_Location>  WMS_Locations { get; set; }
+public virtual DbSet<WarehouseUserMapping>  WarehouseUserMappings { get; set; }
 
  ```
 以实现将实体配置到数据库上下文中。
@@ -66,7 +66,7 @@ public virtual DbSet<WMS_Location>  WMS_Locations { get; set; }
 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
-   modelBuilder.ApplyConfiguration(new  WMS_LocationMapper());
+   modelBuilder.ApplyConfiguration(new  WarehouseUserMappingMapper());
 }
 
 ```
@@ -81,7 +81,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         protected void SetUserTablePrefix(ModelBuilder modelBuilder)
         {
             // 代码生成器生成的表实体配置全部添加到这里
-             modelBuilder.ApplyConfiguration(new  WMS_LocationMapper());  // 请将代码配置到这里 
+             modelBuilder.ApplyConfiguration(new  WarehouseUserMappingMapper());  // 请将代码配置到这里 
         }
 
 ```
@@ -95,7 +95,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 添加一条迁移记录
 
 ```
-Add-Migration Add_WMS_LocationEntity_Migration
+Add-Migration Add_WarehouseUserMappingEntity_Migration
 ```
 
 同步实体文件到数据库中

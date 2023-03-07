@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using MyProject.ReceiptCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,6 +44,13 @@ namespace MyProject.ReceiptReceivingCore
         public string WarehouseName { get; set; }
 
         public int ReceiptReceivingStatus { get; set; }
+
+        /// <summary>
+        /// 用来区分标记（多货，缺货，串货）
+        /// </summary>
+        public int GoodsStatus { get; set; }
+
+        
 
         [StringLength(50)]
         public string LineNumber { get; set; }
@@ -181,5 +189,7 @@ namespace MyProject.ReceiptReceivingCore
         public int? Int4 { get; set; }
 
         public int? Int5 { get; set; }
+
+        public virtual WMS_Receipt Receipt { get; set; }
     }
 }

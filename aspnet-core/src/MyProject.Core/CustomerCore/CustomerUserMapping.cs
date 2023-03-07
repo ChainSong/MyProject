@@ -16,9 +16,9 @@ namespace MyProject.CustomerCore
         public string CustomerName { get; set; }
         public int Status { get; set; }
         public string Creator { get; set; }
-        public DateTime? CreateTime { get; set; }
+        //public DateTime? CreateTime { get; set; }
         public string Updator { get; set; }
         public DateTime? UpdateTime { get; set; }
-        public DateTime CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime CreationTime { get; set; }
     }
 }

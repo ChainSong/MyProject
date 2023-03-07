@@ -1,92 +1,66 @@
 
-
 using System;
 using Abp.Application.Services.Dto;
-using System.Collections.Generic;
-using Abp.Domain.Entities.Auditing;
-using System.ComponentModel.DataAnnotations;
-using MyProject.WarehouseCore;
-using System.Collections.ObjectModel;
-
+using Abp.AutoMapper;
+using Abp.Domain.Entities;
 
 namespace MyProject.WarehouseCore.Dtos
 {
-    /// <summary>
-    /// 的列表DTO
-    /// <see cref="WarehouseUserMapping"/>
-    /// </summary>
-    public class WarehouseUserMappingListDto : EntityDto<long>
+	/// <summary>
+	/// WarehouseUserMapping的列表DTO
+	/// <see cref=""/>
+	/// </summary>
+	[AutoMap(typeof(WarehouseUserMapping))]
+	public class WarehouseUserMappingListDto  
     {
-
-
-        /// <summary>
-        /// UserId
+		/// <summary>
+        /// Id 
         /// </summary>
-        public long UserId { get; set; }
+        public long? Id { get; set; }
 
+		/// <summary>
+		/// 字段UserId
+		/// </summary>
+		public long UserId { get; set; }
 
+		/// <summary>
+		/// 字段UserName
+		/// </summary>
+		public string UserName { get; set; }
 
-        /// <summary>
-        /// UserName
-        /// </summary>
-        public string UserName { get; set; }
+		/// <summary>
+		/// 字段WarehouseId
+		/// </summary>
+		public long WarehouseId { get; set; }
 
+		/// <summary>
+		/// 字段WarehouseName
+		/// </summary>
+		public string WarehouseName { get; set; }
 
+		/// <summary>
+		/// 字段Status
+		/// </summary>
+		public int Status { get; set; }
 
-        /// <summary>
-        /// WarehouseId
-        /// </summary>
-        public long WarehouseId { get; set; }
+		/// <summary>
+		/// 字段Creator
+		/// </summary>
+		public string Creator { get; set; }
 
+		/// <summary>
+		/// 字段Updator
+		/// </summary>
+		public string Updator { get; set; }
 
+		/// <summary>
+		/// 字段CreationTime
+		/// </summary>
+		public DateTime CreationTime { get; set; }
 
-        /// <summary>
-        /// WarehouseName
-        /// </summary>
-        public string WarehouseName { get; set; }
+		public DateTime UpdateTime { get; set; }
 
-
-
-        /// <summary>
-        /// Status
-        /// </summary>
-        public int Status { get; set; }
-
-
-
-        /// <summary>
-        /// Creator
-        /// </summary>
-        public string Creator { get; set; }
-
-
-
-        /// <summary>
-        /// CreateTime
-        /// </summary>
-        public DateTime? CreateTime { get; set; }
-
-
-
-        /// <summary>
-        /// Updator
-        /// </summary>
-        public string Updator { get; set; }
-
-
-
-        /// <summary>
-        /// UpdateTime
-        /// </summary>
-        public DateTime? UpdateTime { get; set; }
-
-
-
-
-        //// custom codes
-
-
-
-        //// custom codes end
-    }
+		/* 这里创建自己的代码 */
+	}
 }
+

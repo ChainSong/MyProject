@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -35,6 +36,72 @@ namespace MyProject.TableColumns.DomainService
         //}
 
 
+        /// <summary>
+        /// 返回列表查询用
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<Table_Columns> QueryEntityListAsNoTracking()
+        {
+
+            var query = _table_ColumnsRepository.GetAll().AsNoTracking()
+                        .Select(x => new Table_Columns
+                        {
+                            Id = x.Id,
+                            TenantId = x.TenantId,
+                            ProjectId = x.ProjectId,
+                            RoleName = x.RoleName,
+                            CustomerId = x.CustomerId,
+                            TableName = x.TableName,
+                            TableNameCH = x.TableNameCH,
+                            DisplayName = x.DisplayName,
+                            DbColumnName = x.DbColumnName,
+                            IsKey = x.IsKey,
+                            IsSearchCondition = x.IsSearchCondition,
+                            IsHide = x.IsHide,
+                            IsReadOnly = x.IsReadOnly,
+                            IsShowInList = x.IsShowInList,
+                            IsImportColumn = x.IsImportColumn,
+                            IsDropDownList = x.IsDropDownList,
+                            IsCreate = x.IsCreate,
+                            IsUpdate = x.IsUpdate,
+                            SearchConditionOrder = x.SearchConditionOrder,
+                            Validation = x.Validation,
+                            Group = x.Group,
+                            Type = x.Type,
+                            Characteristic = x.Characteristic,
+                            Order = x.Order,
+                            Associated = x.Associated,
+                            Precision = x.Precision,
+                            Step = x.Step,
+                            Max = x.Max,
+                            Min = x.Min,
+                            Default = x.Default,
+                            Link = x.Link,
+                            RelationDBColumn = x.RelationDBColumn,
+                            ForView = x.ForView,
+                            CreationTime = x.CreationTime,
+                        });
+            return query;
+        }
+
+        /// <summary>
+        /// 【WMS_ASNDetail】返回表达式数的实体信息即IQueryable类型
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        public IQueryable<Table_Columns> Query()
+        {
+            return _table_ColumnsRepository.GetAll();
+        }
+
+
+        /// <summary>
+        /// 【WMS_ASNDetail】返回即IQueryable类型的实体，不包含EF Core跟踪标记
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        public IQueryable<Table_Columns> QueryAsNoTracking()
+        {
+            return _table_ColumnsRepository.GetAll().AsNoTracking();
+        }
 
 
         public async Task<Table_Columns> CreateAsync(Table_Columns entity)
@@ -74,7 +141,14 @@ namespace MyProject.TableColumns.DomainService
 
         //// custom codes
 
-
+        /// <summary>
+        /// 【WMS_ASNDetail】返回表达式数的实体信息即IQueryable类型
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        public IQueryable<Table_Columns> Query(params Expression<Func<Table_Columns, object>>[] table)
+        {
+            return _table_ColumnsRepository.GetAll();
+        }
 
 
 

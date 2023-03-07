@@ -16,12 +16,16 @@ namespace MyProject.TableColumns
         public string Type { get; set; }
 
         public string Color { get; set; }
-        
+
         public int Status { get; set; }
+
+        public int Order { get; set; }
+
+
         public string Associated { get; set; }
         public string Creator { get; set; }
-        public DateTime CreationTime { get; set; } = new DateTime();
+        public DateTime CreationTime { get; set; }
 
-        public virtual Table_Columns Table_Columns { get; set; }
+        //public virtual Table_Columns Table_Columns { get; set; }
     }
 }

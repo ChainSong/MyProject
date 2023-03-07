@@ -1,6 +1,7 @@
 
 using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyProject.ASNCore.Dtos
@@ -11,9 +12,10 @@ namespace MyProject.ASNCore.Dtos
 	/// </summary>
 	public class CreateOrUpdateWMS_ASNInput
     {
-        [Required]
+        //[Required]
         public WMS_ASNEditDto WMS_ASN { get; set; }
+        public List<WMS_ASNEditDto> WMS_ASNs { get; set; }
 
-		/* 这里创建自己的代码 */
+        /* 这里创建自己的代码 */
     }
 }

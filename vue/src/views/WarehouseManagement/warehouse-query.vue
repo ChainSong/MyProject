@@ -1,30 +1,39 @@
 <template>
   <div>
-    <Modal title="产品详情" :value="value" width="80" @on-visible-change="visibleChange">
-      <Form label-position="top">
-        <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
-          <FormItem :label="i.displayName" :prop="i.displayName" v-if="i.isCreate" style="width: 90%">
+    <Modal title="仓库详情" :value="value" width="50" @on-visible-change="visibleChange">
+      <el-descriptions class="margin-top" :column="2" size="small" border>
+        <template v-for="i in tableColumnHeaders">
+          <el-descriptions-item v-bind:key="i.id" style="width:500px" labelStyle="width:'200px'" :prop="i.displayName"
+            v-if="i.isCreate">
+            <template slot="label">
+              <i></i>
+              {{ i.displayName }}
+            </template>
             <template v-if="i.type == 'TextBox'">
-              <label v-text="header[i.columnName]"></label>
+              <label>{{ header[i.columnName] }}</label>
             </template>
-            <template v-if="i.type == 'DropDownListStr'">
-              <template v-for="DropDown in i.tableColumnsDetails">
-                <label v-if="DropDown.codeStr == header[i.columnName]" v-text="DropDown.name" show-icon :type="DropDown.color"
-                  :key="DropDown.codeStr"></label>
-              </template>
+            <template slot-scope="scope" v-else-if="i.type == 'DropDownListInt'">
+              <el-tag size="medium" v-for="item in i.tableColumnsDetails" v-if="item.codeInt == header[i.columnName]"
+                v-bind="item.codeInt" :key="item.codeInt" show-icon :type="item.color">
+                {{ item.name }}
+              </el-tag>
             </template>
-             <template v-if="i.type == 'DropDownListInt'">
-              <template v-for="DropDown in i.tableColumnsDetails">
-                <label v-if="DropDown.codeInt == header[i.columnName]" show-icon :type="DropDown.color" v-text="DropDown.name"
-                  :key="DropDown.codeInt"></label>
-              </template>
-            </template>
-          </FormItem>
-          </Col>
-        </Row>
-      </Form>
 
+            <template slot-scope="scope" v-else-if="i.type == 'DropDownListStr'">
+              <el-tag size="medium" v-for="item in i.tableColumnsDetails" v-if="item.codeStr == header[i.columnName]"
+                v-bind="item.codeStr" :key="item.codeStr" show-icon :type="item.color">
+                {{ item.name }}
+              </el-tag>
+            </template>
+
+            <template v-else-if="i.type == 'DropDownListStrRemote'">
+              <label>{{ header[i.columnName] }}</label>
+            </template>
+
+
+          </el-descriptions-item>
+        </template>
+      </el-descriptions>
       <div slot="footer">
         <Button @click="cancel">{{ L("Cancel") }}</Button>
       </div>
@@ -92,3 +101,8 @@ export default class WarehouseQuery extends AbpBase {
 }
 </script>
  
+<style scoped>
+.el-descriptions__body {
+  width: 70%;
+}
+</style>

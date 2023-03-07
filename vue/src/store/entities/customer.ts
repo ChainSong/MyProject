@@ -3,14 +3,14 @@ import CustomerDetail from './customerDetail'
 
 export default class customer extends Entity<number>{
 
-    customerid: number;
-    projectid: number;
-    customercode: number;
-    customername: string;
+    customerId: number;
+    projectId: number;
+    customerCode: number;
+    customerName: string;
     description: string;
-    customertype: string;
-    customerstatus: number;
-    creditline: string;
+    customerType: string;
+    customerStatus: number;
+    creditLine: string;
     province: string;
     city: string;
     address: string;
@@ -22,13 +22,13 @@ export default class customer extends Entity<number>{
     bank: string;
     account: string;
     taxid: string;
-    invoicetitle: string;
+    invoiceTitle: string;
     fax: string;
     website: string;
     creator: string;
-    createtime: string;
-    endcreatetime: string;
-    creationtime: string;
-    endcreationtime: string;
+    createTime: string;
+    endcreateTime: string;
+    creationTime: string;
+    endCreationTime: string;
     customerDetails: Array<CustomerDetail>;
 }

@@ -188,32 +188,35 @@ namespace  MyProject.TableColumns.Dtos
 		public double Max { get; set; }
 		public double Min { get; set; }
 
+		public string Link { get; set; }
+		
 		/// <summary>
 		/// Validation
 		/// </summary>
 		public string Validation { get; set; }
 
-
-
-		/// <summary>
-		/// Associated
-		/// </summary>
-		public string Associated { get; set; }
-
-
-
-		/// <summary>
-		/// Table_ColumnsDetails
-		/// </summary>
-		public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
+        public string Default { get; set; }
+        public string RelationColumn { get; set; }
+        /// <summary>
+        /// Associated
+        /// </summary>
+        public string Associated { get; set; }
 
 
 
-		
-							//// custom codes
-									
-							
+        /// <summary>
+        /// Table_ColumnsDetails
+        /// </summary>
+        public List<Table_ColumnsDetail> Table_ColumnsDetails { get; set; }
+        //public List<Table_ColumnsDetail> tableColumnsDetails { get; set; }
 
-							//// custom codes end
+
+
+
+        //// custom codes
+
+
+
+        //// custom codes end
     }
 }

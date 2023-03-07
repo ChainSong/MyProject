@@ -37,17 +37,18 @@ namespace MyProject.Authorization
 
 			var administration = pages.Children.FirstOrDefault(p => p.Name == AppLtmPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppLtmPermissions.Pages_Administration, L("Administration"));
 
-			var permission = administration.CreateChildPermission(WMS_OrderPermissions.Node , L("WMS_Order"));
-			permission.CreateChildPermission(WMS_OrderPermissions.Query, L("QueryWMS_Order"));
-			permission.CreateChildPermission(WMS_OrderPermissions.Create, L("CreateWMS_Order"));
-			permission.CreateChildPermission(WMS_OrderPermissions.Edit, L("EditWMS_Order"));
-			permission.CreateChildPermission(WMS_OrderPermissions.Delete, L("DeleteWMS_Order"));
-			permission.CreateChildPermission(WMS_OrderPermissions.BatchDelete, L("BatchDeleteWMS_Order"));
-			permission.CreateChildPermission(WMS_OrderPermissions.ExportExcel, L("ExportToExcel"));
+			var permission = administration.CreateChildPermission(WMS_OrderPermissions.Node , L("Order"));
+			permission.CreateChildPermission(WMS_OrderPermissions.Query, L("QueryOrder"));
+			permission.CreateChildPermission(WMS_OrderPermissions.Create, L("CreateOrder"));
+			permission.CreateChildPermission(WMS_OrderPermissions.Edit, L("EditOrder"));
+			permission.CreateChildPermission(WMS_OrderPermissions.Delete, L("DeleteOrder"));
+			permission.CreateChildPermission(WMS_OrderPermissions.BatchDelete, L("BatchDeleteOrder")); 
+			permission.CreateChildPermission(WMS_OrderPermissions.AutomatedAllocation, L("AutomatedAllocation")); 
+			//permission.CreateChildPermission(WMS_OrderPermissions.ExportExcel, L("ExportToExcel"));
 
 			//// 添加自定义代码开始
-									
-			
+
+
 			//// 添加自定义代码 结束
 		}
 

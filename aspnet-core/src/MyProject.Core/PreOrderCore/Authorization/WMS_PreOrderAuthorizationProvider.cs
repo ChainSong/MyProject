@@ -37,17 +37,19 @@ namespace MyProject.Authorization
 
 			var administration = pages.Children.FirstOrDefault(p => p.Name == AppLtmPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppLtmPermissions.Pages_Administration, L("Administration"));
 
-			var permission = administration.CreateChildPermission(WMS_PreOrderPermissions.Node , L("WMS_PreOrder"));
-			permission.CreateChildPermission(WMS_PreOrderPermissions.Query, L("QueryWMS_PreOrder"));
-			permission.CreateChildPermission(WMS_PreOrderPermissions.Create, L("CreateWMS_PreOrder"));
-			permission.CreateChildPermission(WMS_PreOrderPermissions.Edit, L("EditWMS_PreOrder"));
-			permission.CreateChildPermission(WMS_PreOrderPermissions.Delete, L("DeleteWMS_PreOrder"));
-			permission.CreateChildPermission(WMS_PreOrderPermissions.BatchDelete, L("BatchDeleteWMS_PreOrder"));
-			permission.CreateChildPermission(WMS_PreOrderPermissions.ExportExcel, L("ExportToExcel"));
+			var permission = administration.CreateChildPermission(WMS_PreOrderPermissions.Node , L("PreOrder"));
+			permission.CreateChildPermission(WMS_PreOrderPermissions.Query, L("QueryPreOrder"));
+			permission.CreateChildPermission(WMS_PreOrderPermissions.Create, L("CreatePreOrder"));
+			permission.CreateChildPermission(WMS_PreOrderPermissions.Edit, L("EditPreOrder"));
+			permission.CreateChildPermission(WMS_PreOrderPermissions.Delete, L("DeletePreOrder"));
+			permission.CreateChildPermission(WMS_PreOrderPermissions.BatchDelete, L("BatchDeletePreOrder")); 
+			//permission.CreateChildPermission(WMS_PreOrderPermissions.BatchAutomatedOutbound, L("BatchAutomatedOutbound")); 
+			permission.CreateChildPermission(WMS_PreOrderPermissions.PreOrderForOrder, L("PreOrderForOrder")); 
+			//permission.CreateChildPermission(WMS_PreOrderPermissions.ExportExcel, L("ExportToExcel"));
 
 			//// 添加自定义代码开始
-									
-			
+
+
 			//// 添加自定义代码 结束
 		}
 

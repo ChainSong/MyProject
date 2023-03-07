@@ -67,6 +67,8 @@ namespace MyProject.ReceiptCore.DomainService
 
 		#region -------------------------------------------------用户自定义------------------------------------------------
 		/*请在此扩展领域服务接口*/
+
+		Task BulkInsert(List<WMS_Receipt> entitys);
 		#endregion
-    }
+	}
 }

@@ -18,11 +18,9 @@
                         <Form>
                             <CheckboxGroup v-model="role.grantedPermissions">
                                 <FormItem>
-
                                     <Checkbox class="Checkbox" :label="permission.name"
                                         v-for="permission in permissions" :key="permission.name">
                                         <span>{{ permission.displayName }}</span>
-
                                         <template v-if="permission.children.length > 0">
                                             <div>
                                                 <Checkbox :label="children.name" v-for="children in permission.children"
@@ -31,9 +29,7 @@
                                                 </Checkbox>
                                             </div>
                                         </template>
-
                                     </Checkbox>
-
                                 </FormItem>
                             </CheckboxGroup>
                         </Form>
@@ -67,8 +63,23 @@ export default class EditRole extends AbpBase {
      */
     getChildren(data, result, pid) {
         data.forEach(item => {
+
+            let parent = "";
+            let children = "";
+            if (item.name.split('.').length > 1 && pid.split('.').length > 1) {
+                parent = item.name.split('.')[1];
+                children = pid.split('.')[1];
+            }
+            //     if(pid=="Pages.Receipt"){
+            //     console.log("item.name");
+            //     console.log(item.name);
+            //     console.log("pid");
+            //     console.log(pid);
+            //     console.log(item.name.indexOf(pid), item.name, pid,parent,children);
+            // }
+
             //如果元素的pid 和要查找的pid一致, 生成children格式数据存入结果数据
-            if (item.name.indexOf(pid) >= 0 && item.name != pid) {
+            if (item.name.indexOf(pid) >= 0 && item.name != pid && parent == children) {
                 const newItem = {
                     ...item,
                     label: item.displayName,
@@ -135,6 +146,7 @@ export default class EditRole extends AbpBase {
     /* 鼠标移动添加阴影 */
 
 }
+
 /* .Checkbox:hover {
     -webkit-box-shadow: #ccc 0px 10px 10px;
     -moz-box-shadow: #ccc 0px 10px 10px;

@@ -1,15 +1,17 @@
 
 using System;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.ReceiptCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_ReceiptDetail的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_ReceiptDetailListDto  
+	[AutoMap(typeof(WMS_ReceiptDetail))]
+	public class WMS_ReceiptDetailListDto  
     {
 		/// <summary>
         /// Id 

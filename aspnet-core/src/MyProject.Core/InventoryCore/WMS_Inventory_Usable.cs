@@ -23,7 +23,7 @@ namespace MyProject.InventoryCore
         [StringLength(50)]
         public string CustomerName { get; set; }
 
-        public long? WarehouseId { get; set; }
+        public long WarehouseId { get; set; }
 
         [StringLength(50)]
         public string WarehouseName { get; set; }
@@ -47,11 +47,11 @@ namespace MyProject.InventoryCore
         [StringLength(50)]
         public string GoodsType { get; set; }
 
-        public int? InventoryType { get; set; }
+        public int InventoryStatus { get; set; }
 
-        public long? SuperId { get; set; }
+        public long SuperId { get; set; }
 
-        public long? RelatedId { get; set; }
+        public long RelatedId { get; set; }
 
         [StringLength(100)]
         public string GoodsName { get; set; }

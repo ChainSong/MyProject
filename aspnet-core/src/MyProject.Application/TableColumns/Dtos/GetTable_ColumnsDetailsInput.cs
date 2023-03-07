@@ -2,6 +2,7 @@
 using Abp.Runtime.Validation;
 using MyProject.Dtos;
 using MyProject.TableColumns;
+using System;
 
 namespace MyProject.TableColumns.Dtos
 {
@@ -21,11 +22,64 @@ namespace MyProject.TableColumns.Dtos
                 Sorting = "Id";
             }
         }
-		
-							//// custom codes
-									
-							
 
-							//// custom codes end
-    }
+		//// custom codes
+
+		/// <summary>
+		/// Code
+		/// </summary>
+		public string CodeStr { get; set; }
+
+
+
+		/// <summary>
+		/// Name
+		/// </summary>
+		public string Name { get; set; }
+
+
+
+		/// <summary>
+		/// Type
+		/// </summary>
+		public string Type { get; set; }
+
+
+		public string Color { get; set; }
+
+		/// <summary>
+		/// Status
+		/// </summary>
+		public string Status { get; set; }
+
+
+
+		/// <summary>
+		/// Creator
+		/// </summary>
+		public int Creator { get; set; }
+
+
+
+		/// <summary>
+		/// CreationTime
+		/// </summary>
+		public DateTime? CreationTime { get; set; }
+
+
+
+		/// <summary>
+		/// CodeN
+		/// </summary>
+		public int CodeInt { get; set; }
+
+
+
+		/// <summary>
+		/// Associated
+		/// </summary>
+		public string Associated { get; set; }
+
+		//// custom codes end
+	}
 }

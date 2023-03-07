@@ -12,18 +12,27 @@ namespace MyProject.OrderCore
 {
     public class WMS_OrderDetail : Entity<long>, IHasCreationTime
     {
+        
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long ASNDetailId { get; set; }
 
-        public long? PreOrderId { get; set; }
+        public long PreOrderId { get; set; }
 
-        public long? PreOrderDetailId { get; set; }
+        public long PreOrderDetailId { get; set; }
+
+        [ForeignKey("OrderId")]
+        public long OrderId { get; set; }
 
         [StringLength(50)]
         public string PreOrderNumber { get; set; }
 
         [StringLength(50)]
         public string ExternOrderNumber { get; set; }
+
+        [StringLength(50)]
+        public string OrderNumber { get; set; }
+
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long CustomerId { get; set; }
@@ -51,7 +60,7 @@ namespace MyProject.OrderCore
         [StringLength(50)]
         public string GoodsType { get; set; }
 
-        public double OriginalQty { get; set; }
+        public double OrderQty { get; set; }
 
         public double AllocatedQty { get; set; }
 
@@ -166,5 +175,7 @@ namespace MyProject.OrderCore
         public int? Int4 { get; set; }
 
         public int? Int5 { get; set; }
+
+        public virtual WMS_Order Order { get; set; }
     }
 }

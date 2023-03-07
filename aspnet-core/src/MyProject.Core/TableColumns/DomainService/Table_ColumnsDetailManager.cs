@@ -36,6 +36,91 @@ namespace MyProject.TableColumns.DomainService
         //}
 
 
+        /// <summary>
+        /// 返回列表查询用
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<Table_ColumnsDetail> QueryEntityListAsNoTracking()
+        {
+
+            var query = _table_ColumnsDetailRepository.GetAll().AsNoTracking()
+                        .Select(x => new Table_ColumnsDetail
+                        {
+                            Id = x.Id,
+                            CodeInt = x.CodeInt,
+                            CodeStr = x.CodeStr,
+                            Name = x.Name,
+                            Type = x.Type,
+                            Color = x.Color,
+                            Associated = x.Associated,
+                            Status = x.Status,
+                            Order = x.Order,
+                            Creator = x.Creator,
+                            CreationTime = x.CreationTime,
+                            //ASNId = x.ASNId,
+                            //ASNNumber = x.ASNNumber,
+                            //ExternReceiptNumber = x.ExternReceiptNumber,
+                            //CustomerId = x.CustomerId,
+                            //CustomerName = x.CustomerName,
+                            //WarehouseName = x.WarehouseName,
+                            //LineNumber = x.LineNumber,
+                            //SKU = x.SKU,
+                            //UPC = x.UPC,
+                            //GoodsType = x.GoodsType,
+                            //GoodsName = x.GoodsName,
+                            //BoxCode = x.BoxCode,
+                            //TrayCode = x.TrayCode,
+                            //BatchCode = x.BatchCode,
+                            //ExpectedQty = x.ExpectedQty,
+                            //ReceivedQty = x.ReceivedQty,
+                            //ReceiptQty = x.ReceiptQty,
+                            //UnitCode = x.UnitCode,
+                            //Onwer = x.Onwer,
+                            //Creator = x.Creator,
+                            //CreationTime = x.CreationTime,
+                            //Updator = x.Updator,
+                            //Str1 = x.Str1,
+                            //Str2 = x.Str2,
+                            //Str3 = x.Str3,
+                            //Str4 = x.Str4,
+                            //Str5 = x.Str5,
+                            //Str6 = x.Str6,
+                            //Str7 = x.Str7,
+                            //Str8 = x.Str8,
+                            //Str9 = x.Str9,
+                            //Str10 = x.Str10,
+                            //Str11 = x.Str11,
+                            //Str12 = x.Str12,
+                            //Str13 = x.Str13,
+                            //Str14 = x.Str14,
+                            //Str15 = x.Str15,
+                            //Str16 = x.Str16,
+                            //Str17 = x.Str17,
+                            //Str18 = x.Str18,
+                            //Str19 = x.Str19,
+                            //Str20 = x.Str20
+                            //ASN = x.ASN,
+                        });
+            return query;
+        }
+
+        /// <summary>
+        /// 【WMS_ASNDetail】返回表达式数的实体信息即IQueryable类型
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        public IQueryable<Table_ColumnsDetail> Query()
+        {
+            return _table_ColumnsDetailRepository.GetAll();
+        }
+        /// <summary>
+        /// 【WMS_ASNDetail】返回即IQueryable类型的实体，不包含EF Core跟踪标记
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        public IQueryable<Table_ColumnsDetail> QueryAsNoTracking()
+        {
+            return _table_ColumnsDetailRepository.GetAll().AsNoTracking();
+        }
+
 
 
         public async Task<Table_ColumnsDetail> CreateAsync(Table_ColumnsDetail entity)

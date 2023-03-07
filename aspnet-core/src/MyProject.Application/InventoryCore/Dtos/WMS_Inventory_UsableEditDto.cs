@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.InventoryCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Inventory_Usable的列表DTO
 	/// <see cref="WMS_Inventory_Usable"/>
 	/// </summary>
-    public class WMS_Inventory_UsableEditDto
+	[AutoMap(typeof(WMS_Inventory_Usable))]
+	public class WMS_Inventory_UsableEditDto
     {
 		/// <summary>
         /// Id 
@@ -45,6 +48,12 @@ namespace MyProject.InventoryCore.Dtos
 		/// 字段UPC
 		/// </summary>
 		public string UPC { get; set; }
+
+		/// <summary>
+		/// 字段InventoryStatus
+		/// </summary>
+		public string InventoryStatus { get; set; }
+
 		/// <summary>
 		/// 字段GoodsType
 		/// </summary>

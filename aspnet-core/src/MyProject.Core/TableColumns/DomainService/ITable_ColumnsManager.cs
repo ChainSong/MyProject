@@ -12,7 +12,21 @@ namespace MyProject.TableColumns.DomainService
     {
 
 
-
+        /// <summary>
+		/// 返回表达式数的实体信息即IQueryable类型(可选择部分字段)
+		/// </summary>
+		/// <returns>IQueryable</returns>
+		IQueryable<Table_Columns> QueryEntityListAsNoTracking();
+        /// <summary>
+        /// 返回表达式数的实体信息即IQueryable类型
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<Table_Columns> Query();
+        /// <summary>
+        /// 返回性能更好的IQueryable类型，但不包含EF Core跟踪标记
+        /// </summary>
+        /// <returns>IQueryable</returns>
+        IQueryable<Table_Columns> QueryAsNoTracking();
 
 
         /// <summary>

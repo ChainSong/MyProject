@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Modal title="客户详情" :value="value" width="80" @on-visible-change="visibleChange">
+    <Modal title="客户详情" :value="value" width="50"  :close-on-click-modal="false" @on-visible-change="visibleChange">
       <el-container>
         <el-main>
-          <el-descriptions class="margin-top" :column="3"  size="small" border>
+          <el-descriptions class="margin-top" :column="2" size="small" border>
             <template v-for="i in tableColumnHeaders">
               <el-descriptions-item v-bind:key="i.id" :prop="i.displayName" v-if="i.isCreate">
                 <template slot="label" width="100">
@@ -33,7 +33,7 @@
 
       <el-container title="客户明细信息">
         <el-main>
-          <template >
+          <template>
             <el-form :model="detailDatas" ref="editDetail">
               <el-table :data="detailDatas.details" style="width: 100%" height="250">
                 <template v-for="(v, index) in tableColumnDetails">

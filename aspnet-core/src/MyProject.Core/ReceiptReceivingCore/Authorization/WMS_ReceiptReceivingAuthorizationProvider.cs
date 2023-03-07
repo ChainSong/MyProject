@@ -37,13 +37,13 @@ namespace MyProject.Authorization
 
 			var administration = pages.Children.FirstOrDefault(p => p.Name == AppLtmPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppLtmPermissions.Pages_Administration, L("Administration"));
 
-			var permission = administration.CreateChildPermission(WMS_ReceiptReceivingPermissions.Node , L("WMS_ReceiptReceiving"));
+			var permission = administration.CreateChildPermission(WMS_ReceiptReceivingPermissions.Node , L("ReceiptReceiving"));
 			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Query, L("QueryWMS_ReceiptReceiving"));
 			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Create, L("CreateWMS_ReceiptReceiving"));
 			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Edit, L("EditWMS_ReceiptReceiving"));
 			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.Delete, L("DeleteWMS_ReceiptReceiving"));
 			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.BatchDelete, L("BatchDeleteWMS_ReceiptReceiving"));
-			permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.ExportExcel, L("ExportToExcel"));
+			//permission.CreateChildPermission(WMS_ReceiptReceivingPermissions.ExportExcel, L("ExportToExcel"));
 
 			//// 添加自定义代码开始
 									

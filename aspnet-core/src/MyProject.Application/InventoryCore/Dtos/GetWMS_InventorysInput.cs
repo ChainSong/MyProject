@@ -43,7 +43,7 @@ namespace MyProject.InventoryCore.Dtos
         public string UPC { get; set; }
         public int RRStatus { get; set; }
         public string GoodsType { get; set; }
-        public int InventoryType { get; set; }
+        public int InventoryStatus { get; set; }
 
         public string GoodsName { get; set; }
         public string BoxNumber { get; set; }

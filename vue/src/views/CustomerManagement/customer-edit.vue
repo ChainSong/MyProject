@@ -1,23 +1,18 @@
 <template>
   <div>
-    <Modal :title="L('CustomerEdit')" :value="value" width="80" @on-visible-change="visibleChange">
+    <Modal :title="L('CustomerEdit')" :value="value" width="50" @on-visible-change="visibleChange">
       <Form ref="header" label-position="top" :rules="headerRule" :model="header">
         <Row>
-          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="6">
-          <FormItem :label="i.displayName" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1" style="width: 90%"
+          <Col v-for="i in tableColumnHeaders" v-bind:key="i.id" span="12">
+          <FormItem :label="i.displayName" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1" style="width: 90%;height: 45px;"
             :prop="i.columnName">
             <template v-if="i.type == 'TextBox'">
-              <el-input placeholder="请输入内容" v-model="header[i.columnName]" v-if="i.isCreate"
+              <el-input placeholder="请输入内容" size="small"  v-model="header[i.columnName]" v-if="i.isCreate"
                 v-bind:disabled="i.isUpdate == 1">
               </el-input>
-              <!-- <Input
-                    v-model="customer[i.columnName]"
-                    v-if="i.isSearchCondition"
-                  >
-                  </Input> -->
             </template>
             <template v-if="i.type == 'DropDownListInt'">
-              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+              <el-select v-model="header[i.columnName]"  font-family="Helvetica Neue" v-if="i.isCreate" size="small"  v-bind:disabled="i.isUpdate == 1"
                 placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in i.tableColumnsDetails" :key="item.codeInt" :label="item.name"
                   :value="item.codeInt">
@@ -25,7 +20,7 @@
               </el-select>
             </template>
             <template v-if="i.type == 'DropDownListIStr'">
-              <el-select v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+              <el-select v-model="header[i.columnName]" font-family="Helvetica Neue" v-if="i.isCreate" size="small"  v-bind:disabled="i.isUpdate == 1"
                 placeholder="请选择" style="width: 100%">
                 <el-option v-for="item in i.tableColumnsDetails" :key="item.codeStr" :label="item.name"
                   :value="item.codeStr">
@@ -33,12 +28,12 @@
               </el-select>
             </template>
             <template v-if="i.type == 'DatePicker'">
-              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" size="small"  v-bind:disabled="i.isUpdate == 1"
                 type="date" placeholder="选择日期" style="width: 100%">
               </el-date-picker>
             </template>
             <template v-if="i.type == 'DateTimePicker'" span="12">
-              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" v-bind:disabled="i.isUpdate == 1"
+              <el-date-picker v-model="header[i.columnName]" v-if="i.isCreate" size="small"  v-bind:disabled="i.isUpdate == 1"
                 type="datetime" start-placeholder="选择日期时间" style="width: 100%">
               </el-date-picker>
             </template>
@@ -49,33 +44,41 @@
       <el-button @click="handleAdd" type="primary" size="large" class="toolbar-btn">添加一条</el-button>
       <template>
         <el-form label-position="top" :model="details" ref="details" :rules="detailRule">
-          <el-table :data="details.line" style="width: 100%" height="250">
+          <el-table :data="details.line" style="width: 100%" height="150">
             <template v-for="(v, index) in tableColumnDetails">
-              <el-table-column v-if="v.isCreate" v-bind:disabled="v.isUpdate == 1" :key="index" :fixed="false"
-                :prop="v.columnName" :label="v.displayName" width="150">
+              <el-table-column v-if="v.isCreate" style="margin:0;padding:0;"  v-bind:disabled="v.isUpdate == 1" :key="index" :fixed="false"
+                :prop="v.columnName" :label="v.displayName" width="150" height="150">
                 <template slot-scope="scope">
-                  <el-form-item :key="scope.row.key" :prop="'line.' + scope.$index + '.' + v.columnName"
+                  <el-form-item :key="scope.row.key"  style="margin:0;padding:0;"  :prop="'line.' + scope.$index + '.' + v.columnName"
                     :rules="detailRule[v.columnName]">
-                    <template v-if="v.type == 'TextBox'">
-                      <el-input placeholder="请输入内容" v-model="details.line[scope.$index][v.columnName]" v-if="v.isCreate"
+                    <template v-if="v.type == 'TextBox'" >
+                      <el-input   size="small"  v-model="details.line[scope.$index][v.columnName]" v-if="v.isCreate"
                         v-bind:disabled="v.isUpdate == 1">
                       </el-input>
                     </template>
-                    <template v-if="v.type == 'DropDownList'">
-                      <el-select v-model="scope.row[index]" v-if="v.isCreate" v-bind:disabled="v.isUpdate == 1"
-                        placeholder="请选择" style="width: 100%">
+                    <template v-if="v.type == 'DropDownListStr'">
+                      <el-select v-model="scope.row[index]" v-if="v.isCreate" size="small"  v-bind:disabled="v.isUpdate == 1"
+                        placeholder="请选择" style="width: 95%">
                         <el-option v-for="item in v.tableColumnsDetails" :key="item.codeStr" :label="item.name"
                           :value="item.codeStr">
                         </el-option>
                       </el-select>
                     </template>
+                     <template v-if="v.type == 'DropDownListInt'">
+                      <el-select v-model="scope.row[index]" v-if="v.isCreate" size="small"  v-bind:disabled="v.isUpdate == 1"
+                        placeholder="请选择" style="width: 95%">
+                        <el-option v-for="item in v.tableColumnsDetails" :key="item.codeInt" :label="item.name"
+                          :value="item.codeInt">
+                        </el-option>
+                      </el-select>
+                    </template>
                     <template v-if="v.type == 'DatePicker'">
-                      <el-date-picker v-model="scope.row[index]" v-if="v.isCreate" v-bind:disabled="v.isUpdate == 1"
+                      <el-date-picker v-model="scope.row[index]" v-if="v.isCreate"  size="small"  v-bind:disabled="v.isUpdate == 1"
                         type="date" placeholder="选择日期" style="width: 100%">
                       </el-date-picker>
                     </template>
                     <template v-if="v.type == 'DateTimePicker'" span="12">
-                      <el-date-picker v-model="scope.row[index]" v-if="v.isCreate" v-bind:disabled="v.isUpdate == 1"
+                      <el-date-picker v-model="scope.row[index]" v-if="v.isCreate" size="small"  v-bind:disabled="v.isUpdate == 1"
                         type="datetime" start-placeholder="选择日期时间" style="width: 100%">
                       </el-date-picker>
                     </template>
@@ -86,7 +89,7 @@
             <template>
               <el-table-column>
                 <template slot-scope="scope">
-                  <el-button size="mini" type="danger" @click="handleDelete(scope.$index)">Delete</el-button>
+                  <el-button size="small" type="danger" @click="handleDelete(scope.$index)">删除</el-button>
                 </template>
               </el-table-column>
             </template>

@@ -4,6 +4,7 @@ using MyProject.ASNCore;
 using MyProject.Authorization.Roles;
 using MyProject.Authorization.Users;
 using MyProject.CustomerCore;
+using MyProject.EntityFrameworkCore.EntityMapper;
 using MyProject.InventoryCore;
 using MyProject.MultiTenancy;
 using MyProject.OrderCore;
@@ -22,8 +23,8 @@ namespace MyProject.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         //public virtual DbSet<Customer_Func_Rule> Customer_Func_Rule { get; set; }
-        //public virtual DbSet<Customer_User_Mapping> Customer_User_Mapping { get; set; }
-        //public virtual DbSet<Warehouse_User_Mapping> Warehouse_User_Mapping { get; set; }
+        public virtual DbSet<CustomerUserMapping> CustomerUserMapping { get; set; }
+        public virtual DbSet<WarehouseUserMapping> WarehouseUserMapping { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<CustomerDetail> CustomerDetail { get; set; }
         public virtual DbSet<WMS_Area> WMS_Area { get; set; }
@@ -44,7 +45,7 @@ namespace MyProject.EntityFrameworkCore
         public virtual DbSet<WMS_Warehouse> WMS_Warehouse { get; set; }
         public virtual DbSet<WMS_Order> WMS_Order { get; set; }
         public virtual DbSet<WMS_OrderDetail> WMS_OrderDetail { get; set; }
-
+        public virtual DbSet<WMS_OrderAllocation> WMS_OrderAllocation { get; set; }
         public virtual DbSet<Table_Columns> Table_Columns { get; set; }
         public virtual DbSet<Table_ColumnsDetail> Table_ColumnsDetail { get; set; }
         
@@ -61,13 +62,14 @@ namespace MyProject.EntityFrameworkCore
             //Database.Log = msg => Debug.WriteLine(msg);
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.ApplyConfiguration(new SysTasksQzMapper());
-        //    modelBuilder.ApplyConfiguration(new SysTasksLogMapper());
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new WarehouseUserMappingMapper());
+            modelBuilder.ApplyConfiguration(new CustomerUserMappingMapper());
+            //modelBuilder.ApplyConfiguration(new SysTasksLogMapper());
 
-        //    base.OnModelCreating(modelBuilder);
-        //}
+            base.OnModelCreating(modelBuilder);
+        }
         //输出到debug输出
         //public static readonly LoggerFactory LoggerFactory =
         //       new LoggerFactory(new[] { new DebugLoggerProvider((_, __) => true) });

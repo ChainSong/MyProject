@@ -11,8 +11,8 @@ namespace MyProject.TableColumns.Dtos
     public class GetTable_ColumnsForEditOutput
     {
 
-        public Table_ColumnsEditDto Table_Columns { get; set; }
-        public List<Table_ColumnsEditDto> Table_Columnss { get; set; }
+        public Table_ColumnsEditDto TableColumn { get; set; }
+        public List<Table_ColumnsEditDto> TableColumns { get; set; }
 
 		//// custom codes		
 

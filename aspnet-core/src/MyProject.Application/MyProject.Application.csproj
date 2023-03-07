@@ -11,13 +11,29 @@
     <RootNamespace>MyProject</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotNetCore.CAP" Version="6.2.0" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="5.4.1" />
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0-preview.2.21154.6" />
+    <PackageReference Include="Magicodes.IE.Excel" Version="2.6.4" />
+    <PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.6.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="nacos-sdk-csharp" Version="1.3.4" />
+    <PackageReference Include="nacos-sdk-csharp.AspNetCore" Version="1.3.4" />
+    <PackageReference Include="nacos-sdk-csharp.Extensions.Configuration" Version="1.3.4" />
+    <PackageReference Include="NPOI" Version="2.5.6" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
+    <PackageReference Include="System.Composition.AttributedModel" Version="6.0.0" />
+    <PackageReference Include="WebApiClient.JIT" Version="1.1.4" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyProject.Common\MyProject.Common.csproj" />
     <ProjectReference Include="..\MyProject.Core\MyProject.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Abstract\" />
+    <Folder Include="ASNCore\Abstract\" />
+    <Folder Include="Factory\" />
+    <Folder Include="ReceiptReceivingCore\Abstract\" />
+    <Folder Include="TableColumns\Abstract\" />
   </ItemGroup>
 </Project>

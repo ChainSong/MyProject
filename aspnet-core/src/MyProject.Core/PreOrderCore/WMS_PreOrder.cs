@@ -35,11 +35,12 @@ namespace MyProject.PreOrderCore
         [StringLength(50)]
         public string OrderType { get; set; }
 
-        public int? PreOrderStatus { get; set; }
+        public int PreOrderStatus { get; set; }
 
         public DateTime? OrderTime { get; set; }
 
-        public int? DetailCount { get; set; }
+        public DateTime? CompleteTime { get; set; }
+        public double DetailCount { get; set; }
 
         [StringLength(50)]
         public string Creator { get; set; }
@@ -133,5 +134,7 @@ namespace MyProject.PreOrderCore
         public int? Int4 { get; set; }
 
         public int? Int5 { get; set; }
+
+        public virtual List<WMS_PreOrderDetail> PreOrderDetails { get; set; }
     }
 }

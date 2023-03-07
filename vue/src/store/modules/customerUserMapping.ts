@@ -46,6 +46,10 @@ class CustomerUserMappingModule extends ListModule<CustomerUserMappingState,any,
             let reponse=await Ajax.get('/api/services/app/CustomerUserMapping/GetById?Id='+payload.data.id);
             return reponse.data.result as CustomerUserMapping;
         },
+        async getMapping(context:ActionContext<CustomerUserMapping,any>,payload:any){
+            let reponse=await Ajax.post('/api/services/app/CustomerUserMapping/GetMapping',payload.data);
+            return reponse.data.result as CustomerUserMapping;
+        },
         async GetPaged(context:ActionContext<CustomerUserMappingState,any>,payload:any){
             let reponse= await Ajax.post('/api/services/app/CustomerUserMapping/GetPaged',payload.data);
             context.state.loading=false;

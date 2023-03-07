@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using MyProject.ReceiptReceivingCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ namespace MyProject.ReceiptCore
 {
     public class WMS_Receipt : Entity<long>, IHasCreationTime
     {
-        public long? ASNId { get; set; }
+        public long ASNId { get; set; }
 
         [StringLength(50)]
         public string ASNNumber { get; set; }
@@ -29,7 +30,7 @@ namespace MyProject.ReceiptCore
         [StringLength(50)]
         public string CustomerName { get; set; }
 
-        public long? WarehouseId { get; set; }
+        public long WarehouseId { get; set; }
 
         [StringLength(50)]
         public string WarehouseName { get; set; }
@@ -144,8 +145,11 @@ namespace MyProject.ReceiptCore
 
         public int? Int5 { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WMS_ReceiptDetail> WMS_ReceiptDetail { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public   List<WMS_ReceiptDetail> ReceiptDetails { get; set; }
+
+         public List<WMS_ReceiptReceiving> ReceiptReceivings { get; set; }
+
 
     }
 }

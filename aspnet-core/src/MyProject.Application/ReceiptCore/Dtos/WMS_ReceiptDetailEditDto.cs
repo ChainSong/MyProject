@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.ReceiptCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_ReceiptDetail的列表DTO
 	/// <see cref="WMS_ReceiptDetail"/>
 	/// </summary>
-    public class WMS_ReceiptDetailEditDto
+	[AutoMap(typeof(WMS_ReceiptDetail))]
+	public class WMS_ReceiptDetailEditDto
     {
 		/// <summary>
         /// Id 
@@ -49,10 +52,12 @@ namespace MyProject.ReceiptCore.Dtos
 		/// 字段CustomerName
 		/// </summary>
 		public string CustomerName { get; set; }
-		/// <summary>
-		/// 字段WarehouseName
-		/// </summary>
-		public string WarehouseName { get; set; }
+
+        public long WarehouseId { get; set; }
+        /// <summary>
+        /// 字段WarehouseName
+        /// </summary>
+        public string WarehouseName { get; set; }
 		/// <summary>
 		/// 字段LineNumber
 		/// </summary>
@@ -97,6 +102,16 @@ namespace MyProject.ReceiptCore.Dtos
 		/// 字段UnitCode
 		/// </summary>
 		public string UnitCode { get; set; }
+
+		/// <summary>
+		/// 字段Onwer
+		/// </summary>
+		public string Onwer { get; set; }
+
+        public DateTime? ProductionDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
+		
+
 		/// <summary>
 		/// 字段Remark
 		/// </summary>
@@ -193,8 +208,26 @@ namespace MyProject.ReceiptCore.Dtos
 		/// 字段Str20
 		/// </summary>
 		public string Str20 { get; set; }
-	 
-		
+
+		public DateTime? DateTime1 { get; set; }
+
+		public DateTime? DateTime2 { get; set; }
+
+		public DateTime? DateTime3 { get; set; }
+
+		public DateTime? DateTime4 { get; set; }
+
+		public DateTime? DateTime5 { get; set; }
+
+		public int? Int1 { get; set; }
+
+		public int? Int2 { get; set; }
+
+		public int? Int3 { get; set; }
+
+		public int? Int4 { get; set; }
+
+		public int? Int5 { get; set; }
 		/* 这里创建自己的代码 */
 	}
 }

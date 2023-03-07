@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.CustomerCore.Dtos
-{	
+{
 	/// <summary>
 	/// CustomerUserMapping的列表DTO
 	/// <see cref="CustomerUserMapping"/>
 	/// </summary>
-    public class CustomerUserMappingEditDto
+	[AutoMap(typeof(CustomerUserMapping))]
+	public class CustomerUserMappingEditDto
     {
 		/// <summary>
         /// Id 

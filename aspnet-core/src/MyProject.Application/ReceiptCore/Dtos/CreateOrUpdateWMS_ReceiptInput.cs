@@ -1,6 +1,7 @@
 
 using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyProject.ReceiptCore.Dtos
@@ -13,7 +14,8 @@ namespace MyProject.ReceiptCore.Dtos
     {
         [Required]
         public WMS_ReceiptEditDto WMS_Receipt { get; set; }
+        public List<WMS_ReceiptEditDto> WMS_Receipts { get; set; }
 
-		/* 这里创建自己的代码 */
+        /* 这里创建自己的代码 */
     }
 }

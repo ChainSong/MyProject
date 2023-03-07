@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
@@ -48,10 +49,12 @@ namespace MyProject.ASNCore.Dtos
 		/// </summary>
 		public string WarehouseName { get; set; }
 
-		/// <summary>
-		/// 字段ASNStatus
-		/// </summary>
-		public int ASNStatus { get; set; }
+
+        public DateTime? ExpectDate { get; set; }
+        /// <summary>
+        /// 字段ASNStatus
+        /// </summary>
+        public int ASNStatus { get; set; }
 
 		/// <summary>
 		/// 字段ReceiptType
@@ -81,6 +84,7 @@ namespace MyProject.ASNCore.Dtos
 		/// <summary>
 		/// 字段CreationTime
 		/// </summary>
+		
 		public DateTime CreationTime { get; set; }
 
 		/// <summary>
@@ -188,9 +192,9 @@ namespace MyProject.ASNCore.Dtos
 		/// </summary>
 		public string Str20 { get; set; }
 
-	
-		 
-		
+
+		public List<WMS_ASNDetailListDto> ASNDetails { get; set; }
+
 		/* 这里创建自己的代码 */
 	}
 }

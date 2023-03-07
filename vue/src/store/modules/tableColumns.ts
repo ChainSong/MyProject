@@ -26,34 +26,46 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         permissions: new Array<string>()
     }
     actions = {
-        async GetPaged(context:ActionContext<TableColumnsState,any>,payload:any){
-            context.state.loading=true;
+        async GetPaged(context: ActionContext<TableColumnsState, any>, payload: any) {
+            context.state.loading = true;
             // console.log("GetPaged");
             // console.log(payload.data);
-            let reponse=await Ajax.post('/api/services/app/Table_Columns/GetPaged',payload.data);
-            context.state.loading=false;
+            let reponse = await Ajax.post('/api/services/app/Table_Columns/GetPaged', payload.data);
+            context.state.loading = false;
             // console.log("reponse.data.result");
             // console.log(reponse.data.result);
-            let page=reponse.data.result as PageResult<TableColumns>;
-            context.state.totalCount=page.totalCount;
-            context.state.list=page.items;
+            let page = reponse.data.result as PageResult<TableColumns>;
+            context.state.totalCount = page.totalCount;
+            context.state.list = page.items;
             // console.log( context.state.list);
             // console.log(page);
         },
-        async GetAll(context:ActionContext<TableColumnsState,any>,payload:any){
+        async GetAll(context: ActionContext<TableColumnsState, any>, payload: any) {
             //  Ajax.post('/api/services/app/Table_Columns/GetAll',payload.data);
-            let reponse=await Ajax.post('/api/services/app/Table_Columns/GetAll',payload.data);
+            let reponse = await Ajax.post('/api/services/app/Table_Columns/GetAll', payload.data);
             console.log("reponse");
             console.log(reponse);
             return reponse.data.result as PageResult<TableColumns>;
         },
-        // async create(context:ActionContext<RoleState,any>,payload:any){
-        //     await Ajax.post('/api/services/app/Role/Create',payload.data);
-        // },
-        async update(context:ActionContext<TableColumnsState,any>,payload:any){
+        async cleanCache(context: ActionContext<TableColumnsState, any>, payload: any) {
             console.log(payload.data);
-            localStorage.removeItem(payload.data.table_Columnss[0].tableName);
-            await Ajax.post('/api/services/app/Table_Columns/BatchUpdate',payload.data);
+            localStorage.removeItem(payload.data.tableName);
+            console.log("payload.data");
+            var tableColumnsStorage = localStorage.getItem(payload.data.tableName);
+            console.log(tableColumnsStorage);
+
+            await Ajax.post('/api/services/app/Table_Columns/CleanTableColumnsCache', payload.data);
+        },
+        async update(context: ActionContext<TableColumnsState, any>, payload: any) {
+            
+            localStorage.removeItem(payload.data.tableColumns[0].tableName);
+            await Ajax.post('/api/services/app/Table_Columns/BatchUpdate', payload.data);
+        },
+        async getselect(context: ActionContext<TableColumnsState, any>, payload: any) {
+            console.log("getselect payload.data");
+            console.log(payload.data);
+            let reponse = await Ajax.post(payload.data.apiurl, payload.data.column);
+            return reponse.data;
         },
         // async delete(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.delete('/api/services/app/Role/Delete?Id='+payload.data.id);
@@ -66,17 +78,60 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         //     let reponse=await Ajax.get('/api/services/app/Role/getAllPermissions');
         //     context.state.permissions=reponse.data.result.items;
         // },
+        async GetImportExcelTemplate(context: ActionContext<TableColumnsState, any>, payload: any) {
+            //  Ajax.post('/api/services/app/Table_ColumnsDetail/GetAll',payload.data);
+            Ajax.defaults.responseType = 'blob';
+            let reponse = await Ajax.post('/api/services/app/Table_Columns/ImportExcelTemplate', payload.data);
+            let blob = new Blob([reponse.data], {
+                type: 'application/vnd.ms-excel'
+            })
+            let fileName = "导入模板" + '.xlsx'
+            // 允许用户在客户端上保存文件
+            if (window.navigator.msSaveOrOpenBlob) { 
+                navigator.msSaveBlob(blob, fileName)
+            } else {
+                var link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = fileName
+                link.click()
+                //释放内存
+                window.URL.revokeObjectURL(link.href)
+            }
+ 
+            // console.log("reponse");
+            // console.log(reponse);
+
+            // reponse.data.result as PageResult<string>;
+            // console.log(reponse.data);
+            // // 兼容不同浏览器的URL对象
+            // const windowurl = window.URL || window.webkitURL || window.moxURL;
+            // var bytechars = (reponse.data);
+            // var byteNumbers = new Array(bytechars.length);
+            // for (var i = 0; i < bytechars.length; i++) {
+            //     byteNumbers[i] = bytechars.charCodeAt(i);
+            // }
+            // var byteArray = new Uint8Array(byteNumbers);
+            // var blob = new Blob([byteArray], {type: 'application/x-pkcs12'});
+            // let url = windowurl.createObjectURL(byteArray);
+            // console.log(url);
+            // let link = document.createElement('a')
+            // link.style.display = 'none'
+            // link.href = url
+            // link.setAttribute('download', '导入模板' + '.xlsx')
+            // document.body.appendChild(link)
+            // link.click();
+        },
         async GetByTableNameList(context: ActionContext<TableColumnsState, any>, payload: any) {
             // console.log("Util.abp.session.tenant.tenantId");
-            // console.log(Util.abp.session.tenantId);
+
             var tableColumnsStorage = localStorage.getItem(payload.data.tableName);
-           console.log(payload.data);
-           // if (tableColumnsStorage != null && tableColumnsStorage.length > 10) {
-             if (tableColumnsStorage != null && tableColumnsStorage.length >10) {
-                if (context.state.list == null && context.state.list.length == 0) {
+            console.log(payload.data);
+             if (tableColumnsStorage != null && tableColumnsStorage.length > 10) {
+            // if (tableColumnsStorage != null && tableColumnsStorage.length == 10) {
+              if (context.state.list == null && context.state.list.length == 0) {
                     localStorage.setItem(payload.data.tableName, null);
-                }
-                context.state.list = JSON.parse(tableColumnsStorage) as Array<TableColumns>;
+                 }
+                 context.state.list = JSON.parse(tableColumnsStorage) as Array<TableColumns>;
             } else {
                 let reponse = await Ajax.post('/api/services/app/Table_Columns/GetByTableNameList', payload.data);
                 let page = reponse.data.result as PageResult<TableColumns>;
@@ -111,8 +166,8 @@ class TableColumnsModule extends ListModule<TableColumnsState, any, TableColumns
         setPageSize(state: TableColumnsState, pagesize: number) {
             state.pageSize = pagesize;
         },
-        query(state:TableColumnsState, tableColumnsState:TableColumns){
-            state.queryTableColumns=tableColumnsState;
+        query(state: TableColumnsState, tableColumnsState: TableColumns) {
+            state.queryTableColumns = tableColumnsState;
         },
         edit(state: TableColumnsState, tableColumnsState: TableColumns) {
             state.editTableColumns = tableColumnsState;

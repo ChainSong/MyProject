@@ -42,7 +42,7 @@ class WarehouseModule extends ListModule<WarehouseState,any,warehouse>{
             await Ajax.post('/api/services/app/WMS_Warehouse/CreateOrUpdate',payload.data);
         },
         async delete(context:ActionContext<WarehouseState,any>,payload:any){
-            await Ajax.delete('/api/services/app/WMS_Warehouse/Delete?Id='+payload.data.id);
+            await Ajax.get('/api/services/app/WMS_Warehouse/Delete?Id='+payload.data.id);
         },
         // async update(context:ActionContext<RoleState,any>,payload:any){
         //     await Ajax.put('/api/services/app/Role/Update',payload.data);
@@ -54,6 +54,14 @@ class WarehouseModule extends ListModule<WarehouseState,any,warehouse>{
             console.log(payload.data)
             //let reponse=await Ajax.get('/api/services/app/Warehouse/GetById?Id='+payload.data.id);
             let reponse=await Ajax.get('/api/services/app/WMS_Warehouse/GetById?Id='+payload.data.id);
+            return reponse.data.result as warehouse;
+        },
+        async getAll(context:ActionContext<warehouse,any>,payload:any){
+            console.log("payload.datagetAll")
+
+            console.log(payload.data)
+            //let reponse=await Ajax.get('/api/services/app/Warehouse/GetById?Id='+payload.data.id);
+            let reponse=await Ajax.get('/api/services/app/WMS_Warehouse/getAll');
             return reponse.data.result as warehouse;
         },
         // async getAllPermissions(context:ActionContext<RoleState,any>){

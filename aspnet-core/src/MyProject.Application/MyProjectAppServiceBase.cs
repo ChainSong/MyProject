@@ -7,6 +7,7 @@ using Abp.Runtime.Session;
 using MyProject.Authorization.Users;
 using MyProject.MultiTenancy;
 using MyProject.Sessions.AbpSessionExtension;
+using Nacos.V2;
 
 namespace MyProject
 {
@@ -20,11 +21,12 @@ namespace MyProject
         public UserManager UserManager { get; set; }
 
         public new IAbpSessionExtension AbpSession { get; set; }
-
-
+ 
         protected MyProjectAppServiceBase()
         {
+
             LocalizationSourceName = MyProjectConsts.LocalizationSourceName;
+         
         }
 
         protected virtual async Task<User> GetCurrentUserAsync()
@@ -47,5 +49,11 @@ namespace MyProject
         {
             identityResult.CheckErrors(LocalizationManager);
         }
+
+
+      
     }
+
+
+
 }

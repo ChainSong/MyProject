@@ -10,37 +10,42 @@ namespace MyProject.Authorization
 		/// <summary>
 		/// 【WMS_Order】权限节点
 		///</summary>
-		public const string Node = "Pages.WMS_Order";
+		public const string Node = "Pages.Order";
 
 		/// <summary>
 		/// 【WMS_Order】查询授权
 		///</summary>
-		public const string Query = "Pages.WMS_Order.Query";
+		public const string Query = "Pages.Order.Query";
 
 		/// <summary>
 		/// 【WMS_Order】创建权限
 		///</summary>
-		public const string Create = "Pages.WMS_Order.Create";
+		public const string Create = "Pages.Order.Create";
 
 		/// <summary>
 		/// 【WMS_Order】修改权限
 		///</summary>
-		public const string Edit = "Pages.WMS_Order.Edit";
+		public const string Edit = "Pages.Order.Edit";
 
 		/// <summary>
 		/// 【WMS_Order】删除权限
 		///</summary>
-		public const string Delete = "Pages.WMS_Order.Delete";
+		public const string Delete = "Pages.Order.Delete";
 
         /// <summary>
 		/// 【WMS_Order】批量删除权限
 		///</summary>
-		public const string BatchDelete = "Pages.WMS_Order.BatchDelete";
+		public const string BatchDelete = "Pages.Order.BatchDelete";
 
+		/// <summary>
+		/// 【WMS_Order】自动分配权限
+		///</summary>
+		public const string AutomatedAllocation = "Pages.Order.AutomatedAllocation";
+		
 		/// <summary>
 		/// 【WMS_Order】导出Excel
 		///</summary>
-		public const string ExportExcel="Pages.WMS_Order.ExportExcel";
+		public const string ExportExcel="Pages.Order.ExportExcel";
 
 		/* 以下可以自定义权限 */ 
 		

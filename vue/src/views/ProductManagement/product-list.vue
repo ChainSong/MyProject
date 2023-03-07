@@ -4,7 +4,7 @@
       <el-collapse accordion>
         <el-collapse-item>
           <template slot="title">
-        <el-lable style="color:#409EFF"> 查询条件<i class="el-icon-search" ></i></el-lable>
+        <label style="color:#409EFF"> 查询条件<i class="el-icon-search" ></i></label>
           </template>
           <div class="page-body">
             <Form ref="queryForm" :label-width="80" label-position="left" inline>
@@ -32,6 +32,13 @@
                       </el-option>
                     </el-select>
                   </template>
+                    <template v-if="i.type == 'DropDownListStrRemote'">
+                      <select-tool 
+                    @getChildrenVal="getChildrenVal" :objData="i" valData=""    style="width: 100%;" size="small"></select-tool>
+                 
+                    <!-- <select-tool :apiurl=i.associated :column=i.columnName :relationColumn=i.relationColumn
+                      @getChildrenVal="getChildrenVal" style="width: 100%;" size="small"></select-tool> -->
+                  </template>
                   <template v-if="i.type == 'DatePicker'">
                     <el-date-picker v-model="product[i.columnName]" type="daterange" v-if="i.isSearchCondition"
                       range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期" style="width: 95%">
@@ -45,19 +52,24 @@
                 </FormItem>
                 </Col>
               </Row>
-              <Row>
+              <!-- <Row>
                 <Button icon="ios-search" type="primary" size="large" class="toolbar-btn" @click="getpage">{{ L("Find")
                 }}</Button>
                 <Button type="primary" size="large" class="toolbar-btn" @click="create" icon="android-add">{{ L("Add")
                 }}</Button>
-              </Row>
+              </Row> -->
             </Form>
           </div>
         </el-collapse-item>
       </el-collapse>
+       <el-button icon="el-icon-search" type="primary"  class="toolbar-btn" @click="getpage">{{ L("Find")
+      }}</el-button>
+      <el-button type="primary"   class="toolbar-btn"
+        @click="create" icon="el-icon-plus">{{ L("Add")
+        }}</el-button>
       <div class="margin-top-10">
         <el-table :data="list" style="width: 100%" >
-          <template v-for="v in tableColumns">
+           <template v-for="v in tableColumns">
             <template v-if="v.isShowInList">
               <el-table-column v-if="v.type == 'DropDownListInt'" v-bind:key="v.id" :fixed="false" :prop="v.columnName"
                 :label="v.displayName" width="150" max-height="50">
@@ -69,7 +81,7 @@
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column v-else-if="v.type == 'DropDownListStr'" v-bind:key="v.id" :fixed="false"
+              <el-table-column v-else-if="v.type == 'DropDownListStr'" v-bind:key="v.columnName" :fixed="false"
                 :prop="v.columnName" :label="v.displayName" width="150" max-height="50">
                 <template slot-scope="scope">
                   <el-tag size="medium" v-for="item in v.tableColumnsDetails"
@@ -78,6 +90,9 @@
                     {{ item.name }}
                   </el-tag>
                 </template>
+              </el-table-column>
+              <el-table-column sortable v-else-if="v.type == 'DropDownListStrRemote'" :fixed="false"
+                :prop="v.columnName" :label="v.displayName" width="150" max-height="50">
               </el-table-column>
               <el-table-column sortable v-else v-bind:key="v.id" :fixed="false" :prop="v.columnName"
                 :label="v.displayName" width="150" max-height="50">
@@ -118,8 +133,9 @@ import TableColumns from "../../store/entities/tableColumns";
 import productCreate from "./product-create.vue";
 import productEdit from "./product-edit.vue";
 import productQuery from "./product-query.vue";
+import selectTool from "../Tool/select-tool.vue";
 @Component({
-  components: { productCreate, productEdit, productQuery },
+  components: { productCreate, productEdit, productQuery,selectTool },
 })
 export default class ProductList extends AbpBase {
   tableColumn: TableColumns = new TableColumns();
@@ -174,7 +190,11 @@ export default class ProductList extends AbpBase {
       data: this.product,
     });
   }
-
+  //动态拉下列表子组件回传
+  getChildrenVal(column, label, relationColumn, value) {
+    this.product[column] = label;
+    this.product[relationColumn] = value;
+  }
   pageChange(page: number) {
     this.$store.commit("product/setCurrentPage", page);
     this.getpage();

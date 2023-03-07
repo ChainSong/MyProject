@@ -2,9 +2,10 @@
     @import '../views/main.less';
 </style>
 
+<!-- tab页面 -->
 <template>
     <div ref="scrollCon" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll" class="tags-outer-scroll-con">
-        <div class="close-all-tag-con">
+        <!-- <div class="close-all-tag-con">
             <Dropdown transfer @on-click="handleTagsOption">
                 <Button size="small" type="primary">
                     {{L('LabelOptions')}}
@@ -15,7 +16,7 @@
                     <DropdownItem name="clearOthers">{{L('ClearOthers')}}</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
-        </div>
+        </div> -->
         <div ref="scrollBody" class="tags-inner-scroll-body" :style="{left: tagBodyLeft + 'px'}">
             <transition-group name="taglist-moving-animation">
                 <Tag 
@@ -24,6 +25,7 @@
                     ref="tagsPageOpened"
                     :key="item.name" 
                     :name="item.name" 
+                    style="margin:0px;border: 0; !important"
                     @on-close="closePage"
                     @click.native="linkTo(item)"
                     :closable="item.name==='home'?false:true"
@@ -151,6 +153,8 @@ export default class TagsPageOpened extends AbpBase {
     }
     @Watch('$route')
     routeChange(to:any){
+        console.log("路由发生变化");
+        console.log((this.refsTag as Array<any>));
         this.currentPageName = to.name;
         this.$nextTick(() => {
             (this.refsTag as Array<any>).forEach((item,index)=>{

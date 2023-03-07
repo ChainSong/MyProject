@@ -9,7 +9,7 @@ namespace MyProject.EntityFrameworkCore.EntityMapper
     {
         public void Configure(EntityTypeBuilder<WMS_PreOrderDetail> builder)
         {
-            builder.ToTable(AppCoreConst.SchemaNames.TABLE_PREFIX + "WMS_PreOrderDetail");
+            builder.ToTable(AppCoreConst.SchemaNames.TABLE_PREFIX + "WMS_PreOrderDetails");
         }
     }
 }

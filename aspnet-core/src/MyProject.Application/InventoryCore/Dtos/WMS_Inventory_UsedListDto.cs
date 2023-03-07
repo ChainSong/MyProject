@@ -1,15 +1,17 @@
 
 using System;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.InventoryCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Inventory_Used的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_Inventory_UsedListDto  
+	[AutoMap(typeof(WMS_Inventory_Used))]
+	public class WMS_Inventory_UsedListDto  
     {
 		/// <summary>
         /// Id 

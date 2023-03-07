@@ -9,8 +9,8 @@ namespace MyProject.ReceiptReceivingCore.Dtos
 	/// WMS_ReceiptReceiving的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_ReceiptReceivingListDto   
-    {
+    public class WMS_ReceiptReceivingListDto
+	{
 		/// <summary>
         /// Id 
         /// </summary>
@@ -72,6 +72,11 @@ namespace MyProject.ReceiptReceivingCore.Dtos
 		public int ReceiptReceivingStatus { get; set; }
 
 		/// <summary>
+		/// 用来区分标记（多货，缺货，串货）
+		/// </summary>
+		public int GoodsStatus { get; set; }
+
+		/// <summary>
 		/// 字段LineNumber
 		/// </summary>
 		public string LineNumber { get; set; }
@@ -111,6 +116,10 @@ namespace MyProject.ReceiptReceivingCore.Dtos
 		/// </summary>
 		public string BatchCode { get; set; }
 
+		/// <summary>
+		/// 字段ExpectedQty
+		/// </summary>
+		public double ExpectedQty { get; set; }
 		/// <summary>
 		/// 字段ReceivedQty
 		/// </summary>

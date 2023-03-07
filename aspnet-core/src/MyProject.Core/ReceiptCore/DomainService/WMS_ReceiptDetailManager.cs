@@ -81,7 +81,6 @@ namespace MyProject.ReceiptCore.DomainService
                             Str18 = x.Str18,
                             Str19 = x.Str19,
                             Str20 = x.Str20,
-                            WMS_Receipt = x.WMS_Receipt,
                         });
             return query;
         }

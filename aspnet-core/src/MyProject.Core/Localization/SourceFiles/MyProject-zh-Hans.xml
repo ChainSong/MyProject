@@ -24,7 +24,7 @@
     <text name="AppName" >WMS</text>
     <text name="UserNamePlaceholder" >请输入账户</text>
     <text name="PasswordPlaceholder" >请输入密码</text>
-    <text name="CopyRight" >© 2018 MyProject</text>
+    <text name="CopyRight" >© 2022 WMS</text>
     <text name="LoginPrompt" >正在登陆，请稍候！</text>
     <text name="UserProfile" >用户资料</text>
     <text name="Users" >用户</text>
@@ -69,10 +69,10 @@
     <text name="All">全部</text>
     <text name="Actived">启用</text>
     <text name="NoActive">未启用</text>
-    
+
     <text name="Yes">是</text>
     <text name="No">否</text>
-    
+
     <text name="Cancel">取消</text>
     <text name="OK">确定</text>
     <text name="CreateNewRole">创建新角色</text>
@@ -97,8 +97,6 @@
     <text name="DeleteTenantConfirm">确认删除该租户？</text>
     <text name="EditTenant">编辑租户</text>
     <text name="SearchWithThreeDot">搜索...</text>
-    <text name="ASN">预入库单</text>
-    <text name="Receipt">入库单</text>
     <text name="TableColumns">表字段</text>
     <text name="EditTableColumns">编辑表字段</text>
     <text name="Query">查询</text>
@@ -111,7 +109,7 @@
     <text name="EditWMS_Product">编辑产品</text>
     <text name="DeleteWMS_Product">删除产品</text>
     <text name="BatchDeleteWMS_Product">批量删除产品</text>
-    <text name="ExportToExcel">导入产品</text>
+    <text name="ExportToExcel">导入</text>
     <text name="Customer">客户</text>
     <text name="QueryCustomer">查询客户</text>
     <text name="CreateCustomer">创建客户</text>
@@ -128,6 +126,66 @@
     <text name="BatchDeleteWMS_Warehouse">批量删除仓库</text>
     <text name="ExportToExcelWarehouse">导入仓库</text>
     <text name="WMS_Warehouse">仓库</text>
+    <text name="WMS_Area">库区</text>
+    <text name="Area">库区</text>
+    <text name="QueryWMS_Area">查询库区</text>
+    <text name="CreateWMS_Area">创建库区</text>
+    <text name="EditWMS_Area">编辑库区</text>
+    <text name="DeleteWMS_Area">删除库区</text>
+    <text name="BatchDeleteWMS_Area">批量删除库区</text>
+    <text name="WMS_Location">库位</text>
+    <text name="QueryWMS_Location">查询库位</text>
+    <text name="CreateWMS_Location">创建库位</text>
+    <text name="EditWMS_Location">编辑库位</text>
+    <text name="DeleteWMS_Location">删除库位</text>
+    <text name="BatchDeleteWMS_Location">批量删除库位</text>
+    <text name="Location">库位</text>
+    <text name="WMS_ASN">预入库</text>
+    <text name="QueryWMS_ASN">查询预入库单</text>
+    <text name="CreateWMS_ASN">创建预入库单</text>
+    <text name="EditWMS_ASN">编辑预入库单</text>
+    <text name="DeleteWMS_ASN">删除预入库单</text>
+    <text name="BatchDeleteWMS_ASN">批量删除预入库单</text>
+    <text name="ASN">预入库</text>
+    <text name="WMS_Receipt">入库</text>
+    <text name="QueryWMS_Receipt">查询入库单</text>
+    <text name="CreateWMS_Receipt">创建入库单</text>
+    <text name="EditWMS_Receipt">编辑入库单</text>
+    <text name="DeleteWMS_Receipt">删除入库单</text>
+    <text name="BatchDeleteWMS_Receipt">批量删除入库单</text>
+    <text name="Receipt">入库</text>
+    <text name="ReceiptReceiving">上架</text>
+    <text name="QueryWMS_ReceiptReceiving">查询上架单</text>
+    <text name="CreateWMS_ReceiptReceiving">创建上架单</text>
+    <text name="EditWMS_ReceiptReceiving">编辑上架单</text>
+    <text name="DeleteWMS_ReceiptReceiving">删除上架单</text>
+    <text name="BatchDeleteWMS_ReceiptReceiving">批量删除</text>
+    <text name="WMS_Inventory_Usable">库存</text>
+    <text name="Inventory_Usable">库存</text>
+    <text name="InventoryUsable">库存</text>
+    <text name="QueryWMS_Inventory_Usable">查询库存</text>
+    <text name="CreateWMS_Inventory_Usable">创建库存</text>
+    <text name="EditWMS_Inventory_Usable">编辑库存</text>
+    <text name="DeleteWMS_Inventory_Usable">删除库存</text>
+    <text name="BatchDeleteWMS_Inventory_Usable">批量删除</text>
+    <text name="PreOrder">预出库</text>
+    <text name="QueryPreOrder">查询预出库单</text>
+    <text name="CreatePreOrder">创建预出库单</text>
+    <text name="EditPreOrder">编辑预出库单</text>
+    <text name="DeletePreOrder">删除预出库单</text>
+    <text name="PreOrderForOrder">预出库单转出库单</text>
+    <text name="BatchDeletePreOrder">批量删除</text>
+    <text name="BatchAutomatedOutbound">自动分配</text>
+    <text name="Order">出库</text>
+    <text name="QueryOrder">查询出库单</text>
+    <text name="CreateOrder">创建出库单</text>
+    <text name="EditOrder">编辑出库单</text>
+    <text name="DeleteOrder">删除出库单</text>
+    <text name="BatchDeleteOrder">批量删除</text>
+    <text name="AutomatedAllocation">自动分配</text>
+    <text name="AddInventory">加入库存</text>
+
+
   </texts>
 </localizationDictionary>
 

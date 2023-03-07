@@ -38,10 +38,10 @@ namespace MyProject.Common.RabbitMQCommon
 
         private static void ConfigFactory()
         {
-            Factory.HostName ="10.77.77.173";
+            Factory.HostName = "192.168.10.233";
             Factory.Port =5672;
-            Factory.UserName ="lijie"; 
-            Factory.Password = "yingqidm"; 
+            Factory.UserName ="admin"; 
+            Factory.Password = "M5l4d4s3"; 
             //Factory.VirtualHost = "intewareIP";
             //Factory.RequestedHeartbeat = 30;
             //Factory.RequestedConnectionTimeout = 3000;

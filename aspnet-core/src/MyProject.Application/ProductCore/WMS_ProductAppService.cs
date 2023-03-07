@@ -3,7 +3,7 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.AutoMapper;
 using Abp.Linq.Extensions;
-using Abp.Extensions;
+
 using Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,6 +19,9 @@ using MyProject.ProductCore.Dtos;
 using MyProject.ProductCore.DomainService;
 
 using MyProject.Authorization;
+using MyProject.CommonCore;
+using MyProject.CustomerCore.DomainService;
+using Abp.Extensions;
 
 namespace MyProject.ProductCore
 {
@@ -37,17 +40,24 @@ namespace MyProject.ProductCore
         private readonly IRepository<WMS_Product, long> _wms_productRepository;
 
         /// <summary>
+        ///【CustomerUserMapping】领域服务
+        /// </summary>
+        private readonly ICustomerUserMappingManager _customerusermappingManager;
+
+        /// <summary>
         ///【WMS_Product】领域服务
         /// </summary>
         private readonly IWMS_ProductManager _wms_productManager;
 
         public WMS_ProductAppService(
             IRepository<WMS_Product, long> wms_productRepository,
-            IWMS_ProductManager wms_productManager
+            IWMS_ProductManager wms_productManager,
+            ICustomerUserMappingManager customerusermappingManager
         )
         {
             _wms_productRepository = wms_productRepository;
             _wms_productManager = wms_productManager;
+            _customerusermappingManager = customerusermappingManager;
         }
 
         #region -------------------------------------------------辅助工具生成---------------------------------------------- 
@@ -71,7 +81,7 @@ namespace MyProject.ProductCore
                           //模糊搜索 字段GoodsName
                           .WhereIf(!input.GoodsName.IsNullOrWhiteSpace(), a => a.GoodsName.Contains(input.GoodsName))
                           //模糊搜索 ProductStatus
-                          .WhereIf(input.ProductStatus!=0, a => a.ProductStatus == (input.ProductStatus))
+                          .WhereIf(input.ProductStatus != 0, a => a.ProductStatus == (input.ProductStatus))
                           //模糊搜索 字段GoodsType
                           .WhereIf(!input.GoodsType.IsNullOrWhiteSpace(), a => a.GoodsType == (input.GoodsType))
                           //模糊搜索 字段SKUClassification
@@ -277,6 +287,46 @@ namespace MyProject.ProductCore
 
         #region -------------------------------------------------用户自定义------------------------------------------------
         /*请在此扩展应用服务实现*/
+
+        /// <summary>
+        /// 客户下拉列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<List<SelectListItem>> GetProductSelect(SelectListItemInput input)
+        {
+            //TODO:新增前的逻辑判断，是否允许新增
+            try
+            {
+
+                var query = _wms_productRepository.GetAll()
+                                //添加查询限制（默认必有的查询条件）
+                              .Where(a => _customerusermappingManager.Query().Where(b => b.UserId == AbpSession.UserId).Select(c => c.CustomerId).Contains(a.CustomerId))
+                              //模糊搜索 字段CustomerName
+                              .WhereIf(input.CustomerId > 0, a => a.CustomerId == input.CustomerId)
+                              .WhereIf(!input.Input.IsNullOrEmpty(), a => a.SKU.Contains(input.Input))
+                              .Take(5)
+                ;
+                // TODO:根据传入的参数添加过滤条件
+
+                //var count = await query.CountAsync();
+
+                var entityList = await query
+                        .OrderBy(a => a.Id).AsNoTracking()
+                        .Select(a => new SelectListItem { Label = a.SKU, Value = a.GoodsName.ToString() })
+                        .ToListAsync();
+
+                //var entityListDtos = ObjectMapper.Map<List<WMS_WarehouseListDto>>(entityList);
+                return entityList;
+
+            }
+            catch (Exception sas)
+            {
+
+                throw;
+            }
+        }
         #endregion
     }
 }

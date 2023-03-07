@@ -20,6 +20,7 @@ namespace MyProject.OrderCore.Dtos
         /// </summary>
         public long? Id { get; set; }
 
+		public string OrderNumber { get; set; }
 		/// <summary>
 		/// 字段PreOrderNumber
 		/// </summary>
@@ -51,7 +52,9 @@ namespace MyProject.OrderCore.Dtos
 		/// <summary>
 		/// 字段OrderTime
 		/// </summary>
-		public DateTime OrderTime { get; set; }
+		public DateTime? OrderTime { get; set; }
+
+		public DateTime? CompleteTime { get; set; }
 		/// <summary>
 		/// 字段Creator
 		/// </summary>

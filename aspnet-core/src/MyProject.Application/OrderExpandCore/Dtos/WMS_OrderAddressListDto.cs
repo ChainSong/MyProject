@@ -9,7 +9,7 @@ namespace MyProject.OrderExpandCore.Dtos
 	/// WMS_OrderAddress的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_OrderAddressListDto  : EntityDto<long>
+    public class WMS_OrderAddressListDto   
     {
 		/// <summary>
         /// Id 

@@ -18,7 +18,7 @@ namespace MyProject.WarehouseCore
         public string WarehouseName { get; set; }
 
         [StringLength(50)]
-        public string AreaId { get; set; }
+        public long AreaId { get; set; }
 
         [StringLength(50)]
         public string AreaName { get; set; }
@@ -26,9 +26,8 @@ namespace MyProject.WarehouseCore
         [StringLength(50)]
         public string Location { get; set; }
 
-        public int? LocationStatus { get; set; }
+        public int LocationStatus { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string LocationType { get; set; }
 
@@ -39,9 +38,9 @@ namespace MyProject.WarehouseCore
         [StringLength(50)]
         public string ABCClassification { get; set; }
 
-        public bool IsMultiLot { get; set; }
+        public int IsMultiLot { get; set; }
 
-        public bool IsMultiSKU { get; set; }
+        public int IsMultiSKU { get; set; }
 
         [StringLength(50)]
         public string LocationLevel { get; set; }

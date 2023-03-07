@@ -40,10 +40,16 @@ class CustomerModule extends ListModule<CustomerState,any,Customer>{
             await Ajax.post('/api/services/app/Customer/CreateOrUpdate',payload.data);
         },
         async delete(context:ActionContext<CustomerState,any>,payload:any){
-            await Ajax.delete('/api/services/app/Customer/Delete?Id='+payload.data.id);
+            console.log(payload.data);
+            await Ajax.get('/api/services/app/Customer/Delete?Id='+payload.data.id);
         },
         async get(context:ActionContext<Customer,any>,payload:any){
             let reponse=await Ajax.get('/api/services/app/Customer/GetById?Id='+payload.data.id);
+            return reponse.data.result as Customer;
+        },
+        async getAll(context:ActionContext<Customer,any>,payload:any){
+             
+            let reponse=await Ajax.get('/api/services/app/Customer/getAll');
             return reponse.data.result as Customer;
         },
         async GetPaged(context:ActionContext<CustomerState,any>,payload:any){

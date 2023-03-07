@@ -24,6 +24,7 @@ export default class tableColumns extends Entity<number>{
     validation: string;
     group: string;
     type: string;
+    characteristic: string;
     order: string;
     forView: string;
     creationTime: string;
@@ -32,5 +33,10 @@ export default class tableColumns extends Entity<number>{
     step: number;
     max: number;
     min: number;
+    default:string;
+    Link:string;
+    relationColumn:string;
+    relationDBColumn:string;
+    
     tableColumnsDetails: Array<TableColumnsDetails>;
 }

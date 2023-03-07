@@ -1,15 +1,17 @@
 
 using System;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities;
 
 namespace MyProject.WarehouseCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Area的列表DTO
 	/// <see cref=""/>
 	/// </summary>
-    public class WMS_AreaListDto  
+	[AutoMap(typeof(WMS_Area))]
+	public class WMS_AreaListDto  
     {
 		/// <summary>
         /// Id 
@@ -25,6 +27,11 @@ namespace MyProject.WarehouseCore.Dtos
 		/// 字段AreaName
 		/// </summary>
 		public string AreaName { get; set; }
+
+		/// <summary>
+		/// 字段AreaStatus
+		/// </summary>
+		public string AreaStatus { get; set; }
 
 		/// <summary>
 		/// 字段AreaType

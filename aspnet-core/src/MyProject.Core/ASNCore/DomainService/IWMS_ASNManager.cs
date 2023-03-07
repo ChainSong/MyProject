@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Services;
 
-
 namespace MyProject.ASNCore.DomainService
 {
 	/// <summary>
@@ -67,6 +66,8 @@ namespace MyProject.ASNCore.DomainService
 
 		#region -------------------------------------------------用户自定义------------------------------------------------
 		/*请在此扩展领域服务接口*/
+
+		//Task BatchUpdateStatus(List<WMS_ASN> entitys, ASNStatusCode Status);
 		#endregion
-    }
+	}
 }

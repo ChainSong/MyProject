@@ -45,7 +45,6 @@ namespace MyProject.Web.Host.Controllers
                 severity: NotificationSeverity.Info,
                 userIds: new[] { defaultTenantAdmin, hostAdmin }
             );
-
             return Content("Sent notification: " + message);
         }
     }

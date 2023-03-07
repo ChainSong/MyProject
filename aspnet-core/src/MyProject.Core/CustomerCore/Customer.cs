@@ -43,7 +43,7 @@ namespace MyProject.CustomerCore
         public DateTime? UpdateTime { get; set; }
 
         //public DateTime CreationTime { get ; set => DateTime() }==> new DateTime();
-        public DateTime CreationTime { get; set; } = DateTime.Now;
+        public DateTime CreationTime { get; set; } 
         //DateTime IHasCreationTime.CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public List<CustomerDetail> CustomerDetails { get; set; }
     }

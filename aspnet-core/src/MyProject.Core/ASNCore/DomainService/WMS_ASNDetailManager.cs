@@ -12,31 +12,33 @@ namespace MyProject.ASNCore.DomainService
     /// <summary>
     /// 领域服务层一个模块的核心业务逻辑
     ///</summary>
-    public class WMS_ASNDetailManager :DomainServiceBase, IWMS_ASNDetailManager
+    public class WMS_ASNDetailManager : DomainServiceBase, IWMS_ASNDetailManager
     {
-		
-		private readonly IRepository<WMS_ASNDetail,long> _wms_asndetailRepository;
 
-		/// <summary>
-		/// 【WMS_ASNDetail】的构造方法
-		/// 通过构造函数注册服务到依赖注入容器中
-		///</summary>
-	    public WMS_ASNDetailManager(IRepository<WMS_ASNDetail, long> wms_asndetailRepository)	{
-			_wms_asndetailRepository =  wms_asndetailRepository;
-		}
+        private readonly IRepository<WMS_ASNDetail, long> _wms_asndetailRepository;
 
-		#region -------------------------------------------------辅助工具生成---------------------------------------------- 
+        /// <summary>
+        /// 【WMS_ASNDetail】的构造方法
+        /// 通过构造函数注册服务到依赖注入容器中
+        ///</summary>
+        public WMS_ASNDetailManager(IRepository<WMS_ASNDetail, long> wms_asndetailRepository)
+        {
+            _wms_asndetailRepository = wms_asndetailRepository;
+        }
+
+        #region -------------------------------------------------辅助工具生成---------------------------------------------- 
 
         /// <summary>
         /// 返回列表查询用
         /// </summary>
         /// <returns></returns>
-        public IQueryable<WMS_ASNDetail> QueryEntityListAsNoTracking() { 
+        public IQueryable<WMS_ASNDetail> QueryEntityListAsNoTracking()
+        {
 
             var query = _wms_asndetailRepository.GetAll().AsNoTracking()
                         .Select(x => new WMS_ASNDetail
                         {
-                           
+
                             ASNId = x.ASNId,
                             ASNNumber = x.ASNNumber,
                             ExternReceiptNumber = x.ExternReceiptNumber,
@@ -78,8 +80,8 @@ namespace MyProject.ASNCore.DomainService
                             Str17 = x.Str17,
                             Str18 = x.Str18,
                             Str19 = x.Str19,
-                            Str20 = x.Str20,
-                            WMS_ASN = x.WMS_ASN,
+                            Str20 = x.Str20
+                            //ASN = x.ASN,
                         });
             return query;
         }
@@ -120,7 +122,7 @@ namespace MyProject.ASNCore.DomainService
             var result = await _wms_asndetailRepository.GetAll().AnyAsync(a => a.Id == id);
             return result;
         }
-		/// <summary>
+        /// <summary>
         /// 【WMS_ASNDetail】创建实体
         /// </summary>
         /// <param name="id"></param>
@@ -159,20 +161,25 @@ namespace MyProject.ASNCore.DomainService
             //TODO:删除前的逻辑判断，是否允许删除
             await _wms_asndetailRepository.DeleteAsync(a => input.Contains(a.Id));
         }
-	    #endregion
+        #endregion
 
 
         #region -------------------------------------------------用户自定义------------------------------------------------
-		/*请在此扩展领域服务接口*/
-		#endregion
-			
-		
+        /*请在此扩展领域服务接口*/
 
 
 
-		 
-		  
-		 
 
-	}
+
+        #endregion
+
+
+
+
+
+
+
+
+
+    }
 }

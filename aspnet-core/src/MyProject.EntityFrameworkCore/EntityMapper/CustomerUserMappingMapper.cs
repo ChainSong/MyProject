@@ -9,7 +9,7 @@ namespace MyProject.EntityFrameworkCore.EntityMapper
     {
         public void Configure(EntityTypeBuilder<CustomerUserMapping> builder)
         {
-            builder.ToTable(AppCoreConst.SchemaNames.TABLE_PREFIX + "CustomerUserMappings");
+            builder.ToTable("Customer_User_Mapping");
         }
     }
 }

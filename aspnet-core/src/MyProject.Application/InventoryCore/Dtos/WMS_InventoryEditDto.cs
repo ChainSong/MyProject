@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using Abp.Domain.Entities.Auditing;
 using System.Collections.ObjectModel;
 using MyProject.InventoryCore;
-
+using Abp.AutoMapper;
 
 namespace  MyProject.InventoryCore.Dtos
 {
 	/// <summary>
 	/// 的列表DTO
-	/// <see cref="WMS_Inventory_Used"/>
+	/// <see cref="WMS_Inventory"/>
 	/// </summary>
-    public class WMS_InventoryEditDto
+	[AutoMap(typeof(WMS_Inventory))]
+	public class WMS_InventoryEditDto
     {
 
         /// <summary>
@@ -150,9 +151,9 @@ namespace  MyProject.InventoryCore.Dtos
 
 
 		/// <summary>
-		/// InventoryType
+		/// InventoryStatus
 		/// </summary>
-		public int InventoryType { get; set; }
+		public int InventoryStatus { get; set; }
 
 
 

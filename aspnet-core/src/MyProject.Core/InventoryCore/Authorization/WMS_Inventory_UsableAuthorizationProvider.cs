@@ -43,7 +43,7 @@ namespace MyProject.Authorization
 			permission.CreateChildPermission(WMS_Inventory_UsablePermissions.Edit, L("EditWMS_Inventory_Usable"));
 			permission.CreateChildPermission(WMS_Inventory_UsablePermissions.Delete, L("DeleteWMS_Inventory_Usable"));
 			permission.CreateChildPermission(WMS_Inventory_UsablePermissions.BatchDelete, L("BatchDeleteWMS_Inventory_Usable"));
-			permission.CreateChildPermission(WMS_Inventory_UsablePermissions.ExportExcel, L("ExportToExcel"));
+			//permission.CreateChildPermission(WMS_Inventory_UsablePermissions.ExportExcel, L("ExportToExcel"));
 
 			//// 添加自定义代码开始
 									

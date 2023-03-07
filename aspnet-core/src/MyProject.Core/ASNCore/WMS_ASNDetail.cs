@@ -3,6 +3,7 @@ using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace MyProject.ASNCore
 {
    public class WMS_ASNDetail : Entity<long>, IHasCreationTime
     {
-       
+        [ForeignKey("ASNId")]
         public long ASNId { get; set; }
          
         [Required]
@@ -27,7 +28,7 @@ namespace MyProject.ASNCore
         [StringLength(50)]
         public string CustomerName { get; set; }
 
-        public long? WarehouseId { get; set; }
+        public long WarehouseId { get; set; }
 
         [StringLength(50)]
         public string WarehouseName { get; set; }
@@ -73,6 +74,8 @@ namespace MyProject.ASNCore
         public DateTime? ProductionDate { get; set; }
 
         public DateTime? ExpirationDate { get; set; }
+
+        public string Remark { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -165,7 +168,7 @@ namespace MyProject.ASNCore
 
         public int? Int5 { get; set; }
 
-        public virtual WMS_ASN WMS_ASN { get; set; }
+        public virtual WMS_ASN ASN { get; set; }
 
     }                 
 }                     

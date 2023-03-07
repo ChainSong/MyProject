@@ -4,13 +4,16 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
+using Abp.AutoMapper;
+
 namespace MyProject.WarehouseCore.Dtos
-{	
+{
 	/// <summary>
 	/// WMS_Warehouse的列表DTO
 	/// <see cref="WMS_Warehouse"/>
 	/// </summary>
-    public class WMS_WarehouseEditDto
+	[AutoMap(typeof(WMS_Warehouse))]
+	public class WMS_WarehouseEditDto
     {
 		/// <summary>
         /// Id 

@@ -11,7 +11,7 @@ namespace MyProject.WarehouseCore.Dtos
 	/// </summary>
 	public class CreateOrUpdateWMS_LocationInput
     {
-        [Required]
+        //[Required]
         public WMS_LocationEditDto WMS_Location { get; set; }
 
 		/* 这里创建自己的代码 */

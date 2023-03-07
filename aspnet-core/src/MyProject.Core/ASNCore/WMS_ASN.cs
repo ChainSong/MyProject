@@ -25,7 +25,7 @@ namespace MyProject.ASNCore
         [Required]
         [StringLength(50)]
         public string CustomerName { get; set; }
-
+                      
         public long WarehouseId { get; set; }
 
         [Required]
@@ -141,8 +141,9 @@ namespace MyProject.ASNCore
 
         public int? Int5 { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WMS_ASNDetail> WMS_ASNDetail { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<WMS_ASNDetail> WMS_ASNDetail { get; set; }
+        public List<WMS_ASNDetail> ASNDetails{ get; set; }
 
         //DateTime IHasCreationTime.CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         //public DateTime CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

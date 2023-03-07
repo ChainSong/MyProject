@@ -24,6 +24,7 @@
         </Card>
         <create-role v-model="createModalShow"  @save-success="getpage"></create-role>
         <edit-role v-model="editModalShow"  @save-success="getpage"></edit-role>
+
     </div>
 </template>
 <script lang="ts">
@@ -45,11 +46,12 @@
         edit(){
             this.editModalShow=true;
         }
-
+        
         pagerequest:PageRoleRequest=new PageRoleRequest();
 
         createModalShow:boolean=false;
         editModalShow:boolean=false;
+        warehouseUserMappingShow:boolean=false;
         get list(){
             return this.$store.state.role.list;
         };
@@ -123,6 +125,7 @@
                             }
                         }
                     },this.L('Edit')),
+
                     h('Button',{
                         props:{
                             type:'error',

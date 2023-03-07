@@ -5,6 +5,7 @@ using Abp.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using MyProject;
 using Abp.AutoMapper;
+using System.Collections.Generic;
 
 namespace MyProject.ASNCore.Dtos
 {
@@ -48,9 +49,11 @@ namespace MyProject.ASNCore.Dtos
 		/// 字段ASNStatus
 		/// </summary>
 		public int ASNStatus { get; set; }
-		/// <summary>
-		/// 字段ReceiptType
-		/// </summary>
+        /// <summary>
+        /// 字段ReceiptType
+        /// </summary>
+        public DateTime? ExpectDate { get; set; }
+        
 		public string ReceiptType { get; set; }
 		/// <summary>
 		/// 字段Contact
@@ -71,6 +74,7 @@ namespace MyProject.ASNCore.Dtos
 		/// <summary>
 		/// 字段CreationTime
 		/// </summary>
+	
 		public DateTime CreationTime { get; set; }
 		/// <summary>
 		/// 字段Updator
@@ -156,9 +160,11 @@ namespace MyProject.ASNCore.Dtos
 		/// 字段Str20
 		/// </summary>
 		public string Str20 { get; set; }
-		 
-	 
-		
+
+
+		public List<WMS_ASNDetailEditDto> ASNDetails { get; set; }
 		/* 这里创建自己的代码 */
 	}
 }
+
+
